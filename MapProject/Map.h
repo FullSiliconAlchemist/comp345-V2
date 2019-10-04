@@ -1,35 +1,40 @@
 #pragma once
-#pragma once
+#include <string>
+#include "Country.h"
+
 class Map
 {
 public:
 
-	class CountryNode {
-	public:
-		int countryNumber;
-		int continentNumber;
-		CountryNode *next;
+	struct CountryNode {
+		// Country country;
+		int data;
+		CountryNode * next;
 	};
 
-	class CountryList {
-	public:
+	struct CountryList {
 		CountryNode *head;
 	};
 
-	class MapGraph {
-	public:
+	struct MapGraph {
 		int numberOfCountries;
 		CountryList *arrOfCountries;
 	};
 
-	CountryNode* newAdjencyListNode(int data);
-	MapGraph* createGraph(int V);
-	void addEdge(MapGraph *graph, int src, int dest);
+	CountryNode* newAdjencyListNode(int data); // Creates a new country node
+	MapGraph* createGraph(int V); // Creates a new map
+
+	void addEdge(MapGraph *graph, int src, int dest); // adds connections between countries
+
 	void printGraph(MapGraph* graph);
 
-	inline int getNumberOfCountries() const;
+	inline int getNumberOfCountries() const {
+		return numberOfCountries;
+	}
 
-	inline int getNumberOfContinents() const;
+	inline int getNumberOfContinents() const {
+		return numberOfContinents;
+	}
 
 	Map();
 	~Map();
@@ -38,5 +43,8 @@ private:
 
 	int numberOfCountries;
 	int numberOfContinents;
+	int * continentsArray[]; // Pointer to an array of continents
 
 };
+
+

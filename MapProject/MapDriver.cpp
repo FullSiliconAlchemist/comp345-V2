@@ -4,11 +4,19 @@
 #include "pch.h"
 #include <iostream>
 #include "Map.h"
+#include "Country.h"
 
 using namespace std;
 
 int main()
 {
+	Country * countryArray = new Country[10];
+
+	for (int i = 0; i < 10; i++) { // Not adjusted for dynamic arrays for now
+		cout << "Current country continent: " << countryArray[i].getContinent() << "\nCurrent number of armies: " << countryArray[i].getNumberOfArmies();
+		delete &countryArray[i];
+	}
+
 	int totalVertices = 4;
 	Map newMap;
 

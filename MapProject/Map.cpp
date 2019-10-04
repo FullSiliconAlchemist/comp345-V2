@@ -3,10 +3,12 @@
 #include <cstddef>;
 #include <iostream>;
 
-Map::CountryNode* Map::newAdjencyListNode(int data)
+// Map Class functions
+
+Map::CountryNode * Map::newAdjencyListNode(int data)
 {
 	CountryNode *nodePtr = new CountryNode;
-	nodePtr->countryNumber = data;
+	nodePtr->data = data;
 	nodePtr->next = NULL;
 	return nodePtr;
 }
@@ -44,21 +46,11 @@ void Map::printGraph(MapGraph* graph)
 		std::cout << "Adjency list of vertex: " << i << std::endl;
 		while (root != NULL)
 		{
-			std::cout << " -> " << root->countryNumber;
+			std::cout << " -> " << root->data;
 			root = root->next;
 		}
 		std::cout << std::endl;
 	}
-}
-
-inline int Map::getNumberOfCountries() const
-{
-	return numberOfCountries;
-}
-
-inline int Map::getNumberOfContinents() const
-{
-	return numberOfContinents;
 }
 
 Map::Map()
@@ -68,3 +60,4 @@ Map::Map()
 Map::~Map()
 {
 }
+
