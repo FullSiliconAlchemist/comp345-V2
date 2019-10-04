@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  Map.cpp
+c:\users\baske\source\repos\comp345-game\mapproject\map.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\baske\source\repos\comp345-game\mapproject\map.cpp(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  MapDriver.cpp
+  Generating Code...
+  MapProject.vcxproj -> C:\Users\baske\source\repos\comp345-game\x64\Debug\MapProject.exe
