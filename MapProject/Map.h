@@ -14,7 +14,7 @@ public:
 
 	struct CountryList {
 		Country country; // Array of countries is created from CountryList struct
-		CountryNode *head;
+		CountryNode * head;
 	};
 
 	struct MapGraph {

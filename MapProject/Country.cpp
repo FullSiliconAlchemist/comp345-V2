@@ -29,7 +29,7 @@ std::string Country::getName() const
 	return countryName;
 }
 
-void Country::setName(std::string newName)
+void Country::setName(std::string &newName)
 {
 	countryName = newName;
 }
@@ -38,11 +38,13 @@ Country::Country()
 {
 	numberOfArmies = 0;
 	continentNumber = 0;
-	countryName = "NONE";
+	countryNumber = 0;
+	continentNumber = 0;
+	countryName = "NO_NAME";
 }
 
-Country::Country(int positionedArmies, int countryContinent)
-	: numberOfArmies(positionedArmies), continentNumber(countryContinent) {}
+Country::Country(int countryNumber, int continentNumber, int positionedArmies)
+	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies) {}
 
 Country::~Country() {}
 

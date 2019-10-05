@@ -16,9 +16,9 @@ public:
 	int getCountryNumber() const;
 	std::string getName() const;
 
-	void setName(std::string newName);
+	void setName(std::string &newName);
 
 	Country();
-	Country(int positionedArmies, int countryContinent);
+	Country(int countryNumber, int continentNumber, int positionedArmies);
 	~Country();
 };
