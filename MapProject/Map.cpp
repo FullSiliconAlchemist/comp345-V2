@@ -8,7 +8,7 @@
 Map::CountryNode * Map::newAdjencyListNode(int data)
 {
 	CountryNode *nodePtr = new CountryNode;
-	nodePtr->data = data;
+	nodePtr->countryData = data;
 	nodePtr->next = NULL;
 	return nodePtr;
 }
@@ -25,17 +25,20 @@ Map::MapGraph * Map::createGraph(int V)
 	return graph;
 }
 
-void Map::addEdge(MapGraph * graph, int src, int dest)
+void Map::addEdge(MapGraph * graph, Country src, Country dest) // Changing the src and dest types to Country objects
 {
+	int srcCountryNumber = src.getCountryNumber();
+	int destCountryNumber = dest.getCountryNumber();
+
 	// Create node pointer which points to a new node which in turn
-	CountryNode *nodePtr = newAdjencyListNode(dest);
-	nodePtr->next = graph->arrOfCountries[src].head;
+	CountryNode *nodePtr = newAdjencyListNode(destCountryNumber);
+	nodePtr->next = graph->arrOfCountries[srcCountryNumber].head;
 
-	graph->arrOfCountries[src].head = nodePtr;
-	nodePtr = newAdjencyListNode(src);
+	graph->arrOfCountries[srcCountryNumber].head = nodePtr;
+	nodePtr = newAdjencyListNode(srcCountryNumber);
 
-	nodePtr->next = graph->arrOfCountries[dest].head;
-	graph->arrOfCountries[dest].head = nodePtr;
+	nodePtr->next = graph->arrOfCountries[destCountryNumber].head;
+	graph->arrOfCountries[destCountryNumber].head = nodePtr;
 }
 
 void Map::printGraph(MapGraph* graph)
@@ -43,10 +46,10 @@ void Map::printGraph(MapGraph* graph)
 	for (int i = 0; i < graph->numberOfCountries; i++)
 	{
 		CountryNode *root = graph->arrOfCountries[i].head;
-		std::cout << "Adjency list of vertex: " << i << std::endl;
+		std::cout << "Adjency list of vertex: " << graph->arrOfCountries[i].country.getName() << std::endl;
 		while (root != NULL)
 		{
-			std::cout << " -> " << root->data;
+			std::cout << " -> " << root->countryData;
 			root = root->next;
 		}
 		std::cout << std::endl;
