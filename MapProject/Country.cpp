@@ -40,7 +40,7 @@ Country::Country()
 	continentNumber = 0;
 	countryNumber = 0;
 	continentNumber = 0;
-	countryName = "NO_NAME";
+	countryName = "Name_not_initialized";
 }
 
 Country::Country(int countryNumber, int continentNumber, int positionedArmies)

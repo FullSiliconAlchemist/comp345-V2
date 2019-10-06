@@ -13,7 +13,7 @@ public:
 	};
 
 	struct CountryList {
-		Country country; // Array of countries is created from CountryList struct
+		//Country country; // Array of countries is created from CountryList struct
 		CountryNode * head;
 	};
 
@@ -29,22 +29,22 @@ public:
 
 	void printGraph(MapGraph* graph);
 
-	inline int getNumberOfCountries() const {
+	/*inline int getNumberOfCountries() const {
 		return numberOfCountries;
 	}
 
 	inline int getNumberOfContinents() const {
 		return numberOfContinents;
-	}
+	}*/
 
 	Map();
 	~Map();
 
 private:
 
-	int numberOfCountries;
+	/*int numberOfCountries;
 	int numberOfContinents;
-	int * continentsArray[]; // Pointer to an array of continents
+	int * continentsArray[];*/ // Pointer to an array of continents
 
 };
 

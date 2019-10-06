@@ -46,7 +46,7 @@ void Map::printGraph(MapGraph* graph)
 	for (int i = 0; i < graph->numberOfCountries; i++)
 	{
 		CountryNode *root = graph->arrOfCountries[i].head;
-		std::cout << "Adjency list of vertex: " << graph->arrOfCountries[i].country.getName() << std::endl;
+		std::cout << "Adjency list of vertex: " << i << std::endl;
 		while (root != NULL)
 		{
 			std::cout << " -> " << root->countryData;
