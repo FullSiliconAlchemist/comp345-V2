@@ -81,7 +81,22 @@ int main()
 	delete graph;
 
 	delete[] countryArray;
+
+	int * ptr, * ptrTwo;
+	int anInt = 25;
+	int another = 232;
+
+	ptr = &anInt;
+
+	ptrTwo = &another;
 	
+	Country * pntrCountry = new Country(ptr);
+
+	cout << "\nLOOK AT THIS PNTR -> " << *pntrCountry->getSomePointerVal() << endl;
+
+	pntrCountry->setPointerVal(ptrTwo);
+
+	cout << "\nNOW LOOK AT THIS PNTR -> " << *pntrCountry->getSomePointerVal() << endl;
 }
 
 /**/
