@@ -10,17 +10,21 @@ class Card {
 public:
 	std::string getAction()const;
 	std::string getGood() const;
+	void setAction(std::string ac);
+	void setGood(std::string gd);
 	Card(const Card& c);
 	Card();
-	//~Card();
+	//~Card();;
 };
 
 class Deck {
-	Card cardsList[42];
+
 
 public:
 	Card draw();
 	Deck();
+	Card cardsList[42];
+	int numOfCards;
 	//Deck(int size);
 	//~Deck();
 };

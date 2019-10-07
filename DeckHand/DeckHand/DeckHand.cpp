@@ -16,7 +16,9 @@ int main()
 
 	Deck d;
 
-	//c = d.draw();
-	//cout << action;
+	Card x = d.draw();
+
+	string actionx = x.getGood();
+	cout << actionx;
 }
 
