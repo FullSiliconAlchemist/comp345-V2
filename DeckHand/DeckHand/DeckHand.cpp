@@ -4,21 +4,33 @@
 #include <iostream>
 #include "Cards.h"
 #include <string>
-#include <vector>
 using namespace std;
 
 int main()
 {
-	Card c;
-	string action = c.getGood();
+	Deck gameDeck;
+	Hand faceUp(gameDeck);
+	faceUp.showHand();
 
-	cout << action;
-
-	Deck d;
-
-	Card x = d.draw();
-
-	string actionx = x.getAction();
-	cout << actionx;
 }
+/*
+Card c;
+string action = c.getGood();
+
+cout << action <<"\n";
+
+Deck d;
+
+Card x = d.draw();
+
+string actionx = x.getAction();
+cout << actionx << "\n";
+
+Hand h(d);
+
+Card myCard = h.exchange(0, x);
+
+string myCardAction = myCard.getAction();
+cout << myCardAction << "\n";
+*/
 
