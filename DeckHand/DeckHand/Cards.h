@@ -3,8 +3,8 @@
 #include <vector>
 
 class Card {
-	std::string* action;
-	std::string* good;
+	std::string *action;
+	std::string *good;
 	std::string listOfActions[6] = { "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy", "combo" };
 	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
 public:
@@ -12,7 +12,7 @@ public:
 	std::string getGood() const;
 	void setAction(std::string ac);
 	void setGood(std::string gd);
-	Card(const Card& c);
+	//Card(const Card& c);
 	Card();
 	//~Card();;
 };

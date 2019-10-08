@@ -27,14 +27,11 @@ Card::Card() {
 	action = listOfActions + (rand() % 5);
 	good = listOfGoods + (rand() % 5);
 }
-Card::Card (const Card& c) {
-	*action = c.getAction();
-	*good = c.getGood();
-}
+
 
 Card Deck::draw() {
 	numOfCards--;
-	Card x = *(cardsList + numOfCards);
+	//Card x = *(cardsList + numOfCards);
 	//std::string c = cardsList + numOfCards;
 	return cardsList[numOfCards];
 }

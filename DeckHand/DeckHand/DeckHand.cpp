@@ -18,7 +18,7 @@ int main()
 
 	Card x = d.draw();
 
-	string actionx = x.getGood();
+	string actionx = x.getAction();
 	cout << actionx;
 }
 
