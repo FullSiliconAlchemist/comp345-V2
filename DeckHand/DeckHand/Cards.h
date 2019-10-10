@@ -5,7 +5,7 @@ class Card {
 	std::string *action;
 	std::string *good;
 	int* cost;
-	std::string listOfActions[6] = { "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy", "combo" };
+	std::string listOfActions[8] = { "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy", "destroyArmymoveArmy","newArmymoveArmy","citymoveArmy"};
 	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
 public:
 	std::string getAction()const;

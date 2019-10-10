@@ -13,7 +13,7 @@ std::string Card::getGood() const
 }
 void Card::setAction()
 {
-	action = listOfActions + (rand() % 5);
+	action = listOfActions + (rand() % 7);
 }
 void Card::setGood()
 {	
@@ -31,7 +31,7 @@ int Card::getCost()const
 Card::Card() { //Creates a random card
 	srand(time(0));//initilize random
 	cost = new int(0);
-	action = listOfActions + (rand() % 5);
+	action = listOfActions + (rand() % 7);
 	good = listOfGoods + (rand() % 5);
 }
 Card::Card(const Card& obj) { //copy contructor
