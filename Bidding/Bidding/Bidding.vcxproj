@@ -152,6 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bidding.cpp" />
+    <ClCompile Include="BiddingFacility.cpp" />
+    <ClCompile Include="ExamplePlayer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BiddingFacility.h" />
+    <ClInclude Include="ExamplePlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
