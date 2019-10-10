@@ -32,6 +32,5 @@ public:
 
 	Country();
 	Country(int * countryNumber, int * continentNumber, int * positionedArmies);
-	Country(int * anotherPointer);
 	~Country();
 };

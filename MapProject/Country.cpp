@@ -29,18 +29,6 @@ std::string Country::getName() const
 	return countryName;
 }
 
-// GETTER FOR TEST MEMBER VARIABLES
-int * Country::getSomePointerVal() const
-{
-	return somePointer;
-}
-
-void Country::setPointerVal(int * newPointerVal)
-{
-	somePointer = newPointerVal;
-}
-// **********************************************
-
 void Country::setName(std::string newName)
 {
 	countryName = newName;
@@ -66,15 +54,7 @@ Country::Country()
 
 Country::Country(int * countryNumber, int * continentNumber, int * positionedArmies)
 	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies) 
-{
-
-}
-
-// TEST CONSTRUCTOR FOR POINTER MEMBER
-Country::Country(int * anotherPointer)
-	: somePointer(anotherPointer)
-{
-}
+{}
 
 Country::~Country() {}
 

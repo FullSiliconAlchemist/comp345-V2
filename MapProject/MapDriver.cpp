@@ -15,12 +15,8 @@
 using namespace std;
 
 int main()
-{
-	bool gameRunning = true;
-	
-	/*
-	*/
-	Country * countryArray = new Country[10];
+{	
+	std::cout << "\n-----CREATING GRAPH MAP-----\n" << endl;
 
 	std::cout << "-----CREATING COUNTRY OBJECTS DATA STRUCTURE-----" << endl;
 
@@ -28,30 +24,18 @@ int main()
 	// This is done using an array of Country pointers and initializing a Country object in the memory addres being 
 	// pointed to by each pointer in the array
 
-	std::cout << "\n-----CREATING GRAPH MAP-----\n" << endl;
-
 	// Grap Map initialization and testing
 
+	bool gameRunning = true;
+
 	int totalVertices; // total number of countries
+	const static int COUNTRY_ARGS = 3;
 	Map newMap; // New map initialization default constructor
 
 	Map::MapGraph *graph; // Graph pointer
-	//Country ** arrayCountryPtrs = new Country * [2] {new Country(a, b, c), new Country(d, e, f)};
-	Country ** arrayCtryPtrs;
+	Country ** arrayCtryPtrs; // Array of Country pointer objects
 	int *** arrayOfIntsPtrs; // Array of pointers
 	int ** arrayOfInts; // 2D array
-	//std::vector<Country> arrCountries;
-
-	/*for (int i = 0; i < 2; i++) 
-	{
-		int a = i;
-		int b = i + 5;
-		arrayCountryPtrs[i]->setCountry(a);
-		arrayCountryPtrs[i]->setContinent(b);
-		int * ptr = arrayCountryPtrs[i]->getContinentNumber();
-
-		std::cout << * ptr << endl;
-	}*/
 
 	int countryNum;
 	int continentNum;
@@ -71,12 +55,12 @@ int main()
 
 		for (int u = 0; u < totalVertices; u++) // 2D array instantiation
 		{
-			arrayOfInts[u] = new int[3]; // Each slot is an object with 3 data members
+			arrayOfInts[u] = new int[COUNTRY_ARGS]; // Each slot is an object with 3 data members
 		}
 
 		for (int w = 0; w < totalVertices; w++)
 		{
-			arrayOfIntsPtrs[w] = new int * [3]; // Same here but with pointers
+			arrayOfIntsPtrs[w] = new int * [COUNTRY_ARGS]; // Same here but with pointers
 		}
 
 		std::cout << "Great, now define your countries please." << endl;
@@ -97,7 +81,7 @@ int main()
 			// Array of integers so that each integer has it's own memory address
 			// and there won't be repeating values for countryNum, continentNum, armiesNum
 
-			for (int a = 0; a < 3; a++)
+			for (int a = 0; a < COUNTRY_ARGS; a++)
 			{
 				if (a == 0)
 				{
@@ -118,7 +102,7 @@ int main()
 		{
 			arrayCtryPtrs[k] = new Country();
 
-			for (int v = 0; v < 3; v++)
+			for (int v = 0; v < COUNTRY_ARGS; v++)
 			{
 				arrayOfIntsPtrs[k][v] = &arrayOfInts[k][v];
 			}
@@ -166,23 +150,6 @@ int main()
 			gameRunning = !gameRunning;
 		}
 	}
-	
-	/*
-
-	for (int i = 0; i < 5; i++)
-	{
-		newMap.addEdge(graph, *arrayCountryPtrs[i], *arrayCountryPtrs[i]);
-
-		cout << "Country number: " << i << " " << arrayCountryPtrs[i]->getContinentNumber() << " " << arrayCountryPtrs[i]->getCountryNumber() << endl;
-	}
-	
-	newMap.printGraph(graph);
-	delete graph;
-
-
-	*/
 
 }
-
-/**/
 
