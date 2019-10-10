@@ -9,17 +9,17 @@ bool Country::isConquered()
 	return 0;
 }
 
-int Country::getNumberOfArmies() const 
+int * Country::getNumberOfArmies() const
 {
 	return numberOfArmies;
 }
 
-int Country::getContinentNumber() const 
+int * Country::getContinentNumber() const
 {
 	return continentNumber;
 }
 
-int Country::getCountryNumber() const
+int * Country::getCountryNumber() const
 {
 	return countryNumber;
 }
@@ -41,22 +41,34 @@ void Country::setPointerVal(int * newPointerVal)
 }
 // **********************************************
 
-void Country::setName(std::string &newName)
+void Country::setName(std::string newName)
 {
 	countryName = newName;
 }
 
-Country::Country()
+void Country::setCountry(int * newCountry)
 {
-	numberOfArmies = 0;
-	continentNumber = 0;
-	countryNumber = 0;
-	continentNumber = 0;
-	countryName = "Name_not_initialized";
+	countryNumber = newCountry;
 }
 
-Country::Country(int countryNumber, int continentNumber, int positionedArmies)
-	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies) {}
+void Country::setContinent(int * newContinent)
+{
+	continentNumber = newContinent;
+}
+
+void Country::setArmies(int * armySet)
+{
+	numberOfArmies = armySet;
+}
+
+Country::Country()
+{}
+
+Country::Country(int * countryNumber, int * continentNumber, int * positionedArmies)
+	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies) 
+{
+
+}
 
 // TEST CONSTRUCTOR FOR POINTER MEMBER
 Country::Country(int * anotherPointer)

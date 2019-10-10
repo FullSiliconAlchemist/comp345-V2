@@ -27,8 +27,11 @@ Map::MapGraph * Map::createGraph(int V)
 
 void Map::addEdge(MapGraph * graph, Country src, Country dest) // Changing the src and dest types to Country objects
 {
-	int srcCountryNumber = src.getCountryNumber();
-	int destCountryNumber = dest.getCountryNumber();
+	int * ptrCountrySrc = src.getCountryNumber();;
+	int srcCountryNumber = * ptrCountrySrc;
+
+	int * ptrCountryDest = dest.getCountryNumber();
+	int destCountryNumber = * ptrCountryDest;
 
 	// Create node pointer which points to a new node which in turn
 	CountryNode *nodePtr = newAdjencyListNode(destCountryNumber);
