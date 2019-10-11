@@ -33,9 +33,10 @@ int main()
 	Map newMap; // New map initialization default constructor
 
 	Map::MapGraph *graph; // Graph pointer
+
 	Country ** arrayCtryPtrs; // Array of Country pointer objects
 	int *** arrayOfIntsPtrs; // Array of pointers
-	int ** arrayOfInts; // 2D array
+	int ** arrayOfInts; // 2D array of integers
 
 	int countryNum;
 	int continentNum;
@@ -43,24 +44,44 @@ int main()
 
 	char correctness;
 
+	std::vector<std::vector<int>> testVector = {
+		{0, 0, 1, 12},
+		{1, 0, 0, 2},
+		{2, 0, 1, 3, 13},
+		{3, 0, 2, 4, 5, 6}
+	};
+
+	arrayCtryPtrs = newMap.initiateCountryDataStructure(testVector);
+	
+	int someNum;
+
+	for (int i = 0; i < testVector.size(); i++)
+	{
+		cout << "Printing country: " << *arrayCtryPtrs[i]->getCountryNumber() << endl;
+		cout << "Printing continent: " << *arrayCtryPtrs[i]->getContinentNumber() << endl;
+	}
+
+	/*
 	while (gameRunning) 
 	{
 		std::cout << "Hello, how many countries do you need?" << endl;
-		std::cin >> totalVertices;
 
-		graph = newMap.createGraph(totalVertices);
+		std::cin >> totalVertices; // 1
+
+		graph = newMap.createGraph(totalVertices); // create graph
+
 		arrayCtryPtrs = new Country * [totalVertices];
-		arrayOfIntsPtrs = new int ** [totalVertices]; // Array of pointers just makes new memory addresses for each number needed for Country obj
-		arrayOfInts = new int * [totalVertices]; // Array of totalVertices number of country objects with 3 or more rows each for the necessary data
+		arrayOfIntsPtrs = new int ** [totalVertices];			// Array of pointers just makes new memory addresses for each number needed for Country obj
+		arrayOfInts = new int * [totalVertices];				// Array of totalVertices number of country objects with 3 or more rows each for the necessary data
 
-		for (int u = 0; u < totalVertices; u++) // 2D array instantiation
+		for (int u = 0; u < totalVertices; u++)					// 2D array instantiation
 		{
-			arrayOfInts[u] = new int[COUNTRY_ARGS]; // Each slot is an object with 3 data members
+			arrayOfInts[u] = new int[COUNTRY_ARGS];				// Each slot is an object with 3 data members
 		}
 
 		for (int w = 0; w < totalVertices; w++)
 		{
-			arrayOfIntsPtrs[w] = new int * [COUNTRY_ARGS]; // Same here but with pointers
+			arrayOfIntsPtrs[w] = new int * [COUNTRY_ARGS];		// Same here but with pointers
 		}
 
 		std::cout << "Great, now define your countries please." << endl;
@@ -73,6 +94,7 @@ int main()
 			countryNum = i;
 
 			std::cout << "Country continent: " << endl;
+
 			std::cin >> continentNum;
 
 			std::cout << "Armies given: " << endl;
@@ -107,7 +129,7 @@ int main()
 				arrayOfIntsPtrs[k][v] = &arrayOfInts[k][v];
 			}
 
-			for (int b = 0; b < 3; b++)
+			for (int b = 0; b < COUNTRY_ARGS; b++)
 			{
 				if (b == 0)
 				{
@@ -132,6 +154,7 @@ int main()
 		}
 
 		std::cout << "\nCreating edges..." << endl;
+		std::cout << "" << endl;
 
 		for (int i = 0; i < totalVertices; i++)
 		{
@@ -150,6 +173,7 @@ int main()
 			gameRunning = !gameRunning;
 		}
 	}
+	*/
 
 }
 
