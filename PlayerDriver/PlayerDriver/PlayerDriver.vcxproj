@@ -151,7 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BiddingFacility.cpp" />
+    <ClCompile Include="Cards.cpp" />
+    <ClCompile Include="Country.cpp" />
+    <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerDriver.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BiddingFacility.h" />
+    <ClInclude Include="Cards.h" />
+    <ClInclude Include="Country.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
