@@ -1,11 +1,2 @@
-﻿  BiddingFacility.cpp
-  Cards.cpp
-  Country.cpp
-  Map.cpp
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Cards.cpp(32,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(2,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-  Player.cpp
-  PlayerDriver.cpp
-  Generating Code...
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(3,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+﻿  Player.cpp
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

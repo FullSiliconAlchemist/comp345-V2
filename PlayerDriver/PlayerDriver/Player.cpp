@@ -13,13 +13,13 @@ bool Player::PlaceNewArmies(int numOfArmies, Country countryToPlace) {
 	if (numOfArmies > * armyCubes) {
 		return false;
 	}
-	int* ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace.getNumberOfArmies);
+	int* ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace.getNumberOfArmies());
 	countryToPlace.setArmies(ptToNewNumOfArmies);
 	return true;
 }
 
 int Player::MoveArmies(int numOfMovements, int numToMove, Country countryToTake, Country countryToPlace) { // returns movements left 
-	if (numToMove > *countryToTake.getNumberOfArmies) { 
+	if (numToMove > *countryToTake.getNumberOfArmies()) { 
 		return numOfMovements; 
 	}
 	if (*countryToTake.getContinentNumber() == *countryToPlace.getContinentNumber()) {
@@ -27,20 +27,20 @@ int Player::MoveArmies(int numOfMovements, int numToMove, Country countryToTake,
 		return numOfMovements-1;
 	}
 
-	int* ptToNewNumOfArmies = new int(*countryToTake.getNumberOfArmies - numToMove);
+	int* ptToNewNumOfArmies = new int(*countryToTake.getNumberOfArmies() - numToMove);
 	countryToTake.setArmies(ptToNewNumOfArmies);
 
-	ptToNewNumOfArmies = new int(numToMove + *countryToPlace.getNumberOfArmies);
+	ptToNewNumOfArmies = new int(numToMove + *countryToPlace.getNumberOfArmies());
 	countryToPlace.setArmies(ptToNewNumOfArmies);
 
 	return numOfMovements - 3; //assumed they lost 3 movements for moving over water
 }
 
 void Player::MoveOverLand(int numToMove, Country countryToTake, Country countryToPlace) {
-	int* ptToNewNumOfArmies = new int(*countryToTake.getNumberOfArmies - numToMove);
+	int *ptToNewNumOfArmies = new int(*countryToTake.getNumberOfArmies() - numToMove);
 	countryToTake.setArmies(ptToNewNumOfArmies);
 
-	ptToNewNumOfArmies = new int(numToMove + *countryToPlace.getNumberOfArmies);
+	ptToNewNumOfArmies = new int(numToMove + *countryToPlace.getNumberOfArmies());
 	countryToPlace.setArmies(ptToNewNumOfArmies);
 	return;
 }
@@ -53,7 +53,7 @@ bool Player::DestroyArmy(int numOfArmies, Country c) {
 	if (numOfArmies > numOfArmies) {
 		return false;
 	}
-	int* ptToNewNumOfArmies = new int(*c.getNumberOfArmies - numOfArmies);
+	int* ptToNewNumOfArmies = new int(*c.getNumberOfArmies() - numOfArmies);
 	c.setArmies(ptToNewNumOfArmies);
 	return true;
 }
