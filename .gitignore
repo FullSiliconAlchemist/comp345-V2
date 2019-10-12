@@ -470,3 +470,6 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+.vs
+PlayerDriver/.vs
+Bidding/vs
