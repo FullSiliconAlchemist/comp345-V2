@@ -7,7 +7,7 @@ class Country {
 	int* arrOfPlayers[5];
 	int* continentNumber;
 	int* countryNumber;
-
+	int* city;
 	// Non pointer member variable cause f**k the police
 	std::string countryName;
 
@@ -19,6 +19,7 @@ public:
 	int* getNumberOfArmies() const;
 	int* getContinentNumber() const;
 	int* getCountryNumber() const;
+	int* getCity() const;
 	std::string getName() const;
 
 	// TEST FUNCTION
@@ -29,6 +30,7 @@ public:
 	void setCountry(int* newCountry);
 	void setContinent(int* newContinent);
 	void setArmies(int* armySet);
+	void setCity(int* playerId);
 
 	Country();
 	Country(int* countryNumber, int* continentNumber, int* positionedArmies);

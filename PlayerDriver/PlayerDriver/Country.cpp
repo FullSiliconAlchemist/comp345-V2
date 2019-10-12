@@ -12,6 +12,10 @@ int* Country::getNumberOfArmies() const
 {
 	return numberOfArmies;
 }
+int* Country::getCity() const
+{
+	return city;
+}
 
 int* Country::getContinentNumber() const
 {
@@ -45,11 +49,18 @@ void Country::setContinent(int* newContinent)
 
 void Country::setArmies(int* armySet)
 {
-	numberOfArmies = armySet;
+	*numberOfArmies = *armySet;
+}
+void Country::setCity(int* playerId) {
+	city = playerId;
 }
 
 Country::Country()
-{}
+{
+	numberOfArmies = new int(0);
+	continentNumber = new int(0);
+	city = new int(-1);
+}
 
 Country::Country(int* countryNumber, int* continentNumber, int* positionedArmies)
 	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies)
