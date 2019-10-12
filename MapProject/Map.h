@@ -12,7 +12,7 @@ class Map
 
 	Country ** arrayCtryPtrs;
 
-	std::vector<Country**> arrayCntntPtrs; // also not a pointer need to refactor
+	std::vector<Country*> arrayCntntPtrs; // also not a pointer need to refactor
 
 	int *** arrayOfIntPtrs;
 	int ** arrayOfInts;
@@ -38,7 +38,7 @@ public:
 	int * getTotalContinentVertices() const;
 
 	Country ** getArrayOfCtryPtrs() const;
-	std::vector<Country**> getArrayOfCntntPtrs() const;
+	std::vector<Country*> getArrayOfCntntPtrs() const;
 
 	int *** getArrayOfIntPtrs() const;
 	int ** getArrayOfInts() const;
@@ -47,7 +47,7 @@ public:
 	void setTotalContinentVertices(int * newVertices);
 
 	void setArrayCtryPtrs(Country ** newCtryPtr);
-	void setArrayCntntPtrs(std::vector<Country**> newCntntPtr);
+	void setArrayCntntPtrs(std::vector<Country*> newCntntPtr);
 
 	void setArrayOfIntPtrs(int *** newArrIntPtrs);
 	void setArrayOfInts(int ** newArrayInts);
@@ -78,7 +78,7 @@ public:
 	void printGraph(MapGraph* graph);
 
 	Country ** initializeCountryDataStructure(std::vector< std::vector <int> > mapLoaderVect);
-	std::vector<Country**> initializeContinentDataStructure(std::vector <std::vector <int>> mapLoaderVector);
+	std::vector<Country*> initializeContinentDataStructure(std::vector <std::vector <int>> mapLoaderVector);
 
 	MapGraph * createCountryGraph(std::vector<std::vector<int>>);
 	MapGraph * createContinentGraph(std::vector<std::vector<int>>);

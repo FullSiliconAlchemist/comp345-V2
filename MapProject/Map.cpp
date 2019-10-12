@@ -151,7 +151,7 @@ Country ** Map::initializeCountryDataStructure(std::vector < std::vector <int> >
 	return getArrayOfCtryPtrs();
 }
 
-std::vector<Country**> Map::initializeContinentDataStructure(std::vector <std::vector <int>> mapLoaderVector)
+std::vector<Country*> Map::initializeContinentDataStructure(std::vector <std::vector <int>> mapLoaderVector)
 {
 	// Based on proper map text file configurations where the first country = 0
 	int vectorSize = mapLoaderVector.at(mapLoaderVector.size() - 1).at(1) + 1;
@@ -159,7 +159,9 @@ std::vector<Country**> Map::initializeContinentDataStructure(std::vector <std::v
 
 	Country ** cntryDataStruct = initializeCountryDataStructure(mapLoaderVector);
 
-	std::vector<Country **> continentPtrsHolder; // Need to replace this with an initialization function for encapsulation
+	std::cout << "CHECK DATA " << cntryDataStruct[0][1].getContinentNumber();
+
+	std::vector<Country *> continentPtrsHolder; // Need to replace this with an initialization function for encapsulation
 
 	// Must optimize complexity is shite
 	int k = 0;
@@ -169,8 +171,11 @@ std::vector<Country**> Map::initializeContinentDataStructure(std::vector <std::v
 		for (int j = 0; j < mapLoaderVector.size(); j++)
 		{
 			if (*cntryDataStruct[k]->getContinentNumber() == k)
-				std::cout << *cntryDataStruct[k]->getCountryNumber() << std::endl;
-				continentPtrsHolder[k][j] = cntryDataStruct[j];
+			{
+				std::cout << *cntryDataStruct[k]->getContinentNumber() << std::endl;
+
+				continentPtrsHolder.push_back(cntryDataStruct[j]);
+			}
 		}
 
 		k++;
@@ -200,13 +205,13 @@ Map::MapGraph * Map::createCountryGraph(std::vector<std::vector<int>> mapLoaderV
 Map::MapGraph * Map::createContinentGraph(std::vector<std::vector<int>> mapLoaderVector)
 {
 	Map::MapGraph * graph = createGraph(mapLoaderVector.size());
-	std::vector<Country**> arrayOfInitCntnts = initializeContinentDataStructure(mapLoaderVector);
+	std::vector<Country*> arrayOfInitCntnts = initializeContinentDataStructure(mapLoaderVector);
 
 	for (int i = 0; i < *getTotalContinentVertices(); i++)
 	{
 		for (int j = 0; j < mapLoaderVector.at(i).size(); j++)
 		{
-			addEdgeContinent(graph, *arrayOfInitCntnts[i][0], *arrayOfInitCntnts[i][j]);
+			addEdgeContinent(graph, arrayOfInitCntnts[i][0], arrayOfInitCntnts[i][j]);
 		}
 	}
 	return graph;
@@ -221,10 +226,11 @@ Map::Map(std::vector <std::vector <int>> mapLoaderVector)
 	Map::MapGraph * countryGraph = createCountryGraph(mapLoaderVector);
 	Map::MapGraph * continentGraph = createContinentGraph(mapLoaderVector);
 
-	std::cout << "Printing continent Graph" << std::endl;
+	std::cout << "Printing country Graph" << std::endl;
 	printGraph(countryGraph);
 
-	//printGraph(continentGraph);
+	std::cout << "Printing continent Graph" << std::endl;
+	printGraph(continentGraph);
 }
 
 Map::~Map()
@@ -281,7 +287,7 @@ Country ** Map::getArrayOfCtryPtrs() const
 	return arrayCtryPtrs;
 }
 
-std::vector<Country**> Map::getArrayOfCntntPtrs() const
+std::vector<Country*> Map::getArrayOfCntntPtrs() const
 {
 	return arrayCntntPtrs;
 }
@@ -311,7 +317,7 @@ void Map::setArrayCtryPtrs(Country ** newCtryPtr)
 	arrayCtryPtrs = newCtryPtr;
 }
 
-void Map::setArrayCntntPtrs(std::vector<Country**> newCntntPtr)
+void Map::setArrayCntntPtrs(std::vector<Country*> newCntntPtr)
 {
 	arrayCntntPtrs = newCntntPtr;
 }
