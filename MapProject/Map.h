@@ -11,6 +11,8 @@ class Map
 	int *** arrayOfIntPtrs;
 	int ** arrayOfInts;
 
+
+
 	// Possibly not necessary
 	int * countryNum;
 	int * continentNum;
@@ -64,6 +66,7 @@ public:
 	Country ** initiateCountryDataStructure(std::vector< std::vector <int> > mapLoaderVect);
 
 	Map();
+	Map(std::vector<std::vector<int>>);
 	~Map();
 
 };

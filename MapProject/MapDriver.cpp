@@ -7,11 +7,11 @@
 #include "Map.h"
 #include "Country.h"
 
-// Can include outer project files
-#include "../PlayerDriver/Player.h"
+// Can include outer project files but .cpp file must be included
+#include "../MapLoaderProject/MapLoader.h";
+#include "../MapLoaderProject/MapLoader.cpp";
 
 /**/
-
 using namespace std;
 
 int main()
@@ -30,7 +30,7 @@ int main()
 
 	int totalVertices; // total number of countries
 	const static int COUNTRY_ARGS = 3;
-	Map newMap; // New map initialization default constructor
+	Map * newMap; // New map initialization default constructor
 
 	Map::MapGraph *graph; // Graph pointer
 
@@ -43,23 +43,12 @@ int main()
 	int armiesNum;
 
 	char correctness;
-
-	std::vector<std::vector<int>> testVector = {
-		{0, 0, 1, 12},
-		{1, 0, 0, 2},
-		{2, 0, 1, 3, 13},
-		{3, 0, 2, 4, 5, 6}
-	};
-
-	arrayCtryPtrs = newMap.initiateCountryDataStructure(testVector);
 	
-	int someNum;
-
-	for (int i = 0; i < testVector.size(); i++)
+	/*for (int i = 0; i < testVector.size(); i++)
 	{
 		cout << "Printing country: " << *arrayCtryPtrs[i]->getCountryNumber() << endl;
 		cout << "Printing continent: " << *arrayCtryPtrs[i]->getContinentNumber() << endl;
-	}
+	}*/
 
 	/*
 	while (gameRunning) 

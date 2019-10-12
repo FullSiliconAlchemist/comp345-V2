@@ -14,11 +14,14 @@ class MapLoader
 	std::string * fileName;
 
 public:
-	//Map openFileAndStore(std::string * fileName);
+	Map * openFileAndStore(std::string * fileName);
 
 	std::string * getFileName() const;
 
+	void setFileName(std::string * newFile);
+
 	MapLoader();
+	MapLoader(std::string * fileName);
 	~MapLoader();
 };
 
