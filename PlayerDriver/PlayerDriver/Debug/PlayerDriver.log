@@ -1,0 +1,8 @@
+﻿  Country.cpp
+  Map.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(2,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+  Player.cpp
+  PlayerDriver.cpp
+  Generating Code...
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(3,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+  PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe
