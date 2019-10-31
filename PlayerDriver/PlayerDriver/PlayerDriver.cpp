@@ -4,11 +4,12 @@
 #include "Map.h"
 #include "Country.h"
 #include "Player.h"
-
+#include "Cards.h"
 using namespace std;
 
 int main()
 {
+// ---------------------- START PART 4 -------------------------
 	Player p;
 	Country c1,c2;
 	Country *ptrC1 = &c1;
@@ -38,5 +39,16 @@ int main()
 	cout << "\ncity status before placement: " << *c1.getCity();
 	p.BuildCity(ptrC1);
 	cout << "\ncity status before placement: " << *c1.getCity();
+// ---------------------- END PART 4 -------------------------
 
+// ---------------------- START PART 5 -------------------------
+	cout << "\n\n";
+	Deck gameDeck;
+	Hand faceUp(gameDeck);
+	faceUp.showHand();
+	Card nextCard = gameDeck.draw();
+	Card toPickup = faceUp.exchange(0, nextCard);
+	cout << "\n\n";
+	faceUp.showHand();
+//---------------------- END PART 5 -------------------------
 }
