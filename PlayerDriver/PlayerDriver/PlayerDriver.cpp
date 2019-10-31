@@ -5,10 +5,44 @@
 #include "Country.h"
 #include "Player.h"
 #include "Cards.h"
+#include "BiddingFacility.h"
 using namespace std;
 
 int main()
 {
+// ---------------------- START PART 1 -------------------------
+	Deck gameDeck;
+	 // create and show deck / face up cards
+	int numOfPlayers;
+	Player* players;
+	string nameOfMapFile;
+	cout << "How many players (2-5)" << endl;
+	cin >> numOfPlayers;
+	players = new Player[numOfPlayers];
+
+	cout << "What is the name of the map file?" << endl;
+	cin >> nameOfMapFile;
+	// used map loader to load nameOfMapFile ******************************* and create a map
+// ---------------------- END PART 1 -------------------------
+// ---------------------- START PART 2 -------------------------
+	Hand faceUp(gameDeck); //DECK is shuffled on creation
+	faceUp.showHand();
+	int idxOfPlayerTurn;
+	for (int i = 0; i < numOfPlayers; i++) {
+		players[i].bid();
+		switch (numOfPlayers) {
+		case 2: players[i].setGoldenCoins(14);
+		case 3: players[i].setGoldenCoins(11);
+		case 4: players[i].setGoldenCoins(9);
+		case 5: players[i].setGoldenCoins(8);
+		}
+	}
+	BiddingFacility::printBidStatus();
+	idxOfPlayerTurn = BiddingFacility::biddingComplete();
+	std::cout << "player" << idxOfPlayerTurn << " won the bid\n";
+
+	//Need to place players starting armies on the map ******************
+
 // ---------------------- START PART 4 -------------------------
 	Player p;
 	Country c1,c2;
@@ -43,12 +77,11 @@ int main()
 
 // ---------------------- START PART 5 -------------------------
 	cout << "\n\n";
-	Deck gameDeck;
-	Hand faceUp(gameDeck);
 	faceUp.showHand();
 	Card nextCard = gameDeck.draw();
 	Card toPickup = faceUp.exchange(0, nextCard);
 	cout << "\n\n";
 	faceUp.showHand();
+	// ********** Next players turn **********************
 //---------------------- END PART 5 -------------------------
 }

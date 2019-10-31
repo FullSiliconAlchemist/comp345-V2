@@ -18,6 +18,7 @@ public:
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }
 	inline int GetGoldenCoins() const { return *goldenCoins; }
+	inline void setGoldenCoins(int numOfCoins) { goldenCoins = new int(numOfCoins);}
 	inline int GetId() const { return *id; }
 
 	Player(); // For now default constructor is fine
