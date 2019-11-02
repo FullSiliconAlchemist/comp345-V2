@@ -4,7 +4,7 @@
 
 // Map Class functions
 
-vector<Country>* Map::getCountryVector() const
+vector<Country*>* Map::getCountryVector() const
 {
 	return countryVector;
 }
@@ -12,6 +12,16 @@ vector<Country>* Map::getCountryVector() const
 vector<vector<int>>* Map::getAdjacencyList() const
 {
 	return adjList;
+}
+
+void Map::setCountryVector(vector<Country*>* cntryVect)
+{
+	countryVector = cntryVect;
+}
+
+Map::MapGraph* Map::getMapGraph() const
+{
+	return gameGraph;
 }
 
 Map::CountryNode* Map::newAdjencyListNode(int data)
@@ -95,36 +105,17 @@ Map::Map(vector<vector<int>> * initMapData)
 		}
 	}
 
-	for (int i = 0; i < initMapData->size(); i++)
-	{
-		for (int j = 0; j < initMapData->at(i).size(); j++)
-		{
-			std::cout << *arrayOfPtrs[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
-
-	// Initialize array of Countries
-	// Create graph and add edges from the number of the first column to the preceding numbers 
-	// of countries
-
-	MapGraph * gameGraph  = createGraph(countryListSize);
-
+	gameGraph  = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
 	vector<Country*> countryVectorData;
-	//Country* someCountry = new Country(arrayOfPtrs[0][0], arrayOfPtrs[0][1]);
-	//countryVectorData.push_back(someCountry);
+	vector<Country*>* countryVectorPntr;
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
 		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]));
 	}
 
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	for (int i = 0; i < countryVectorData.size(); i++)
-	{
-		std::cout << *countryVectorData.at(i)->getCountryNumber() << std::endl;
-	}
+	countryVectorPntr = &countryVectorData;
+	countryVector = countryVectorPntr; // Member variable initialized. Now accessible from map object.
 
 	/**/
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
@@ -136,7 +127,7 @@ Map::Map(vector<vector<int>> * initMapData)
 		}
 	}
 
-	printGraph(gameGraph);
+	//printGraph(gameGraph);
 
 	delete[] arrayOfPtrs; // Must manage dangling pointers after
 }
@@ -144,3 +135,21 @@ Map::Map(vector<vector<int>> * initMapData)
 Map::~Map()
 {
 }
+
+
+/*
+	for (int i = 0; i < initMapData->size(); i++)
+	{
+		for (int j = 0; j < initMapData->at(i).size(); j++)
+		{
+			std::cout << *arrayOfPtrs[i][j] << " ";
+		}
+
+		std::cout << std::endl;
+	}
+
+	for (int i = 0; i < countryVectorData.size(); i++)
+	{
+		std::cout << *countryVectorData.at(i)->getCountryNumber() << std::endl;
+	}
+*/

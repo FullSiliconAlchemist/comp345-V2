@@ -2,7 +2,7 @@
 
 using namespace std;
 
-vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
+bool MapLoader::openFileAndStore(std::string* fileName)
 {
 	cout << "Reading text file...\n" << endl;
 
@@ -13,14 +13,17 @@ vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
 	streamIn.open(*fileName);
 
 	if (!streamIn) {
-		cerr << "Unable to open file datafile.txt";
-
-		exit(1);   // call system to stop
+		cerr << "Unable to open file " << *fileName << endl;
+		cerr << "File doesn't exist, or name is invalid. Please try again." << endl;
+		setIsLoaded(false);
+		return false;
+		// exit(1);   // call system to stop
 	}
 
 	std::string line;
 	int lineCount = 0;
 	std::vector<std::vector<int>> intList;
+	std::vector<std::vector<int>>* intListPntr;
 
 	while (getline(streamIn, line)) {
 
@@ -31,8 +34,10 @@ vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
 		if (line.find_first_not_of("1234567890 ") != std::string::npos) {
 			cerr << "Error on line: " << lineCount << "." << endl;
 			cerr << "The line " << lineToValidate << " contains invalid data." << endl;
-			cerr << "This text file is invalid. Please try with again with a different one." << endl;
-			exit(1);
+			cerr << "This text file is invalid. Data may be corrupted. Please try with again with a different one." << endl;
+			setIsLoaded(false);
+			return false;
+			// exit(1);
 		}
 
 		std::istringstream is(line);
@@ -43,8 +48,14 @@ vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
 				std::istream_iterator<int>()));
 	}
 
+	cout << "File has been loaded succesfuly!" << endl;
+	setIsLoaded(true);
+	intListPntr = &intList;
+
+	setLoadedData(intListPntr);
 	streamIn.close();
-	return intList;
+
+	return true;
 }
 
 std::string* MapLoader::getFileName() const
@@ -52,9 +63,29 @@ std::string* MapLoader::getFileName() const
 	return fileName;
 }
 
+bool MapLoader::getIsLoaded() const
+{
+	return isLoaded;
+}
+
+vector<vector<int>>* MapLoader::getLoadedData() const
+{
+	return loadedData;
+}
+
 void MapLoader::setFileName(std::string* newFile)
 {
 	fileName = newFile;
+}
+
+void MapLoader::setIsLoaded(bool isTheMapLoaded)
+{
+	isLoaded = isTheMapLoaded;
+}
+
+void MapLoader::setLoadedData(vector<vector<int>>* data)
+{
+	loadedData = data;
 }
 
 MapLoader::MapLoader()

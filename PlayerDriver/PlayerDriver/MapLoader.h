@@ -14,13 +14,19 @@ using std::vector;
 class MapLoader
 {
 	std::string* fileName;
+	bool isLoaded;
+	vector<vector<int>>* loadedData;
 
 public:
-	vector<vector<int>> openFileAndStore(std::string* fileName);
+	bool openFileAndStore(std::string* fileName);
 
 	std::string* getFileName() const;
+	bool getIsLoaded() const;
+	vector<vector<int>>* getLoadedData() const;
 
 	void setFileName(std::string* newFile);
+	void setIsLoaded(bool isTheMapLoaded);
+	void setLoadedData(vector<vector<int>>* data);
 
 	MapLoader();
 	MapLoader(std::string* fileName);

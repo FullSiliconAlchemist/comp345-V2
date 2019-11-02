@@ -7,13 +7,7 @@ using std::vector;
 
 class Map
 {
-	vector<Country> * countryVector;
-	vector<vector<int>> * adjList;
-
 public:
-
-	vector<Country> * getCountryVector() const;
-	vector<vector<int>> * getAdjacencyList() const;
 
 	struct CountryNode {
 		int countryData;
@@ -38,9 +32,21 @@ public:
 
 	void printGraph(MapGraph* graph);
 
+	vector<Country*>* getCountryVector() const;
+	vector<vector<int>>* getAdjacencyList() const;
+
+	void setCountryVector(vector<Country*>* cntryVect);
+
+	MapGraph* getMapGraph() const;
 
 	Map();
 	Map(vector<vector<int>>* initMap);
 	~Map();
+
+private:
+
+	vector<Country*>* countryVector;
+	vector<vector<int>>* adjList;
+	MapGraph* gameGraph;
 
 };

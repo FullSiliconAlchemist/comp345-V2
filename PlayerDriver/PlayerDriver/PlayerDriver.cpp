@@ -1,32 +1,23 @@
 ﻿#include <string>
 #include <iostream>
 #include <vector>
+#include <filesystem>
 #include "Map.h"
 #include "MapLoader.h"
 #include "Country.h"
 #include "Player.h"
 #include "Cards.h"
 #include "BiddingFacility.h"
+
 using namespace std;
+namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
 
 int main()
 {
 // ---------------------- START PART 1 -------------------------
 	Deck gameDeck;
 	Map *gameMap;
-	
 	MapLoader* loader = new MapLoader();
-
-	// Current file name
-	string fileName = "C:\\tmp\\datafile.txt";
-
-	string* strptr = &fileName;
-
-	vector<vector<int>> mapData = loader->openFileAndStore(strptr);
-
-	vector<vector<int>> * mapDataPntr = &mapData;
-
-	gameMap = new Map(mapDataPntr);
 
 	 // create and show deck / face up cards
 	int numOfPlayers;
@@ -37,10 +28,40 @@ int main()
 	cin >> numOfPlayers;
 	players = new Player[numOfPlayers];
 
-	cout << "What is the name of the map file?" << endl;
-	cin >> nameOfMapFile;
 	// used map loader to load nameOfMapFile ******************************* and create a map
 
+	// Browse possible maps
+	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
+	string path = "C:\\tmp\\";
+
+	for (const auto& entry : fs::directory_iterator(path))
+		std::cout << entry.path() << std::endl;
+
+	string fullPath;
+
+	do {
+		fullPath = path;
+		cout << "Which map do you want to load?" << endl;
+		cin >> nameOfMapFile;
+
+		fullPath.append(nameOfMapFile);
+		string* strptr = &fullPath;
+
+		loader->setIsLoaded(loader->openFileAndStore(strptr));
+	
+	} while (!loader->getIsLoaded());
+
+
+	vector<vector<int>> mapData = *loader->getLoadedData();
+
+	// Loading map data
+
+	vector<vector<int>>* mapDataPntr = &mapData;
+
+	// Initialize map from map data
+	gameMap = new Map(mapDataPntr);
+
+	gameMap->printGraph(gameMap->getMapGraph());
 
 // ---------------------- END PART 1 -------------------------
 
