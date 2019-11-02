@@ -1,7 +1,8 @@
-#include <string>
+﻿#include <string>
 #include <iostream>
 #include <vector>
 #include "Map.h"
+#include "MapLoader.h"
 #include "Country.h"
 #include "Player.h"
 #include "Cards.h"
@@ -12,6 +13,18 @@ int main()
 {
 // ---------------------- START PART 1 -------------------------
 	Deck gameDeck;
+	Map* gameMap = new Map();
+	
+	MapLoader* loader = new MapLoader();
+
+	string fileName = "C:\\tmp\\datafile.txt";
+
+	string* strptr = &fileName;
+
+	cout << "  " << fileName << endl;
+
+	loader->openFileAndStore(strptr);
+
 	 // create and show deck / face up cards
 	int numOfPlayers;
 	Player* players;
@@ -23,7 +36,10 @@ int main()
 	cout << "What is the name of the map file?" << endl;
 	cin >> nameOfMapFile;
 	// used map loader to load nameOfMapFile ******************************* and create a map
+
+
 // ---------------------- END PART 1 -------------------------
+
 // ---------------------- START PART 2 -------------------------
 	Hand faceUp(gameDeck); //DECK is shuffled on creation
 	faceUp.showHand();
@@ -83,5 +99,7 @@ int main()
 	cout << "\n\n";
 	faceUp.showHand();
 	// ********** Next players turn **********************
+
+
 //---------------------- END PART 5 -------------------------
 }

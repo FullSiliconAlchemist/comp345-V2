@@ -1,8 +1,18 @@
 #include "Map.h"
-#include <cstddef>;
-#include <iostream>;
+#include <cstddef>
+#include <iostream>
 
 // Map Class functions
+
+vector<Country>* Map::getCountryVector() const
+{
+	return countryVector;
+}
+
+vector<vector<int>>* Map::getAdjacencyList() const
+{
+	return adjList;
+}
 
 Map::CountryNode* Map::newAdjencyListNode(int data)
 {
@@ -60,6 +70,12 @@ void Map::printGraph(MapGraph* graph)
 
 Map::Map()
 {
+	std::cout << "Initializing a default game Map requires adding countries manually." << std::endl;
+}
+
+Map::Map(vector<Country> * initMap)
+{
+
 }
 
 Map::~Map()

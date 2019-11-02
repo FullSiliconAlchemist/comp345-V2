@@ -1,10 +1,19 @@
-#pragma once
+	#pragma once
 #include <string>
+#include <vector>
 #include "Country.h"
+
+using std::vector;
 
 class Map
 {
+	vector<Country> * countryVector;
+	vector<vector<int>> * adjList;
+
 public:
+
+	vector<Country> * getCountryVector() const;
+	vector<vector<int>> * getAdjacencyList() const;
 
 	struct CountryNode {
 		int countryData;
@@ -31,6 +40,7 @@ public:
 
 
 	Map();
+	Map(vector<Country>* initMap);
 	~Map();
 
 };
