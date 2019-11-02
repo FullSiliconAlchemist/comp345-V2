@@ -66,6 +66,15 @@ Country::Country(int* countryNumber, int* continentNumber, int* positionedArmies
 	: countryNumber(countryNumber), continentNumber(continentNumber), numberOfArmies(positionedArmies)
 {}
 
+Country::Country(int* countryNumber, int* continentNumber)
+	: countryNumber(countryNumber), continentNumber(continentNumber)
+{
+	int starterArmies = 0;
+	int* ptrStarterArmies;
+	ptrStarterArmies = &starterArmies;
+	numberOfArmies = ptrStarterArmies;
+}
+
 Country::~Country() {}
 
 

@@ -23,8 +23,8 @@ public:
 	std::string getName() const;
 
 	// TEST FUNCTION
-	int* getSomePointerVal() const;
-	void setPointerVal(int* newPointerVal);
+	//int* getSomePointerVal() const;
+	//void setPointerVal(int* newPointerVal);
 
 	void setName(std::string newName);
 	void setCountry(int* newCountry);
@@ -34,5 +34,6 @@ public:
 
 	Country();
 	Country(int* countryNumber, int* continentNumber, int* positionedArmies);
+	Country(int* countryNumber, int* continentNumber);
 	~Country();
 };
