@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Map* MapLoader::openFileAndStore(std::string* fileName)
+vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
 {
 	cout << "Reading text file...\n" << endl;
 
@@ -20,7 +20,7 @@ Map* MapLoader::openFileAndStore(std::string* fileName)
 
 	std::string line;
 	int lineCount = 0;
-	std::vector< std::vector<int> > intList;
+	std::vector<std::vector<int>> intList;
 
 	while (getline(streamIn, line)) {
 
@@ -44,8 +44,7 @@ Map* MapLoader::openFileAndStore(std::string* fileName)
 	}
 
 	streamIn.close();
-	//new Map(intList);
-	return NULL;
+	return intList;
 }
 
 std::string* MapLoader::getFileName() const

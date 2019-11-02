@@ -13,17 +13,17 @@ int main()
 {
 // ---------------------- START PART 1 -------------------------
 	Deck gameDeck;
-	Map* gameMap = new Map();
+	Map gameMap *;
 	
 	MapLoader* loader = new MapLoader();
 
 	string fileName = "C:\\tmp\\datafile.txt";
 
 	string* strptr = &fileName;
-
 	cout << "  " << fileName << endl;
 
-	loader->openFileAndStore(strptr);
+	vector<vector<int>> mapData = loader->openFileAndStore(strptr);
+	gameMap = new Map(mapData);
 
 	 // create and show deck / face up cards
 	int numOfPlayers;

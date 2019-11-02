@@ -40,7 +40,7 @@ public:
 
 
 	Map();
-	Map(vector<Country>* initMap);
+	Map(vector<vector<int>>* initMap);
 	~Map();
 
 };

@@ -9,12 +9,14 @@
 #include <string>
 #include <iterator>
 
+using std::vector;
+
 class MapLoader
 {
 	std::string* fileName;
 
 public:
-	Map* openFileAndStore(std::string* fileName);
+	vector<vector <int>> openFileAndStore(std::string* fileName);
 
 	std::string* getFileName() const;
 

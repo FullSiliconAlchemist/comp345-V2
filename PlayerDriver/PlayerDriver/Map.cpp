@@ -73,9 +73,24 @@ Map::Map()
 	std::cout << "Initializing a default game Map requires adding countries manually." << std::endl;
 }
 
-Map::Map(vector<Country> * initMap)
+Map::Map(vector<vector<int>> * initMapData) : adjList(initMapData)
 {
+	std::cout << "Initializing map..." << std::endl;
 
+	// Initialize array of Countries
+	// Create graph and add edges from the number of the first column to the preceding numbers 
+	// of countries
+
+	for (int i = 0; i < mapData.size(); i++)
+	{
+
+		for (int j = 0; j < mapData.at(i).size(); j++)
+		{
+			//cout << mapData.at(i).at(j) << " ";
+
+		}
+		cout << endl;
+	}
 }
 
 Map::~Map()
