@@ -31,6 +31,7 @@ public:
 	void addEdge(MapGraph* graph, Country src, Country dest); // adds connections between countries
 
 	void printGraph(MapGraph* graph);
+	bool checkGraphConnectivity();
 
 	vector<Country*>* getCountryVector() const;
 	vector<vector<int>>* getAdjacencyList() const;
@@ -48,5 +49,6 @@ private:
 	vector<Country*>* countryVector;
 	vector<vector<int>>* adjList;
 	MapGraph* gameGraph;
+	bool isConnectedGraph;
 
 };

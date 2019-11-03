@@ -24,6 +24,8 @@ int main()
 	Player* players;
 	string nameOfMapFile;
 
+	vector<vector<int>>* loadedData;
+
 	cout << "How many players (2-5)" << endl;
 	cin >> numOfPlayers;
 	players = new Player[numOfPlayers];
@@ -38,6 +40,7 @@ int main()
 		std::cout << entry.path() << std::endl;
 
 	string fullPath;
+	vector<vector<int>> mapDataPntr;
 
 	do {
 		fullPath = path;
@@ -47,21 +50,21 @@ int main()
 		fullPath.append(nameOfMapFile);
 		string* strptr = &fullPath;
 
-		loader->setIsLoaded(loader->openFileAndStore(strptr));
+		mapDataPntr = loader->openFileAndStore(strptr);
 	
 	} while (!loader->getIsLoaded());
+	
+	// Initialize map object from map data
+	gameMap = new Map(&mapDataPntr);
 
-
-	vector<vector<int>> mapData = *loader->getLoadedData();
-
-	// Loading map data
-
-	vector<vector<int>>* mapDataPntr = &mapData;
-
-	// Initialize map from map data
-	gameMap = new Map(mapDataPntr);
-
-	gameMap->printGraph(gameMap->getMapGraph());
+	if (gameMap->checkGraphConnectivity())
+	{
+		cout << "This map is valid. Play on!" << endl;
+	}
+	else {
+		cout << "This map is not a connected graph... Players will not be able to traverse it." << endl;
+	}
+	cout << endl;
 
 // ---------------------- END PART 1 -------------------------
 

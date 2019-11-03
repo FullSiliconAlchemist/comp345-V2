@@ -63,6 +63,21 @@ void Map::addEdge(MapGraph* graph, Country src, Country dest) // Changing the sr
 	graph->arrOfCountries[destCountryNumber].head = nodePtr;
 }
 
+bool Map::checkGraphConnectivity()
+{
+	MapGraph* graph = this->getMapGraph();
+	std::cout << "Checking Map graph validity..." << std::endl;
+	for (int i = 0; i < graph->numberOfCountries; i++)
+	{
+		CountryNode* root = graph->arrOfCountries[i].head;
+		if (graph->arrOfCountries[i].head == NULL)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 void Map::printGraph(MapGraph* graph)
 {
 	for (int i = 0; i < graph->numberOfCountries; i++)
@@ -117,19 +132,25 @@ Map::Map(vector<vector<int>> * initMapData)
 	countryVectorPntr = &countryVectorData;
 	countryVector = countryVectorPntr; // Member variable initialized. Now accessible from map object.
 
-	/**/
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
 		for (int j = 2; j < static_cast<int>(initMapData->at(i).size()); j++)
 		{
-			//cout << mapData.at(i).at(j) << " ";
 			addEdge(gameGraph, *countryVectorData.at(i), *countryVectorData.at(*arrayOfPtrs[i][j]));
 		}
 	}
 
-	//printGraph(gameGraph);
+	// Deallocate memory
+	for (int i = 0; i < countryListSize; i++)
+	{
+		for (int j = 0; j < initMapData->at(i).size(); j++)
+		{
+			arrayOfPtrs[i][j] = NULL;
+		}
+		arrayOfPtrs[i] = NULL;
+	}
 
-	delete[] arrayOfPtrs; // Must manage dangling pointers after
+	delete[] arrayOfPtrs;
 }
 
 Map::~Map()

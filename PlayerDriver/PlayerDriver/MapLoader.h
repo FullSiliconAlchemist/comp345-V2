@@ -18,7 +18,7 @@ class MapLoader
 	vector<vector<int>>* loadedData;
 
 public:
-	bool openFileAndStore(std::string* fileName);
+	vector<vector<int>> openFileAndStore(std::string* fileName);
 
 	std::string* getFileName() const;
 	bool getIsLoaded() const;
