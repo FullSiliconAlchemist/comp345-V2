@@ -165,10 +165,11 @@ int main()
 	//test move armies(Implements moveOverLand within move armies method)
 	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
 	cout << endl;
-	int playersNumberOfMoves = 3;
 
-	int playerCountryChoice;
-	 // Before player makes choice
+	// Hard coded player choice for the purpose of demonstration
+	int playersNumberOfMoves = 3;
+	int playerCountryChoice;			// Takes the player's choice of where to move the army
+	int playerLastCountryChoice;		// Keeps track of a player's past moved army
 
 	for (int i = 0; i < playersNumberOfMoves; i++)
 	{
@@ -177,19 +178,21 @@ int main()
 			cout << "\nWhere do you want to move your army?: \n";
 			gameMap->displayPossibleMoves(c1);
 			cin >> playerCountryChoice;
+			p.MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
+			playerLastCountryChoice = playerCountryChoice;
 		}
 		else
 		{
 			cout << "\nWhere do you want to move your army?: \n";
 			gameMap->displayPossibleMoves(gameMap->getCountryArray()[playerCountryChoice]);
-			//cout << "Let's assume you want to move to country 5: ";
 			cin >> playerCountryChoice;
+			p.MoveArmies(1, 1, gameMap->getCountryArray()[playerLastCountryChoice], gameMap->getCountryArray()[playerCountryChoice]);
+			playerLastCountryChoice = playerCountryChoice;
 		}
-
-		p.MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
 	}
 	// Movements will be done one at a time, so that the player decides what path to take
-	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() << " c2: " << *c2->getNumberOfArmies();
+	cout << "\nArmies after move c1: " << *c1->getNumberOfArmies() << " c2: " << *c2->getNumberOfArmies();
+	cout << endl;
 
 	//test destroy army
 	cout << "\nArmies before delete c1: " << *c1->getNumberOfArmies();
