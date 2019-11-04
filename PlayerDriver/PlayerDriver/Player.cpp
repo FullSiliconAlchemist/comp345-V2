@@ -14,7 +14,7 @@ bool Player::PlaceNewArmies(int numOfArmies, Country *countryToPlace) {
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace->getNumberOfArmies());
-	countryToPlace->setArmies(ptToNewNumOfArmies);
+	countryToPlace->setArmies(*ptToNewNumOfArmies);
 	return true;
 }
 
@@ -28,20 +28,20 @@ int Player::MoveArmies(int numOfMovements, int numToMove, Country *countryToTake
 	}
 
 	int* ptToNewNumOfArmies = new int(*countryToTake->getNumberOfArmies() - numToMove);
-	countryToTake->setArmies(ptToNewNumOfArmies);
+	countryToTake->setArmies(*ptToNewNumOfArmies);
 
 	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getNumberOfArmies());
-	countryToPlace->setArmies(ptToNewNumOfArmies);
+	countryToPlace->setArmies(*ptToNewNumOfArmies);
 
 	return numOfMovements - 3; //assumed they lost 3 movements for moving over water
 }
 /**/
 void Player::MoveOverLand(int numToMove, Country *countryToTake, Country *countryToPlace) {
 	int *ptToNewNumOfArmies = new int(*countryToTake->getNumberOfArmies() - numToMove);
-	countryToTake->setArmies(ptToNewNumOfArmies);
+	countryToTake->setArmies(*ptToNewNumOfArmies);
 
 	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getNumberOfArmies());
-	countryToPlace->setArmies(ptToNewNumOfArmies);
+	countryToPlace->setArmies(*ptToNewNumOfArmies);
 	return;
 }
 
@@ -55,7 +55,7 @@ bool Player::DestroyArmy(int numOfArmies, Country *c) {
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(*c->getNumberOfArmies() - numOfArmies);
-	c->setArmies(ptToNewNumOfArmies);
+	c->setArmies(*ptToNewNumOfArmies);
 	return true;
 }
 int Player::currentId = 0;

@@ -23,7 +23,6 @@ vector<vector<int>> MapLoader::openFileAndStore(std::string* fileName)
 	std::string line;
 	int lineCount = 0;
 	std::vector<std::vector<int>> intList;
-	std::vector<std::vector<int>>* intListPntr;
 
 	while (getline(streamIn, line)) {
 

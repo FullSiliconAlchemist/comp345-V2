@@ -4,24 +4,29 @@
 
 // Map Class functions
 
-vector<Country*>* Map::getCountryVector() const
-{
-	return countryVector;
-}
-
 vector<vector<int>>* Map::getAdjacencyList() const
 {
 	return adjList;
 }
 
-void Map::setCountryVector(vector<Country*>* cntryVect)
+void Map::setCountryArray(Country*** cntryArr)
 {
-	countryVector = cntryVect;
+	countryArray = cntryArr;
 }
 
 Map::MapGraph* Map::getMapGraph() const
 {
 	return gameGraph;
+}
+
+int* Map::getTotalCountries() const
+{
+	return totalCountries;
+}
+
+Country*** Map::getCountryArray() const
+{
+	return countryArray;
 }
 
 Map::CountryNode* Map::newAdjencyListNode(int data)
@@ -46,11 +51,8 @@ Map::MapGraph* Map::createGraph(int V)
 
 void Map::addEdge(MapGraph* graph, Country src, Country dest) // Changing the src and dest types to Country objects
 {
-	int* ptrCountrySrc = src.getCountryNumber();;
-	int srcCountryNumber = *ptrCountrySrc;
-
-	int* ptrCountryDest = dest.getCountryNumber();
-	int destCountryNumber = *ptrCountryDest;
+	int srcCountryNumber  = *src.getCountryNumber();
+	int destCountryNumber = *dest.getCountryNumber();
 
 	// Create node pointer which points to a new node which in turn
 	CountryNode* nodePtr = newAdjencyListNode(destCountryNumber);
@@ -104,8 +106,15 @@ Map::Map(vector<vector<int>> * initMapData)
 	std::cout << "Initializing map..." << std::endl;
 
 	int countryListSize = static_cast<int>(initMapData->size());
+	this->totalCountries = new int(countryListSize); // Add getters and setters for the totalCountries, check if saved
 
 	int*** arrayOfPtrs = new int** [countryListSize];
+
+	countryArray = new Country **[countryListSize]; // Initializing Map object pntr array ************
+	for (int i = 0; i < countryListSize; i++)		// Here too
+	{
+		countryArray[i] = new Country * [1];
+	}
 
 	// initialize ptrs to country data
 	for (int i = 0; i < countryListSize; i++)
@@ -116,21 +125,18 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 0; j < static_cast<int>(initMapData->at(i).size()); j++)
 		{
-			arrayOfPtrs[i][j] = &initMapData->at(i).at(j);
+			arrayOfPtrs[i][j] = new int(initMapData->at(i).at(j));
 		}
 	}
 
-	gameGraph  = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
+	gameGraph = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
 	vector<Country*> countryVectorData;
-	vector<Country*>* countryVectorPntr;
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
 		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]));
+		countryArray[i][0] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]); // Buffer overrun - Whatever just trying to make it work right now
 	}
-
-	countryVectorPntr = &countryVectorData;
-	countryVector = countryVectorPntr; // Member variable initialized. Now accessible from map object.
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
@@ -139,6 +145,9 @@ Map::Map(vector<vector<int>> * initMapData)
 			addEdge(gameGraph, *countryVectorData.at(i), *countryVectorData.at(*arrayOfPtrs[i][j]));
 		}
 	}
+
+	// Validates graph by checking to see if there are any Country Nodes which aren't connected to some other country
+	this->isConnectedGraph = checkGraphConnectivity();
 
 	// Deallocate memory
 	for (int i = 0; i < countryListSize; i++)

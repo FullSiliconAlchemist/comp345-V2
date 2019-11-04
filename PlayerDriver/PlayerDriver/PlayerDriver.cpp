@@ -24,7 +24,8 @@ int main()
 	Player* players;
 	string nameOfMapFile;
 
-	vector<vector<int>>* loadedData;
+	string fullPath;
+	vector<vector<int>> mapDataPntr;
 
 	cout << "How many players (2-5)" << endl;
 	cin >> numOfPlayers;
@@ -36,12 +37,12 @@ int main()
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
 	string path = "C:\\tmp\\";
 
+	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
 		std::cout << entry.path() << std::endl;
 
-	string fullPath;
-	vector<vector<int>> mapDataPntr;
-
+	// Loop for when the player wants to load a file
+	// Should probs be a method in class such as mapLoader
 	do {
 		fullPath = path;
 		cout << "Which map do you want to load?" << endl;
@@ -57,6 +58,9 @@ int main()
 	// Initialize map object from map data
 	gameMap = new Map(&mapDataPntr);
 
+	//cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryVector()->at(5)->getCountryNumber() << endl;
+	cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryArray()[5][0]->getCountryNumber() << endl;
+
 	if (gameMap->checkGraphConnectivity())
 	{
 		cout << "This map is valid. Play on!" << endl;
@@ -69,6 +73,7 @@ int main()
 // ---------------------- END PART 1 -------------------------
 
 // ---------------------- START PART 2 -------------------------
+
 	Hand faceUp(gameDeck); //DECK is shuffled on creation
 	faceUp.showHand();
 	int idxOfPlayerTurn;
@@ -84,6 +89,32 @@ int main()
 	BiddingFacility::printBidStatus();
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
 	std::cout << "player" << idxOfPlayerTurn << " won the bid\n";
+
+	// Players choose where they set their armies if there are only two players playing.
+	// Otherwise they're set in the starting country.
+	int countryToSetArmy;
+
+	if (numOfPlayers > 2)
+	{
+
+	}
+	else
+	{
+		std::cout << "Players take turns placing one army at a time on any country, until 10 armies per player has been placed." << std::endl;
+		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n" << std::endl;
+		
+		for (int i = 0; i < 10; i++)
+		{
+			std::cout << "Player " << ((i % 2) + 1) << " pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
+			cin >> countryToSetArmy;
+
+			players[i % 2].PlaceNewArmies(countryToSetArmy, gameMap->getCountryArray()[countryToSetArmy][0]);
+		}
+		
+		std::cout << "Start placing your armies in any country " << std::endl;
+
+		
+	}
 
 	//Need to place players starting armies on the map ******************
 

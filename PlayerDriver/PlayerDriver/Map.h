@@ -25,20 +25,20 @@ public:
 		CountryList* arrOfCountries;
 	};
 
+	// Graph methods
 	CountryNode* newAdjencyListNode(int data); // Creates a new country node
 	MapGraph* createGraph(int V); // Creates a new map
-
 	void addEdge(MapGraph* graph, Country src, Country dest); // adds connections between countries
-
 	void printGraph(MapGraph* graph);
 	bool checkGraphConnectivity();
 
-	vector<Country*>* getCountryVector() const;
+	// Map methods
 	vector<vector<int>>* getAdjacencyList() const;
-
-	void setCountryVector(vector<Country*>* cntryVect);
-
 	MapGraph* getMapGraph() const;
+	int * getTotalCountries() const;
+	Country*** getCountryArray() const; // This right here is a headache
+
+	void setCountryArray(Country*** cntryArr); // This too
 
 	Map();
 	Map(vector<vector<int>>* initMap);
@@ -46,9 +46,11 @@ public:
 
 private:
 
-	vector<Country*>* countryVector;
 	vector<vector<int>>* adjList;
+	int* totalCountries;
 	MapGraph* gameGraph;
 	bool isConnectedGraph;
+
+	Country*** countryArray;
 
 };
