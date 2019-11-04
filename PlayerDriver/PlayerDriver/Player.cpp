@@ -72,6 +72,21 @@ bool Player::DestroyArmy(int numOfArmies, Country *c) {
 	c->setArmies(ptToNewNumOfArmies);
 	return true;
 }
+void Player::destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
+	DestroyArmy(numOfArmies, c);
+	MoveArmies(numOfMovements,numToMove, countryToTake, countryToPlace);
+}
+void Player::newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo) {
+	PlaceNewArmies(numOfArmies,countryToPlace);
+	MoveArmies(numOfMovements, numToMove, countryToTake, countryToMoveTo);
+}
+void Player::citymoveArmy(Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
+	BuildCity(c);
+	MoveArmies(numOfMovements, numToMove, countryToTake, countryToPlace);
+}
+void Player::ignore() {
+	//do nothing
+}
 int Player::currentId = 0;
 Player::Player()
 {

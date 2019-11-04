@@ -93,7 +93,11 @@ int main()
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1.getCity();
 	p.BuildCity(ptrC1);
-	cout << "\ncity status before placement: " << *c1.getCity();
+	cout << "\ncity status after placement: " << *c1.getCity();
+	//void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
+	//void newArmymoveArmy(int numOfArmies, Country * countryToPlace, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToMoveTo);
+	//void citymoveArmy(Country * c, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToPlace);
+
 // ---------------------- END PART 4 -------------------------
 
 // ---------------------- START PART 5 -------------------------
