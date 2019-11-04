@@ -1,10 +1,2 @@
-﻿  BiddingFacility.cpp
-  Cards.cpp
-  Country.cpp
-  Map.cpp
-  MapLoader.cpp
-  Player.cpp
-  PlayerDriver.cpp
-  Generating Code...
-C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Cards.cpp(32,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  PlayerDriver.cpp
   PlayerDriver.vcxproj -> C:\Users\baske\source\repos\comp345-V2\PlayerDriver\x64\Debug\PlayerDriver.exe

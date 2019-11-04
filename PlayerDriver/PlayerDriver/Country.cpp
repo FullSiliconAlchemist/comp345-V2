@@ -32,9 +32,9 @@ void Country::setContinent(int* newContinent)
 	continentNumber = newContinent;
 }
 
-void Country::setArmies(int armySet)
+void Country::setArmies(int* armySet)
 {
-	numberOfArmies = &armySet;
+	numberOfArmies = armySet;
 }
 
 void Country::setCity(int* playerId) {

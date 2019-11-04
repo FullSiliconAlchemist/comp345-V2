@@ -20,7 +20,7 @@ public:
 
 	void setCountry(int* newCountry);
 	void setContinent(int* newContinent);
-	void setArmies(int armySet); // Method accepts a heap-initialize object and stores reference
+	void setArmies(int* armySet); // Method accepts a heap-initialize object and stores reference
 	void setCity(int* playerId);
 
 	Country();

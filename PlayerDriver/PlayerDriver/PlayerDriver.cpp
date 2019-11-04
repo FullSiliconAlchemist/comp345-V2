@@ -59,7 +59,7 @@ int main()
 	gameMap = new Map(&mapDataPntr);
 
 	//cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryVector()->at(5)->getCountryNumber() << endl;
-	cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryArray()[5][0]->getCountryNumber() << endl;
+	cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryArray()[5]->getCountryNumber() << endl;
 
 	if (gameMap->checkGraphConnectivity())
 	{
@@ -92,37 +92,64 @@ int main()
 
 	// Players choose where they set their armies if there are only two players playing.
 	// Otherwise they're set in the starting country.
-	int countryToSetArmy;
+	int countryToSetArmyP1, countryToSetArmyP2;
 
 	if (numOfPlayers > 2)
 	{
+		std::cout << "\nPlayers, 3 of your armies will be placed on a random country in the \"starter region\"."  << std::endl;
+		std::cout << "The programmer making this game has decided it will be the country 4."					<< std::endl;
+		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n"   << std::endl;
 
+		for (int i = 0; i < numOfPlayers; i++)
+		{
+			players[i].PlaceNewArmies(3, gameMap->getCountryArray()[4]);
+		}
+
+		std::cout << "3 armies per player have been set on country 4.\n" << std::endl;
 	}
 	else
 	{
-		std::cout << "Players take turns placing one army at a time on any country, until 10 armies per player has been placed." << std::endl;
-		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n" << std::endl;
+		std::cout << "Players take turns placing 1 army at a time on any country, until 10 armies per player has been placed." << std::endl;
+		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n"				   << std::endl;
 		
 		for (int i = 0; i < 10; i++)
 		{
-			std::cout << "Player " << ((i % 2) + 1) << " pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
-			cin >> countryToSetArmy;
+			std::cout << "Round " << (i + 1) << " of setting armies..." << std::endl;
+			std::cout << "Player 1 pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
+			cin >> countryToSetArmyP1;
+			std::cout << "Player 2 pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
+			cin >> countryToSetArmyP2;
 
-			players[i % 2].PlaceNewArmies(countryToSetArmy, gameMap->getCountryArray()[countryToSetArmy][0]);
+			players[0].PlaceNewArmies(1, gameMap->getCountryArray()[countryToSetArmyP1]); // Should check to see if it is valid to put two armies of different players in the same country to start
+			players[1].PlaceNewArmies(1, gameMap->getCountryArray()[countryToSetArmyP2]);
+
+			std::cout << std::endl;
 		}
-		
-		std::cout << "Start placing your armies in any country " << std::endl;
 
-		
+		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them." << std::endl;
 	}
 
 	//Need to place players starting armies on the map ******************
 
+// ---------------------- START PART 3 -------------------------
+
+	// According to the rules, the game is over once all players have gotten a certain number 
+	// of cards. Thus, after each player has gone their turn, the game will check for to see if all players
+	// have acquired their maximum number of cards. Once the game loop is done, there will be a tally of the points
+	// to determine the winner.
+
+	bool gameRunning = true;
+
+	while (gameRunning)
+	{
+
+	}
+
 // ---------------------- START PART 4 -------------------------
 	Player p;
-	Country c1,c2;
-	Country *ptrC1 = &c1;
-	Country *ptrC2 = &c2;
+
+	Country * c1 = new Country();
+	Country * c2 = new Country();
 
 	//test pay coin
 	cout << "Coins before pay: " << p.GetGoldenCoins();
@@ -130,24 +157,24 @@ int main()
 	cout << "\nCoins after pay: " << p.GetGoldenCoins();
 
 	//test placeNewArmy
-	cout << "\nArmies before placement: " << *c1.getNumberOfArmies();
-	p.PlaceNewArmies(3, ptrC1);
-	cout << "\nArmies after placement: " << *c1.getNumberOfArmies();
+	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[4]->getNumberOfArmies(); // Example of starter armies when players are more than 3
+	p.PlaceNewArmies(3, gameMap->getCountryArray()[5]);
+	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies();
 
 	//test move armies(Implements moveOverLand within move armies method)
-	cout << "\nArmies before move c1: " << *c1.getNumberOfArmies() <<" c2: "<< *c2.getNumberOfArmies();
-	p.MoveArmies(3, 1, ptrC1, ptrC2);
-	cout << "\nArmies before move c1: " << *c1.getNumberOfArmies() << " c2: " << *c2.getNumberOfArmies();
+	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
+	p.MoveArmies(3, 1, c1, c2);
+	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() << " c2: " << *c2->getNumberOfArmies();
 
 	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1.getNumberOfArmies();
-	p.DestroyArmy(1, ptrC1);
-	cout << "\nArmies after delete c1: " << *c1.getNumberOfArmies();
+	cout << "\nArmies before delete c1: " << *c1->getNumberOfArmies();
+	p.DestroyArmy(1, c1);
+	cout << "\nArmies after delete c1: " << *c1->getNumberOfArmies();
 
 	//test place city (Shows id# for player that owns the city)
-	cout << "\ncity status before placement: " << *c1.getCity();
-	p.BuildCity(ptrC1);
-	cout << "\ncity status before placement: " << *c1.getCity();
+	cout << "\ncity status before placement: " << *c1->getCity();
+	p.BuildCity(c1);
+	cout << "\ncity status before placement: " << *c1->getCity();
 // ---------------------- END PART 4 -------------------------
 
 // ---------------------- START PART 5 -------------------------
@@ -159,6 +186,7 @@ int main()
 	faceUp.showHand();
 	// ********** Next players turn **********************
 
+	delete c1, c2;
 
 //---------------------- END PART 5 -------------------------
 }

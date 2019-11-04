@@ -9,7 +9,7 @@ vector<vector<int>>* Map::getAdjacencyList() const
 	return adjList;
 }
 
-void Map::setCountryArray(Country*** cntryArr)
+void Map::setCountryArray(Country** cntryArr)
 {
 	countryArray = cntryArr;
 }
@@ -24,7 +24,7 @@ int* Map::getTotalCountries() const
 	return totalCountries;
 }
 
-Country*** Map::getCountryArray() const
+Country** Map::getCountryArray() const
 {
 	return countryArray;
 }
@@ -100,6 +100,7 @@ Map::Map()
 	std::cout << "Initializing a default game Map requires adding countries manually." << std::endl;
 }
 
+// Factory method design pattern
 Map::Map(vector<vector<int>> * initMapData) 
 	: adjList(initMapData) 
 {
@@ -110,11 +111,7 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	int*** arrayOfPtrs = new int** [countryListSize];
 
-	countryArray = new Country **[countryListSize]; // Initializing Map object pntr array ************
-	for (int i = 0; i < countryListSize; i++)		// Here too
-	{
-		countryArray[i] = new Country * [1];
-	}
+	countryArray = new Country *[countryListSize]; // Initializing Map object pntr array ************
 
 	// initialize ptrs to country data
 	for (int i = 0; i < countryListSize; i++)
@@ -134,8 +131,8 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
-		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]));
-		countryArray[i][0] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]); // Buffer overrun - Whatever just trying to make it work right now
+		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1])); // Waste of space, should be using the array I made in the constructor
+		countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);			// Buffer overrun - Whatever just trying to make it work right now
 	}
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)

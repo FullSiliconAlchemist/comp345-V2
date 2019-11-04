@@ -36,9 +36,9 @@ public:
 	vector<vector<int>>* getAdjacencyList() const;
 	MapGraph* getMapGraph() const;
 	int * getTotalCountries() const;
-	Country*** getCountryArray() const; // This right here is a headache
+	Country** getCountryArray() const; // This right here is a headache
 
-	void setCountryArray(Country*** cntryArr); // This too
+	void setCountryArray(Country** cntryArr); // This too
 
 	Map();
 	Map(vector<vector<int>>* initMap);
@@ -50,7 +50,9 @@ private:
 	int* totalCountries;
 	MapGraph* gameGraph;
 	bool isConnectedGraph;
-
-	Country*** countryArray;
+	// Vector of country pointer used to be here instead of country array of pointers.
+	// When setting the countryVector pointer to point to the reference of the created vector in the map constructor
+	// I was not able to retain the data that the pointers were pointing to, although countryVector was pointing to the proper address.
+	Country** countryArray;
 
 };
