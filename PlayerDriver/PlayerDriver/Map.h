@@ -37,6 +37,8 @@ public:
 	MapGraph* getMapGraph() const;
 	int * getTotalCountries() const;
 	Country** getCountryArray() const; // This right here is a headache
+	void displayPossibleMoves(Country* countryToTake);
+	bool getIsValidMap() const;
 
 	void setCountryArray(Country** cntryArr); // This too
 

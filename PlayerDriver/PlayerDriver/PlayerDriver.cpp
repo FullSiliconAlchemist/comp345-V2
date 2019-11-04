@@ -30,6 +30,7 @@ int main()
 	cout << "How many players (2-5)" << endl;
 	cin >> numOfPlayers;
 	players = new Player[numOfPlayers];
+	cout << endl;
 
 	// used map loader to load nameOfMapFile ******************************* and create a map
 
@@ -39,7 +40,10 @@ int main()
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
+	{
 		std::cout << entry.path() << std::endl;
+	}
+	cout << endl;
 
 	// Loop for when the player wants to load a file
 	// Should probs be a method in class such as mapLoader
@@ -58,10 +62,7 @@ int main()
 	// Initialize map object from map data
 	gameMap = new Map(&mapDataPntr);
 
-	//cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryVector()->at(5)->getCountryNumber() << endl;
-	cout << "Country from country vector object initialized in constructor, country number: " << *gameMap->getCountryArray()[5]->getCountryNumber() << endl;
-
-	if (gameMap->checkGraphConnectivity())
+	if (gameMap->getIsValidMap())
 	{
 		cout << "This map is valid. Play on!" << endl;
 	}
@@ -138,18 +139,18 @@ int main()
 	// have acquired their maximum number of cards. Once the game loop is done, there will be a tally of the points
 	// to determine the winner.
 
-	bool gameRunning = true;
+	/*bool gameRunning = true;
 
 	while (gameRunning)
 	{
 
-	}
+	}*/
 
 // ---------------------- START PART 4 -------------------------
 	Player p;
 
-	Country * c1 = new Country();
-	Country * c2 = new Country();
+	Country * c1 = gameMap->getCountryArray()[4];
+	Country * c2 = gameMap->getCountryArray()[5];
 
 	//test pay coin
 	cout << "Coins before pay: " << p.GetGoldenCoins();
@@ -159,11 +160,35 @@ int main()
 	//test placeNewArmy
 	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[4]->getNumberOfArmies(); // Example of starter armies when players are more than 3
 	p.PlaceNewArmies(3, gameMap->getCountryArray()[5]);
-	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies();
+	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[24]->getNumberOfArmies();
 
 	//test move armies(Implements moveOverLand within move armies method)
 	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
-	p.MoveArmies(3, 1, c1, c2);
+	cout << endl;
+	int playersNumberOfMoves = 3;
+
+	int playerCountryChoice;
+	 // Before player makes choice
+
+	for (int i = 0; i < playersNumberOfMoves; i++)
+	{
+		if (i == 0)
+		{
+			cout << "\nWhere do you want to move your army?: \n";
+			gameMap->displayPossibleMoves(c1);
+			cin >> playerCountryChoice;
+		}
+		else
+		{
+			cout << "\nWhere do you want to move your army?: \n";
+			gameMap->displayPossibleMoves(gameMap->getCountryArray()[playerCountryChoice]);
+			//cout << "Let's assume you want to move to country 5: ";
+			cin >> playerCountryChoice;
+		}
+
+		p.MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
+	}
+	// Movements will be done one at a time, so that the player decides what path to take
 	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() << " c2: " << *c2->getNumberOfArmies();
 
 	//test destroy army

@@ -23,6 +23,7 @@ int Player::MoveArmies(int numOfMovements, int numToMove, Country *countryToTake
 		return numOfMovements; 
 	}
 	if (*countryToTake->getContinentNumber() == *countryToPlace->getContinentNumber()) {
+	
 		MoveOverLand(numToMove, countryToTake, countryToPlace); 
 		return numOfMovements-1;
 	}

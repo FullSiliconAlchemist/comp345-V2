@@ -29,6 +29,45 @@ Country** Map::getCountryArray() const
 	return countryArray;
 }
 
+void Map::displayPossibleMoves(Country* countryToTake)
+{
+	CountryNode* root;
+	vector<int> noRepeats;
+	noRepeats.reserve(*getTotalCountries());
+	bool noRepeatsConfirmed = true;
+	root = getMapGraph()->arrOfCountries[*countryToTake->getCountryNumber()].head;
+
+	std::cout << "Here are the possbile moves from country number " << *countryToTake->getCountryNumber() << ":" << std::endl;
+	std::cout << "[ ";
+
+	while (root != NULL)
+	{
+		for (int i = 0; i < noRepeats.size(); i++)
+		{
+			if (root->countryData != noRepeats.at(i))
+				continue;
+			else
+			{
+				noRepeatsConfirmed = false;
+				break;
+			}
+		}
+
+		if (noRepeatsConfirmed)
+		{
+			noRepeats.push_back(root->countryData);
+			std::cout << root->countryData << " ";
+		}
+		root = root->next;
+	}
+	std::cout << "]" << std::endl;
+}
+
+bool Map::getIsValidMap() const
+{
+	return isConnectedGraph;
+}
+
 Map::CountryNode* Map::newAdjencyListNode(int data)
 {
 	CountryNode* nodePtr = new CountryNode;
