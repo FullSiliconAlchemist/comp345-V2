@@ -31,8 +31,9 @@ public:
 
 class Hand {
 	Card currentHand[6];
-	int cost[6] = { 0, 1, 1, 2, 2, 3 };
+	
 public:
+	int const cost[6] = { 0, 1, 1, 2, 2, 3 };
 	Card exchange(int slot, Card replacement);
 	void showHand() const;
 	Hand(Deck d);

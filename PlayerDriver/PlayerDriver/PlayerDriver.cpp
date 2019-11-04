@@ -20,15 +20,15 @@ int main()
 	MapLoader* loader = new MapLoader();
 
 	 // create and show deck / face up cards
-	int numOfPlayers;
+	int numOfPlayers = 0;
 	Player* players;
 	string nameOfMapFile;
-
 	string fullPath;
 	vector<vector<int>> mapDataPntr;
 
-	cout << "How many players (2-5)" << endl;
-	cin >> numOfPlayers;
+	while (numOfPlayers < 2 || numOfPlayers > 5) {
+		cout << "How many players (2-5)" << endl;
+		cin >> numOfPlayers;
 	players = new Player[numOfPlayers];
 	cout << endl;
 
@@ -89,7 +89,7 @@ int main()
 	}
 	BiddingFacility::printBidStatus();
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
-	std::cout << "player" << idxOfPlayerTurn << " won the bid\n";
+	cout << "player" << idxOfPlayerTurn << " won the bid\n";
 
 	// Players choose where they set their armies if there are only two players playing.
 	// Otherwise they're set in the starting country.
@@ -131,20 +131,23 @@ int main()
 	}
 
 	//Need to place players starting armies on the map ******************
-
 // ---------------------- START PART 3 -------------------------
-
-	// According to the rules, the game is over once all players have gotten a certain number 
-	// of cards. Thus, after each player has gone their turn, the game will check for to see if all players
-	// have acquired their maximum number of cards. Once the game loop is done, there will be a tally of the points
-	// to determine the winner.
-
-	/*bool gameRunning = true;
-
-	while (gameRunning)
-	{
-
-	}*/
+	int idxOfCardToTake = 0;
+	while (idxOfCardToTake != -1) {
+		Card replacement;
+		Card toPickUp;
+		faceUp.showHand();
+		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
+		cin >> idxOfCardToTake;
+		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
+			replacement = gameDeck.draw();
+			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
+			cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+			players[idxOfPlayerTurn].pickUpCard(toPickUp);
+		}
+		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
+	}
+// ---------------------- END PART 3 -------------------------
 
 // ---------------------- START PART 4 -------------------------
 	Player p;
@@ -203,6 +206,11 @@ int main()
 	cout << "\ncity status before placement: " << *c1->getCity();
 	p.BuildCity(c1);
 	cout << "\ncity status before placement: " << *c1->getCity();
+	//void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
+	//void newArmymoveArmy(int numOfArmies, Country * countryToPlace, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToMoveTo);
+	//void citymoveArmy(Country * c, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToPlace);
+	//void ignore
+
 // ---------------------- END PART 4 -------------------------
 
 // ---------------------- START PART 5 -------------------------
@@ -212,9 +220,8 @@ int main()
 	Card toPickup = faceUp.exchange(0, nextCard);
 	cout << "\n\n";
 	faceUp.showHand();
-	// ********** Next players turn **********************
-
 	delete c1, c2;
+	// ********** Next players turn ********************** not impletement as part of 1 whole loop(idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);)
 
 //---------------------- END PART 5 -------------------------
 }

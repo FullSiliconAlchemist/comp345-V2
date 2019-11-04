@@ -3,17 +3,24 @@
 #include "BiddingFacility.h"
 #include "Country.h"
 #include "Map.h"
+#include "vector"
+
 class Player
 {
 public:
 
-	void payCoin(int amountToPay);
+	bool payCoin(int amountToPay);
 	bool PlaceNewArmies(int numOfArmies, Country *countryToPlace); // Must accept a region on a map as a passed parameter to place armies (Map object)
 	int MoveArmies(int numOfMovements,int numToMove, Country *countryToTake, Country *countryToPlace); // Must accept a region on a map as a passed parameter to move armies
 																									   // Charles: should also accept a map Object to verify that the movement is legal.
 	void MoveOverLand(int numToMove, Country *countryToTake, Country *countryToPlace); // Will probably be implemented within MoveArmies function
 	void BuildCity(Country *c);
 	bool DestroyArmy(int numOfArmies, Country *c);
+	void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
+	void newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo);
+	void citymoveArmy(Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
+	void ignore();
+
 	void bid();
 	void receiveGoldenCoins(int numOfCoins);
 
@@ -22,7 +29,8 @@ public:
 	inline int GetGoldenCoins() const { return *goldenCoins; }
 	inline void setGoldenCoins(int numOfCoins) { goldenCoins = new int(numOfCoins);}
 	inline int GetId() const { return *id; }
-
+	int nextPlayerTurn(int currentTurn, int maxNumOfPlayers);
+	void pickUpCard(Card c);
 	Player(); // For now default constructor is fine
 	~Player(); // I think this be a destroyer method
 private:
@@ -35,7 +43,8 @@ private:
 	int *goldenCoins;
 
 	// Missing a set of 42 Cards Objects 
-	Card playerHand[20];
+	//Card playerHand[20];
+	std::vector<Card> playerHand;
 	BiddingFacility bidding;
 	// Missing a biding Object
 	
