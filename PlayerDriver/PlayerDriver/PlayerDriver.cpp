@@ -29,6 +29,7 @@ int main()
 	while (numOfPlayers < 2 || numOfPlayers > 5) {
 		cout << "How many players (2-5)" << endl;
 		cin >> numOfPlayers;
+
 	players = new Player[numOfPlayers];
 	cout << endl;
 
@@ -132,7 +133,7 @@ int main()
 
 	//Need to place players starting armies on the map ******************
 // ---------------------- START PART 3 -------------------------
-	int idxOfCardToTake = 0;
+	/*int idxOfCardToTake = 0;
 	while (idxOfCardToTake != -1) {
 		Card replacement;
 		Card toPickUp;
@@ -146,7 +147,7 @@ int main()
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
-	}
+	}*/
 // ---------------------- END PART 3 -------------------------
 
 // ---------------------- START PART 4 -------------------------
@@ -161,9 +162,11 @@ int main()
 	cout << "\nCoins after pay: " << p.GetGoldenCoins();
 
 	//test placeNewArmy
-	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[4]->getNumberOfArmies(); // Example of starter armies when players are more than 3
+	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies(); // Example of starter armies when players are more than 3
+	cout << "\nArmies before placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[p.GetId()]; // Example of starter armies when players are more than 3
 	p.PlaceNewArmies(3, gameMap->getCountryArray()[5]);
-	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[24]->getNumberOfArmies();
+	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies();
+	cout << "\nArmies after placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[p.GetId()];
 
 	//test move armies(Implements moveOverLand within move armies method)
 	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
@@ -222,6 +225,6 @@ int main()
 	faceUp.showHand();
 	delete c1, c2;
 	// ********** Next players turn ********************** not impletement as part of 1 whole loop(idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);)
-
+	}
 //---------------------- END PART 5 -------------------------
 }

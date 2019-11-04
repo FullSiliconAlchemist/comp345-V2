@@ -19,7 +19,9 @@ bool Player::PlaceNewArmies(int numOfArmies, Country *countryToPlace) {
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace->getNumberOfArmies());
+	int* _ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace->getRefactoredArmies()[this->GetId()]); // New version
 	countryToPlace->setArmies(ptToNewNumOfArmies);
+	countryToPlace->setRefactoredArmies(this->GetId(), _ptToNewNumOfArmies); // New version
 	return true;
 }
 

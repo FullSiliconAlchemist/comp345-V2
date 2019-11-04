@@ -12,6 +12,11 @@ int* Country::getCity() const
 	return city;
 }
 
+int** Country::getRefactoredArmies() const
+{
+	return refactoredArmies;
+}
+
 int* Country::getContinentNumber() const
 {
 	return continentNumber;
@@ -41,12 +46,24 @@ void Country::setCity(int* playerId) {
 	city = playerId;
 }
 
+void Country::setRefactoredArmies(int playerID, int* armiesToSet)
+{
+	refactoredArmies[playerID] = armiesToSet;
+}
+
 Country::Country()
 {
 	numberOfArmies = new int(0);
 	countryNumber = new int(0);
 	continentNumber = new int(0);
 	city = new int(-1);
+
+	// Setting all armies in all countries to 0
+	refactoredArmies = new int* [5];
+	for (int i = 0; i < 5; i++)
+	{
+		refactoredArmies[i] = new int(0);
+	}
 }
 
 Country::Country(int* countryNumber, int* continentNumber)
@@ -54,6 +71,13 @@ Country::Country(int* countryNumber, int* continentNumber)
 {
 	numberOfArmies = new int(0);
 	city = new int(0);
+
+	// Setting all armies in all countries to 0
+	refactoredArmies = new int* [5];
+	for (int i = 0; i < 5; i++)
+	{
+		refactoredArmies[i] = new int(0);
+	}
 }
 
 Country::~Country()

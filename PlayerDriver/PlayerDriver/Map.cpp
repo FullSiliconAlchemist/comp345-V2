@@ -201,21 +201,3 @@ Map::Map(vector<vector<int>> * initMapData)
 Map::~Map()
 {
 }
-
-
-/*
-	for (int i = 0; i < initMapData->size(); i++)
-	{
-		for (int j = 0; j < initMapData->at(i).size(); j++)
-		{
-			std::cout << *arrayOfPtrs[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
-
-	for (int i = 0; i < countryVectorData.size(); i++)
-	{
-		std::cout << *countryVectorData.at(i)->getCountryNumber() << std::endl;
-	}
-*/

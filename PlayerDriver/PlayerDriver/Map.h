@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Country.h"
+#include "Player.h"
 
 using std::vector;
 
@@ -31,6 +32,7 @@ public:
 	void addEdge(MapGraph* graph, Country src, Country dest); // adds connections between countries
 	void printGraph(MapGraph* graph);
 	bool checkGraphConnectivity();
+	int computePlayerscores(int playerID);
 
 	// Map methods
 	vector<vector<int>>* getAdjacencyList() const;
