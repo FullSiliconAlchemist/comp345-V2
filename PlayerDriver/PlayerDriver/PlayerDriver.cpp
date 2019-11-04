@@ -13,11 +13,14 @@ int main()
 // ---------------------- START PART 1 -------------------------
 	Deck gameDeck;
 	 // create and show deck / face up cards
-	int numOfPlayers;
+	int numOfPlayers = 0;
 	Player* players;
 	string nameOfMapFile;
-	cout << "How many players (2-5)" << endl;
-	cin >> numOfPlayers;
+	while (numOfPlayers < 2 || numOfPlayers > 5) {
+		cout << "How many players (2-5)" << endl;
+		cin >> numOfPlayers;
+	}
+
 	players = new Player[numOfPlayers];
 
 	cout << "What is the name of the map file?" << endl;
@@ -39,10 +42,28 @@ int main()
 	}
 	BiddingFacility::printBidStatus();
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
-	std::cout << "player" << idxOfPlayerTurn << " won the bid\n";
+	cout << "player" << idxOfPlayerTurn << " won the bid\n";
 
 	//Need to place players starting armies on the map ******************
+// ---------------------- START PART 3 -------------------------
+	int idxOfCardToTake = 0;
+	while (idxOfCardToTake != -1) {
+		
+		Card replacement;
+		Card toPickUp;
+		faceUp.showHand();
+		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
+		cin >> idxOfCardToTake;
 
+		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
+			replacement = gameDeck.draw();
+			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
+			cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+			players[idxOfPlayerTurn].pickUpCard(toPickUp);
+		}
+		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
+	}
+// ---------------------- END PART 3 -------------------------
 // ---------------------- START PART 4 -------------------------
 	Player p;
 	Country c1,c2;

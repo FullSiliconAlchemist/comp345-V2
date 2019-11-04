@@ -1,8 +1,13 @@
 #include "Player.h"
 
-void Player::payCoin(int amountToPay) {
+bool Player::payCoin(int amountToPay) {
+	if (*goldenCoins - amountToPay < 0) {
+		return false;
+	}
 	*goldenCoins -= amountToPay;
+	return true;
 }
+
 void Player::receiveGoldenCoins(int numOfCoins) {
 	*goldenCoins += numOfCoins;
 }
@@ -48,6 +53,15 @@ void Player::MoveOverLand(int numToMove, Country *countryToTake, Country *countr
 void Player::BuildCity(Country *c) {
 	c->setCity(id);
 	return;
+}
+int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
+	if (currentTurn + 1 == maxNumOfPlayers) {
+		return 0;
+	}
+	return currentTurn + 1;
+}
+void Player::pickUpCard(Card c) {
+	playerHand.push_back(c);
 }
 
 bool Player::DestroyArmy(int numOfArmies, Country *c) {
