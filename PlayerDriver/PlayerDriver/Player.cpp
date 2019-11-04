@@ -139,7 +139,7 @@ int Player::computeScore(Map * m) {
 	score += woodValue[numOfResource[3]];
 	score += veggiesValue[numOfResource[4]];
 
-	//score += m->computeScore();
+	//score += m->computeScore(id);
 	return score;
 }
 void Player::showHand() {
