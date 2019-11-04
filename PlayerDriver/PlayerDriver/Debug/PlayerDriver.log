@@ -1,4 +1,7 @@
 ﻿  Player.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(104,20): warning C4018:  '<': signed/unsigned mismatch
   PlayerDriver.cpp
   Generating Code...
-  PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(146,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(233): error C4700:  uninitialized local variable 'players' used
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(238): error C4700:  uninitialized local variable 'gameMap' used
