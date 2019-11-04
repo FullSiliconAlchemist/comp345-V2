@@ -97,7 +97,7 @@ int main()
 	//void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
 	//void newArmymoveArmy(int numOfArmies, Country * countryToPlace, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToMoveTo);
 	//void citymoveArmy(Country * c, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToPlace);
-
+	//void ignore
 // ---------------------- END PART 4 -------------------------
 
 // ---------------------- START PART 5 -------------------------
@@ -107,6 +107,6 @@ int main()
 	Card toPickup = faceUp.exchange(0, nextCard);
 	cout << "\n\n";
 	faceUp.showHand();
-	// ********** Next players turn **********************
+	// ********** Next players turn ********************** not impletement as part of 1 whole loop(idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);)
 //---------------------- END PART 5 -------------------------
 }
