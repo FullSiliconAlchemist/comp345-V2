@@ -29,10 +29,9 @@ int main()
 	while (numOfPlayers < 2 || numOfPlayers > 5) {
 		cout << "How many players (2-5)" << endl;
 		cin >> numOfPlayers;
+	}
 
-	players = new Player[numOfPlayers];
-	cout << endl;
-
+  players = new Player[numOfPlayers];
 	// used map loader to load nameOfMapFile ******************************* and create a map
 
 	// Browse possible maps
@@ -235,6 +234,29 @@ int main()
 	faceUp.showHand();
 	delete c1, c2;
 	// ********** Next players turn ********************** not impletement as part of 1 whole loop(idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);)
+
+//----------------------END PART 5-------------------------
+//----------------------START PART 6-----------------------
+	int* scores = new int[numOfPlayers];
+	int maxScore = 0;
+	int winningPlayer=0;
+	//for test only
+	for (int i = 0; i < 10; i++) {
+		players[0].pickUpCard(gameDeck.draw());
+		players[1].pickUpCard(gameDeck.draw());
 	}
-//---------------------- END PART 5 -------------------------
+
+	for (int i = 0; i < numOfPlayers; i++) {
+		scores[i] = players[i].computeScore(gameMap);
+		cout << "Player " << i << "had " << scores[i] << "points" << endl;
+		if (scores[i] > maxScore) {
+			maxScore = scores[i];
+			winningPlayer = i;
+		}
+	}
+	cout << "Player " << winningPlayer << "won" << endl;
+	
+
+//----------------------END PART 6----------------------------
+
 }

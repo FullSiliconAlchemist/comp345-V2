@@ -1,5 +1,6 @@
 #include "Player.h"
-
+#include <string>
+#include <iostream>
 bool Player::payCoin(int amountToPay) {
 	if (*goldenCoins - amountToPay < 0) {
 		return false;
@@ -90,6 +91,65 @@ void Player::citymoveArmy(Country* c, int numOfMovements, int numToMove, Country
 void Player::ignore() {
 	//do nothing
 }
+int Player::computeScore(Map * m) {
+	//for card in hand, save number of each resource
+	//for num of resource adds score 
+	int score = 0;
+	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
+	int const MAX_NUM_GOOD = 9;
+	int const crystalValue[MAX_NUM_GOOD] = {0, 1,2,3,5,5,5,5,5};
+	int const stoneValue[MAX_NUM_GOOD] = { 0,0,1,2,3,5,5,5,5};
+	int const ironValue[MAX_NUM_GOOD] = { 0,0,1,1,2,2,3,5,5 };
+	int const woodValue[MAX_NUM_GOOD] = { 0,0,1,1,2,3,5,5,5};
+	int const veggiesValue[MAX_NUM_GOOD] = { 0,0,0,1,1,2,2,3,5 };
+	int numOfResource[6] = {0,0,0,0,0,0};
+	for (int i = 0; i < playerHand.size(); i++) {
+		if (playerHand[i].getGood().compare(listOfGoods[0]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+		else if (playerHand[i].getGood().compare(listOfGoods[1]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+		else if (playerHand[i].getGood().compare(listOfGoods[2]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+		else if (playerHand[i].getGood().compare(listOfGoods[3]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+		else if (playerHand[i].getGood().compare(listOfGoods[4]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+		else if (playerHand[i].getGood().compare(listOfGoods[5]) == 0) {
+			if (numOfResource[0] < MAX_NUM_GOOD) {
+				numOfResource[0]++;
+			}
+		}
+	}
+	score += crystalValue[numOfResource[0]];
+	score += stoneValue[numOfResource[1]];
+	score += ironValue[numOfResource[2]];
+	score += woodValue[numOfResource[3]];
+	score += veggiesValue[numOfResource[4]];
+
+	//score += m->computeScore(id);
+	return score;
+}
+void Player::showHand() {
+	for (int i = 0; i < playerHand.size(); i++) {
+		std::cout << "Card" << i << ": action: " << playerHand[i].getAction() << " good: " << playerHand[i].getGood() << " cost:" << playerHand[i].getCost() << "\n";
+	}
+
+}
 int Player::currentId = 0;
 Player::Player()
 {
@@ -98,18 +158,8 @@ Player::Player()
 	goldenCoins = new int(20);
 	id = new int(currentId);
 	currentId++;
+	std::vector<Card> playerHand;
 }
 Player::~Player()
 {
 }
-
-//inline int Player::GetGoldenCoins() const {
-//}
-//
-//inline int Player::GetArmyCubes() const {
-//	
-//}
-//
-//inline int Player::GetCityDiscs() const {
-//	
-//}
