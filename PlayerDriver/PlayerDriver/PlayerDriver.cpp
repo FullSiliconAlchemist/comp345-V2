@@ -31,7 +31,7 @@ int main()
 		cin >> numOfPlayers;
 	}
 
-  players = new Player[numOfPlayers];
+	players = new Player[numOfPlayers];
 	// used map loader to load nameOfMapFile ******************************* and create a map
 
 	// Browse possible maps
@@ -130,16 +130,17 @@ int main()
 		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them." << std::endl;
 	}
 
-	cout << "Player 1 ID: " << players[0].GetId() << endl;
+	/*cout << "Player 1 ID: " << players[0].GetId() << endl;
 	cout << "Player 2 ID: " << players[1].GetId() << endl;
 	cout << "***********Testing scores p1: " << gameMap->computePlayerScores(players[0].GetId()) << endl;
-	cout << "***********Testing scores p2: " << gameMap->computePlayerScores(players[1].GetId()) << endl;
+	cout << "***********Testing scores p2: " << gameMap->computePlayerScores(players[1].GetId()) << endl;*/
 
-	//Need to place players starting armies on the map ******************
 // ---------------------- START PART 3 -------------------------
 
-	/*int idxOfCardToTake = 0;
-	while (idxOfCardToTake != -1) {
+	// GAME LOOP DEMO
+
+	int idxOfCardToTake = 0;
+	/*while (idxOfCardToTake != -1) {
 		Card replacement;
 		Card toPickUp;
 		faceUp.showHand();
@@ -152,6 +153,7 @@ int main()
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
+		
 	}*/
 
 // ---------------------- END PART 3 -------------------------
@@ -167,15 +169,15 @@ int main()
 
 	//test pay coin
 	cout << "Coins before pay: " << p.GetGoldenCoins();
-	p.payCoin(5);
+	players[0].payCoin(5);
 	cout << "\nCoins after pay: " << p.GetGoldenCoins();
 
 	//test placeNewArmy
 	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies(); // Example of starter armies when players are more than 3
-	cout << "\nArmies before placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[p.GetId()]; // Example of starter armies when players are more than 3
-	p.PlaceNewArmies(3, gameMap->getCountryArray()[5]);
+	cout << "\nArmies before placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[players[0].GetId()]; // Example of starter armies when players are more than 3
+	players[0].PlaceNewArmies(3, gameMap->getCountryArray()[5]);
 	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies();
-	cout << "\nArmies after placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[p.GetId()];
+	cout << "\nArmies after placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[players[0].GetId()];
 
 	//test move armies(Implements moveOverLand within move armies method)
 	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
@@ -193,7 +195,7 @@ int main()
 			cout << "\nWhere do you want to move your army?: \n";
 			gameMap->displayPossibleMoves(c1);
 			cin >> playerCountryChoice;
-			p.MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
+			players[1].MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
 			playerLastCountryChoice = playerCountryChoice;
 		}
 		else
@@ -201,22 +203,22 @@ int main()
 			cout << "\nWhere do you want to move your army?: \n";
 			gameMap->displayPossibleMoves(gameMap->getCountryArray()[playerCountryChoice]);
 			cin >> playerCountryChoice;
-			p.MoveArmies(1, 1, gameMap->getCountryArray()[playerLastCountryChoice], gameMap->getCountryArray()[playerCountryChoice]);
+			players[1].MoveArmies(1, 1, gameMap->getCountryArray()[playerLastCountryChoice], gameMap->getCountryArray()[playerCountryChoice]);
 			playerLastCountryChoice = playerCountryChoice;
 		}
 	}
 	// Movements will be done one at a time, so that the player decides what path to take
-	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[p.GetId()] << " c2: " << *c2->getRefactoredArmies()[p.GetId()];
+	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[players[1].GetId()] << " c2: " << *c2->getRefactoredArmies()[players[1].GetId()];
 	cout << endl;
 
 	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[p.GetId()];
-	p.DestroyArmy(1, c1);
-	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[p.GetId()];
+	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
+	players[0].DestroyArmy(1, c1);
+	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();
-	p.BuildCity(c1);
+	players[1].BuildCity(c1);
 	cout << "\ncity status before placement: " << *c1->getCity();
 	//void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
 	//void newArmymoveArmy(int numOfArmies, Country * countryToPlace, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToMoveTo);
@@ -247,7 +249,7 @@ int main()
 	}
 
 	for (int i = 0; i < numOfPlayers; i++) {
-		scores[i] = players[i].computeScore(gameMap);
+		scores[i] = players[i].computeScore() + gameMap->computePlayerScores(players[i].GetId());
 		cout << "Player " << i << "had " << scores[i] << "points" << endl;
 		if (scores[i] > maxScore) {
 			maxScore = scores[i];

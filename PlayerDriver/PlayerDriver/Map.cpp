@@ -127,13 +127,16 @@ int Map::computePlayerScores(int playerID)
 {
 	int totalScore = 0; // Tally score
 
+	int ID = playerID;
+
 	bool tallyScore = false;
 	int playerArmiesConquered = 0; 
 	int opposingArmiesConquered = 0;
 
 	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays
 
-	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << playerID << std::endl;
+	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << std::endl;
+	std::cout << "FOR PLAYER :" << ID << std::endl;
 
 	std::map<int, vector<int>> continentGraphSummary;
 	for (int i = 0; i < totalContinents; i++)
@@ -154,22 +157,22 @@ int Map::computePlayerScores(int playerID)
 
 	for (int i = 0; i < *this->getTotalCountries(); i++)
 	{
-		playerArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[playerID];
+		playerArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[ID];
 
 		for (int j = 0; j < 5; j++)
 		{
-			if (j == playerID)
+			if (j == ID)
 				continue;
 
 			opposingArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[j];
 
 			if (playerArmiesConquered < opposingArmiesConquered)
 			{
-				break;
+				continue;
 			}
 			else if (playerArmiesConquered == opposingArmiesConquered)
 			{
-				break;
+				continue;
 			}
 			else
 			{
@@ -178,7 +181,7 @@ int Map::computePlayerScores(int playerID)
 		}
 		if (tallyScore)
 		{
-			continentGraphSummary.find(*this->getCountryArray()[i]->getContinentNumber())->second.at(playerID) += 1;
+			continentGraphSummary.find(*this->getCountryArray()[i]->getContinentNumber())->second.at(ID) += 1;
 			totalScore += 1;
 		}
 
@@ -188,7 +191,7 @@ int Map::computePlayerScores(int playerID)
 	int playerContinent;
 	for (int i = 0; i < totalContinents; i++)
 	{
-		playerContinent = continentGraphSummary.find(i)->second.at(playerID);
+		playerContinent = continentGraphSummary.find(i)->second.at(ID);
 		for (int j = 0; j < 5; j++)
 		{
 			if (playerContinent < continentGraphSummary.find(i)->second.at(j))
@@ -238,7 +241,7 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	int*** arrayOfPtrs = new int** [countryListSize];
 
-	countryArray = new Country *[countryListSize]; // Initializing Map object pntr array ************
+	this->countryArray = new Country *[countryListSize]; // Initializing Map object pntr array ************
 
 	// initialize ptrs to country data
 	for (int i = 0; i < countryListSize; i++)
@@ -253,13 +256,13 @@ Map::Map(vector<vector<int>> * initMapData)
 		}
 	}
 
-	gameGraph = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
+	this->gameGraph = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
 	vector<Country*> countryVectorData;
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
-		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1])); // Waste of space, should be using the array I made in the constructor
-		countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);			// Buffer overrun - Whatever just trying to make it work right now
+		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]));		// Waste of space, should be using the array I made in the constructor
+		this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);				// Buffer overrun - Whatever just trying to make it work right now
 	}
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)

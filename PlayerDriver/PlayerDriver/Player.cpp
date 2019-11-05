@@ -91,7 +91,7 @@ void Player::citymoveArmy(Country* c, int numOfMovements, int numToMove, Country
 void Player::ignore() {
 	//do nothing
 }
-int Player::computeScore(Map * m) {
+int Player::computeScore() {
 	//for card in hand, save number of each resource
 	//for num of resource adds score 
 	int score = 0;
