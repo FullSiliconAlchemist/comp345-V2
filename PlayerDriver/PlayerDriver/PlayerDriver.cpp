@@ -131,8 +131,14 @@ int main()
 		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them." << std::endl;
 	}
 
+	cout << "Player 1 ID: " << players[0].GetId() << endl;
+	cout << "Player 2 ID: " << players[1].GetId() << endl;
+	cout << "***********Testing scores p1: " << gameMap->computePlayerScores(players[0].GetId()) << endl;
+	cout << "***********Testing scores p2: " << gameMap->computePlayerScores(players[1].GetId()) << endl;
+
 	//Need to place players starting armies on the map ******************
 // ---------------------- START PART 3 -------------------------
+
 	/*int idxOfCardToTake = 0;
 	while (idxOfCardToTake != -1) {
 		Card replacement;
@@ -148,6 +154,7 @@ int main()
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 	}*/
+
 // ---------------------- END PART 3 -------------------------
 
 // ---------------------- START PART 4 -------------------------
@@ -155,6 +162,9 @@ int main()
 
 	Country * c1 = gameMap->getCountryArray()[4];
 	Country * c2 = gameMap->getCountryArray()[5];
+
+	cout << "Test player ID: " << endl;
+	cout << p.GetId() << "\n" << endl;
 
 	//test pay coin
 	cout << "Coins before pay: " << p.GetGoldenCoins();
@@ -197,13 +207,13 @@ int main()
 		}
 	}
 	// Movements will be done one at a time, so that the player decides what path to take
-	cout << "\nArmies after move c1: " << *c1->getNumberOfArmies() << " c2: " << *c2->getNumberOfArmies();
+	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[p.GetId()] << " c2: " << *c2->getRefactoredArmies()[p.GetId()];
 	cout << endl;
 
 	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1->getNumberOfArmies();
+	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[p.GetId()];
 	p.DestroyArmy(1, c1);
-	cout << "\nArmies after delete c1: " << *c1->getNumberOfArmies();
+	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[p.GetId()];
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();

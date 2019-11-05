@@ -32,7 +32,9 @@ public:
 	void addEdge(MapGraph* graph, Country src, Country dest); // adds connections between countries
 	void printGraph(MapGraph* graph);
 	bool checkGraphConnectivity();
-	int computePlayerscores(int playerID);
+
+	// Score calculation method
+	int computePlayerScores(int playerID);
 
 	// Map methods
 	vector<vector<int>>* getAdjacencyList() const;
