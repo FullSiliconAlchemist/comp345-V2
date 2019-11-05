@@ -20,12 +20,14 @@ bool Player::PlaceNewArmies(int numOfArmies, Country *countryToPlace) {
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace->getNumberOfArmies());
+	int* _ptToNewNumOfArmies = new int(numOfArmies + *countryToPlace->getRefactoredArmies()[this->GetId()]); // New version
 	countryToPlace->setArmies(ptToNewNumOfArmies);
+	countryToPlace->setRefactoredArmies(this->GetId(), _ptToNewNumOfArmies); // New version
 	return true;
 }
 
 int Player::MoveArmies(int numOfMovements, int numToMove, Country *countryToTake, Country *countryToPlace) { // returns movements left 
-	if (numToMove > *countryToTake->getNumberOfArmies()) { 
+	if (numToMove > *countryToTake->getRefactoredArmies()[this->GetId()]) { 
 		return numOfMovements; 
 	}
 	if (*countryToTake->getContinentNumber() == *countryToPlace->getContinentNumber()) {
@@ -34,21 +36,21 @@ int Player::MoveArmies(int numOfMovements, int numToMove, Country *countryToTake
 		return numOfMovements-1;
 	}
 
-	int* ptToNewNumOfArmies = new int(*countryToTake->getNumberOfArmies() - numToMove);
-	countryToTake->setArmies(ptToNewNumOfArmies);
+	int* ptToNewNumOfArmies = new int(*countryToTake->getRefactoredArmies()[this->GetId()] - numToMove);
+	countryToTake->setRefactoredArmies(this->GetId(), ptToNewNumOfArmies);
 
-	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getNumberOfArmies());
-	countryToPlace->setArmies(ptToNewNumOfArmies);
+	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getRefactoredArmies()[this->GetId()]);
+	countryToPlace->setRefactoredArmies(this->GetId(), ptToNewNumOfArmies);
 
 	return numOfMovements - 3; //assumed they lost 3 movements for moving over water
 }
 /**/
 void Player::MoveOverLand(int numToMove, Country *countryToTake, Country *countryToPlace) {
-	int *ptToNewNumOfArmies = new int(*countryToTake->getNumberOfArmies() - numToMove);
-	countryToTake->setArmies(ptToNewNumOfArmies);
+	int *ptToNewNumOfArmies = new int(*countryToTake->getRefactoredArmies()[this->GetId()] - numToMove);
+	countryToTake->setRefactoredArmies(this->GetId(), ptToNewNumOfArmies);
 
-	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getNumberOfArmies());
-	countryToPlace->setArmies(ptToNewNumOfArmies);
+	ptToNewNumOfArmies = new int(numToMove + *countryToPlace->getRefactoredArmies()[this->GetId()]);
+	countryToPlace->setRefactoredArmies(this->GetId(), ptToNewNumOfArmies);
 	return;
 }
 

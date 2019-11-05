@@ -1,6 +1,7 @@
 #include "Map.h"
 #include <cstddef>
 #include <iostream>
+#include <map>
 
 // Map Class functions
 
@@ -45,7 +46,10 @@ void Map::displayPossibleMoves(Country* countryToTake)
 		for (int i = 0; i < noRepeats.size(); i++)
 		{
 			if (root->countryData != noRepeats.at(i))
+			{
+				noRepeatsConfirmed = true;
 				continue;
+			}
 			else
 			{
 				noRepeatsConfirmed = false;
@@ -117,6 +121,90 @@ bool Map::checkGraphConnectivity()
 		}
 	}
 	return true;
+}
+
+int Map::computePlayerScores(int playerID)
+{
+	int totalScore = 0; // Tally score
+
+	bool tallyScore = false;
+	int playerArmiesConquered = 0; 
+	int opposingArmiesConquered = 0;
+
+	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays
+
+	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << playerID << std::endl;
+
+	std::map<int, vector<int>> continentGraphSummary;
+	for (int i = 0; i < totalContinents; i++)
+	{
+		continentGraphSummary.insert(std::make_pair(i, vector<int>(5)));
+		for (int j = 0; j < 5; j++)
+		{
+			continentGraphSummary.find(i)->second.at(j) = 0;
+		}
+	}
+
+	vector<int> continentsVector;
+	
+	for (int i = 0; i < totalContinents; i++)
+	{
+		continentsVector.push_back(i);
+	}
+
+	for (int i = 0; i < *this->getTotalCountries(); i++)
+	{
+		playerArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[playerID];
+
+		for (int j = 0; j < 5; j++)
+		{
+			if (j == playerID)
+				continue;
+
+			opposingArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[j];
+
+			if (playerArmiesConquered < opposingArmiesConquered)
+			{
+				break;
+			}
+			else if (playerArmiesConquered == opposingArmiesConquered)
+			{
+				break;
+			}
+			else
+			{
+				tallyScore = true;
+			}
+		}
+		if (tallyScore)
+		{
+			continentGraphSummary.find(*this->getCountryArray()[i]->getContinentNumber())->second.at(playerID) += 1;
+			totalScore += 1;
+		}
+
+		tallyScore = false;
+	}
+
+	int playerContinent;
+	for (int i = 0; i < totalContinents; i++)
+	{
+		playerContinent = continentGraphSummary.find(i)->second.at(playerID);
+		for (int j = 0; j < 5; j++)
+		{
+			if (playerContinent < continentGraphSummary.find(i)->second.at(j))
+				break;
+			else if (playerContinent == continentGraphSummary.find(i)->second.at(j))
+				break;
+			else
+				tallyScore = true;
+		}
+		if (tallyScore)
+			totalScore += 1;
+
+		tallyScore = false;
+	}
+
+	return totalScore;
 }
 
 void Map::printGraph(MapGraph* graph)
@@ -201,21 +289,3 @@ Map::Map(vector<vector<int>> * initMapData)
 Map::~Map()
 {
 }
-
-
-/*
-	for (int i = 0; i < initMapData->size(); i++)
-	{
-		for (int j = 0; j < initMapData->at(i).size(); j++)
-		{
-			std::cout << *arrayOfPtrs[i][j] << " ";
-		}
-
-		std::cout << std::endl;
-	}
-
-	for (int i = 0; i < countryVectorData.size(); i++)
-	{
-		std::cout << *countryVectorData.at(i)->getCountryNumber() << std::endl;
-	}
-*/
