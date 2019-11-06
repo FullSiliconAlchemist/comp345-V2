@@ -32,7 +32,6 @@ int main()
 	}
 
 	players = new Player[numOfPlayers];
-	// used map loader to load nameOfMapFile ******************************* and create a map
 
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
@@ -70,6 +69,8 @@ int main()
 		cout << "This map is not a connected graph... Players will not be able to traverse it." << endl;
 	}
 	cout << endl;
+
+	delete loader;
 
 // ---------------------- END PART 1 -------------------------
 
@@ -130,11 +131,6 @@ int main()
 		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them." << std::endl;
 	}
 
-	/*cout << "Player 1 ID: " << players[0].GetId() << endl;
-	cout << "Player 2 ID: " << players[1].GetId() << endl;
-	cout << "***********Testing scores p1: " << gameMap->computePlayerScores(players[0].GetId()) << endl;
-	cout << "***********Testing scores p2: " << gameMap->computePlayerScores(players[1].GetId()) << endl;*/
-
 // ---------------------- START PART 3 -------------------------
 
 	// GAME LOOP DEMO
@@ -159,18 +155,17 @@ int main()
 // ---------------------- END PART 3 -------------------------
 
 // ---------------------- START PART 4 -------------------------
-	Player p;
 
 	Country * c1 = gameMap->getCountryArray()[4];
 	Country * c2 = gameMap->getCountryArray()[5];
 
 	cout << "Test player ID: " << endl;
-	cout << p.GetId() << "\n" << endl;
+	cout << players[0].GetId() << "\n" << endl;
 
 	//test pay coin
-	cout << "Coins before pay: " << p.GetGoldenCoins();
+	cout << "Coins before pay: " << players[0].GetGoldenCoins();
 	players[0].payCoin(5);
-	cout << "\nCoins after pay: " << p.GetGoldenCoins();
+	cout << "\nCoins after pay: " << players[0].GetGoldenCoins();
 
 	//test placeNewArmy
 	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies(); // Example of starter armies when players are more than 3
@@ -234,7 +229,6 @@ int main()
 	Card toPickup = faceUp.exchange(0, nextCard);
 	cout << "\n\n";
 	faceUp.showHand();
-	delete c1, c2;
 	// ********** Next players turn ********************** not impletement as part of 1 whole loop(idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);)
 
 //----------------------END PART 5-------------------------
@@ -249,16 +243,20 @@ int main()
 	}
 
 	for (int i = 0; i < numOfPlayers; i++) {
-		scores[i] = players[i].computeScore() + gameMap->computePlayerScores(players[i].GetId());
-		cout << "Player " << i << "had " << scores[i] << "points" << endl;
+		cout << endl;
+		scores[i] = players[i].computeScore();
+		scores[i] += gameMap->computePlayerScores(players[i].GetId());
+
+		cout << "\nPlayer " << i << " has " << scores[i] << "points" << endl;
 		if (scores[i] > maxScore) {
 			maxScore = scores[i];
 			winningPlayer = i;
 		}
 	}
-	cout << "Player " << winningPlayer << "won" << endl;
-	
+	cout << "\nPlayer " << winningPlayer << "won" << endl;
 
+	delete c1, c2;
+	delete gameMap;
 //----------------------END PART 6----------------------------
 
 }

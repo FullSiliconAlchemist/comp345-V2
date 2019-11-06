@@ -98,4 +98,7 @@ MapLoader::MapLoader(std::string* fileName)
 
 MapLoader::~MapLoader()
 {
+	this->fileName = nullptr;
+	delete this->loadedData;
+	this->loadedData = nullptr;
 }
