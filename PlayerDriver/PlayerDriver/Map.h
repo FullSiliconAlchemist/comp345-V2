@@ -43,6 +43,7 @@ public:
 	Country** getCountryArray() const; // This right here is a headache
 	void displayPossibleMoves(Country* countryToTake);
 	bool getIsValidMap() const;
+	bool moveIsLegal(Country* countryStart, Country* countryDest, int moves); // Checks adjacency between two countries to see if there is a path between them
 
 	void setCountryArray(Country** cntryArr); // This too
 
@@ -56,9 +57,9 @@ private:
 	int* totalCountries;
 	MapGraph* gameGraph;
 	bool isConnectedGraph;
+	Country** countryArray;
 	// Vector of country pointer used to be here instead of country array of pointers.
 	// When setting the countryVector pointer to point to the reference of the created vector in the map constructor
 	// I was not able to retain the data that the pointers were pointing to, although countryVector was pointing to the proper address.
-	Country** countryArray;
 
 };

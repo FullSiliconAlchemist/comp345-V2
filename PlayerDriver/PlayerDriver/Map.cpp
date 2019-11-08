@@ -30,7 +30,7 @@ Country** Map::getCountryArray() const
 	return countryArray;
 }
 
-void Map::displayPossibleMoves(Country* countryToTake)
+void Map::displayPossibleMoves(Country* countryToTake) // Method displays all moves possible to the user
 {
 	CountryNode* root;
 	vector<int> noRepeats;
@@ -38,7 +38,7 @@ void Map::displayPossibleMoves(Country* countryToTake)
 	bool noRepeatsConfirmed = true;
 	root = getMapGraph()->arrOfCountries[*countryToTake->getCountryNumber()].head;
 
-	std::cout << "Here are the possbile moves from country number " << *countryToTake->getCountryNumber() << ":" << std::endl;
+	std::cout << "Here are the possible moves from country number " << *countryToTake->getCountryNumber() << ":" << std::endl;
 	std::cout << "[ ";
 
 	while (root != NULL)
@@ -65,6 +65,31 @@ void Map::displayPossibleMoves(Country* countryToTake)
 		root = root->next;
 	}
 	std::cout << "]" << std::endl;
+}
+
+bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves)
+{
+	bool answer = false;
+	CountryNode* root;
+	root = getMapGraph()->arrOfCountries[*countryStart->getCountryNumber()].head;
+
+	if (*countryStart->getCountryNumber() == *countryDest->getCountryNumber())
+		return true;
+
+	if (moves < 1)
+		return false;
+	
+	while (root != NULL)
+	{
+		answer = moveIsLegal(this->getCountryArray()[root->countryData], countryDest, moves - 1);
+
+		if (answer)
+			return answer;
+		else
+			root = root->next;
+	}
+
+	return answer;
 }
 
 bool Map::getIsValidMap() const
@@ -227,7 +252,11 @@ void Map::printGraph(MapGraph* graph)
 
 Map::Map()
 {
-	std::cout << "Initializing a default game Map requires adding countries manually." << std::endl;
+	this->adjList = NULL;
+	this->countryArray = NULL;
+	this->gameGraph = NULL;
+	this->isConnectedGraph = false;
+	this->totalCountries = 0;
 }
 
 // Factory method design pattern
@@ -241,7 +270,7 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	int*** arrayOfPtrs = new int** [countryListSize];
 
-	this->countryArray = new Country *[countryListSize]; // Initializing Map object pntr array ************
+	this->countryArray = new Country* [countryListSize]; // Initializing Map object pntr array ************
 
 	// initialize ptrs to country data
 	for (int i = 0; i < countryListSize; i++)
@@ -257,19 +286,18 @@ Map::Map(vector<vector<int>> * initMapData)
 	}
 
 	this->gameGraph = createGraph(countryListSize); // Member variable initialized. Now accessible from map object.
-	vector<Country*> countryVectorData;
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
-		countryVectorData.push_back(new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]));		// Waste of space, should be using the array I made in the constructor
-		this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);				// Buffer overrun - Whatever just trying to make it work right now
+		this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);  // Buffer overrun Warning: Basically means we can't be 100% certain that 
+																					// 2D array passed in the constructor will have a minimum length of array[i].size() >= 2
+																					// How do I prove to the compiler that this will always be the case?
 	}
-
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
 		for (int j = 2; j < static_cast<int>(initMapData->at(i).size()); j++)
 		{
-			addEdge(gameGraph, *countryVectorData.at(i), *countryVectorData.at(*arrayOfPtrs[i][j]));
+			this->addEdge(gameGraph, *this->getCountryArray()[i], *this->getCountryArray()[*arrayOfPtrs[i][j]]);
 		}
 	}
 
@@ -291,4 +319,16 @@ Map::Map(vector<vector<int>> * initMapData)
 
 Map::~Map()
 {
+	this->adjList = NULL;
+	for (int i = 0; i < *this->totalCountries; i++)
+	{
+		this->countryArray[i]->~Country();
+		this->countryArray[i] = NULL;
+	}
+	delete[] this->countryArray;
+	delete this->gameGraph;
+	this->gameGraph = NULL;
+	delete this->totalCountries;
+	totalCountries = NULL;
+	std::cout << "Map deleted" << std::endl;
 }

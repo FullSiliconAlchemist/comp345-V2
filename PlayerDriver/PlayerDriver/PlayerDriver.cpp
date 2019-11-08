@@ -76,6 +76,25 @@ int main()
 
 // ---------------------- START PART 2 -------------------------
 
+	bool moveLegal = gameMap->moveIsLegal(gameMap->getCountryArray()[4], gameMap->getCountryArray()[0], 3);
+	
+	/*gameMap->~Map();
+
+	cout << gameMap->getAdjacencyList() << endl;
+	cout << gameMap->getCountryArray()[0] << endl;
+	cout << gameMap->getMapGraph() << endl;
+	cout << gameMap->getTotalCountries() << endl;*/
+
+
+	if (moveLegal)
+		cout << "***************** HOLY SHIT IT WORKS ******************" << endl;
+	else
+		cout << "GET BACK AT IT SON" << endl;
+
+	exit(0);
+
+	cout << endl;
+
 	Hand faceUp(gameDeck); //DECK is shuffled on creation
 	faceUp.showHand();
 	int idxOfPlayerTurn;
@@ -128,7 +147,7 @@ int main()
 			std::cout << std::endl;
 		}
 
-		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them." << std::endl;
+		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them. \nMaybe some day." << std::endl;
 	}
 
 // ---------------------- START PART 3 -------------------------
@@ -136,7 +155,9 @@ int main()
 	// GAME LOOP DEMO
 
 	int idxOfCardToTake = 0;
-	/*while (idxOfCardToTake != -1) {
+	/**/
+	int count = 0;
+	while (idxOfCardToTake != -1 && count < 4) {
 		Card replacement;
 		Card toPickUp;
 		faceUp.showHand();
@@ -149,8 +170,8 @@ int main()
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
-		
-	}*/
+		count++;
+	}
 
 // ---------------------- END PART 3 -------------------------
 
@@ -175,7 +196,9 @@ int main()
 	cout << "\nArmies after placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[players[0].GetId()];
 
 	//test move armies(Implements moveOverLand within move armies method)
-	cout << "\nArmies before move c1: " << *c1->getNumberOfArmies() <<" c2: "<< *c2->getNumberOfArmies();
+	cout << "\nDemo of the movement function for HUMAN players. Let's assume the move card allows to move 3 armies: " << endl;
+	cout << "\nPlayer " << players[0].GetId() << " armies before move on country " << *c1->getCountryNumber() << ": " << *c1->getRefactoredArmies()[players[0].GetId()] << endl; 
+	cout << "\nPlayer " << players[1].GetId() << " armies before move on country " << *c2->getCountryNumber() << ": " << *c2->getRefactoredArmies()[players[1].GetId()] << endl; 
 	cout << endl;
 
 	// Hard coded player choice for the purpose of demonstration
@@ -202,6 +225,7 @@ int main()
 			playerLastCountryChoice = playerCountryChoice;
 		}
 	}
+
 	// Movements will be done one at a time, so that the player decides what path to take
 	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[players[1].GetId()] << " c2: " << *c2->getRefactoredArmies()[players[1].GetId()];
 	cout << endl;

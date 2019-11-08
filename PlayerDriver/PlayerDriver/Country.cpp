@@ -1,5 +1,6 @@
 #include "Country.h"
 #include <string>
+#include <iostream>
 
 // Country Class functions
 
@@ -82,7 +83,16 @@ Country::Country(int* countryNumber, int* continentNumber)
 
 Country::~Country()
 {
-	//delete numberOfArmies; // Only member variable which should point to an object in the heap besides city
+	/*delete this->city;
+	this->city = NULL;
+	delete this->continentNumber;
+	this->continentNumber = NULL;
+	delete this->countryNumber;
+	this->countryNumber = NULL;
+	delete this->numberOfArmies;
+	this->numberOfArmies = NULL;
+	delete this->refactoredArmies;
+	this->refactoredArmies = NULL;*/
 }
 
 
