@@ -76,22 +76,12 @@ int main()
 
 // ---------------------- START PART 2 -------------------------
 
-	bool moveLegal = gameMap->moveIsLegal(gameMap->getCountryArray()[4], gameMap->getCountryArray()[0], 3);
+	bool moveLegal = gameMap->moveIsLegal(gameMap->getCountryArray()[4], gameMap->getCountryArray()[1], 3);
 	
-	/*gameMap->~Map();
-
-	cout << gameMap->getAdjacencyList() << endl;
-	cout << gameMap->getCountryArray()[0] << endl;
-	cout << gameMap->getMapGraph() << endl;
-	cout << gameMap->getTotalCountries() << endl;*/
-
-
 	if (moveLegal)
 		cout << "***************** HOLY SHIT IT WORKS ******************" << endl;
 	else
 		cout << "GET BACK AT IT SON" << endl;
-
-	exit(0);
 
 	cout << endl;
 
@@ -117,9 +107,9 @@ int main()
 
 	if (numOfPlayers > 2)
 	{
-		std::cout << "\nPlayers, 3 of your armies will be placed on a random country in the \"starter region\"."  << std::endl;
-		std::cout << "The programmer making this game has decided it will be the country 4."					<< std::endl;
-		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n"   << std::endl;
+		std::cout << "\nPlayers, 3 of your armies will be placed on a random country in the \"starter region\"." << std::endl;
+		std::cout << "The programmer making this game has decided it will be the country 4."					 << std::endl;
+		std::cout << "Countries are defined by numbers, starting at 0 to the total number of countries - 1\n"    << std::endl;
 
 		for (int i = 0; i < numOfPlayers; i++)
 		{
@@ -156,7 +146,7 @@ int main()
 
 	int idxOfCardToTake = 0;
 	/**/
-	int count = 0;
+	int count = 0; // To avoid infinite loop
 	while (idxOfCardToTake != -1 && count < 4) {
 		Card replacement;
 		Card toPickUp;
