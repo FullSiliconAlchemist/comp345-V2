@@ -59,7 +59,8 @@ int main()
 	} while (!loader->getIsLoaded());
 	
 	// Initialize map object from map data
-	gameMap = new Map(&mapDataPntr);
+	//gameMap = new Map(&mapDataPntr);
+	gameMap = Map::instance(&mapDataPntr);
 
 	if (gameMap->getIsValidMap())
 	{
@@ -101,8 +102,10 @@ int main()
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
 	cout << "player" << idxOfPlayerTurn << " won the bid\n";
 
+	// ------------------- GAME INITIALIZATION STAGE --------------------
+
 	// Players choose where they set their armies if there are only two players playing.
-	// Otherwise they're set in the starting country.
+	// Otherwise they're set in the starting country, country 4.
 	int countryToSetArmyP1, countryToSetArmyP2;
 
 	if (numOfPlayers > 2)
@@ -131,18 +134,31 @@ int main()
 			std::cout << "Player 2 pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
 			cin >> countryToSetArmyP2;
 
+			// Checks player army setting to be in the correct range
+			while (countryToSetArmyP1 < 0 || countryToSetArmyP1 >* gameMap->getTotalCountries() - 1 || countryToSetArmyP2 < 0 || countryToSetArmyP2 > * gameMap->getTotalCountries() - 1)
+			{
+				std::cout << "\nPlayers cannot set an army outside of the range of countries on the map... Come on it ain't hard.\n" << std::endl;
+				std::cout << "Round " << (i + 1) << " of setting armies..." << std::endl;
+				std::cout << "Player 1 pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
+				cin >> countryToSetArmyP1;
+				std::cout << "Player 2 pick a Country number from 0 to " << (*gameMap->getTotalCountries() - 1) << " to place your army: ";
+				cin >> countryToSetArmyP2;
+			}
+
 			players[0].PlaceNewArmies(1, gameMap->getCountryArray()[countryToSetArmyP1]); // Should check to see if it is valid to put two armies of different players in the same country to start
 			players[1].PlaceNewArmies(1, gameMap->getCountryArray()[countryToSetArmyP2]);
-
 			std::cout << std::endl;
+
 		}
 
-		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them. \nMaybe some day." << std::endl;
+		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them. \nMaybe some day.\n" << std::endl;
 	}
 
 // ---------------------- START PART 3 -------------------------
 
 	// GAME LOOP DEMO
+	// All of the action should be taking place in this while loop
+	// A per the game rules, once a player picks up a card, they immediately take an action
 
 	int idxOfCardToTake = 0;
 	/**/
@@ -150,14 +166,17 @@ int main()
 	while (idxOfCardToTake != -1 && count < 4) {
 		Card replacement;
 		Card toPickUp;
+		std::string action; // Card action returned by getAction method
+
 		faceUp.showHand();
-		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
+		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)\n";
 		cin >> idxOfCardToTake;
 		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
 			replacement = gameDeck.draw();
 			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
-			cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+			cout << "\nCard picked up has action: " << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
+			// Player uses card action
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
@@ -166,6 +185,9 @@ int main()
 // ---------------------- END PART 3 -------------------------
 
 // ---------------------- START PART 4 -------------------------
+
+	// Demonstration of the card functions and their actions on the map
+	// There are two country objects set manually to demo the actions
 
 	Country * c1 = gameMap->getCountryArray()[4];
 	Country * c2 = gameMap->getCountryArray()[5];

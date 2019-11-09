@@ -47,11 +47,19 @@ public:
 
 	void setCountryArray(Country** cntryArr); // This too
 
-	Map();
-	Map(vector<vector<int>>* initMap);
+	// Singleton instantiator
+	static Map* instance();
+	static Map* instance(vector<vector<int>>* adjList);
+
 	~Map();
 
 private:
+
+	//Singleton Designpattern
+	static Map* m_instance;
+
+	Map();
+	Map(vector<vector<int>>* initMap);
 
 	vector<vector<int>>* adjList;
 	int* totalCountries;

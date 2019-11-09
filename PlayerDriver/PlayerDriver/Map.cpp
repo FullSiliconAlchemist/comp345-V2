@@ -5,6 +5,9 @@
 
 // Map Class functions
 
+// Singleton Implementation --> Must instantiate singleton instance to 0
+Map* Map::m_instance = 0;
+
 vector<vector<int>>* Map::getAdjacencyList() const
 {
 	return adjList;
@@ -13,6 +16,20 @@ vector<vector<int>>* Map::getAdjacencyList() const
 void Map::setCountryArray(Country** cntryArr)
 {
 	countryArray = cntryArr;
+}
+
+Map* Map::instance()
+{
+	if (!m_instance)
+		m_instance = new Map();
+	return m_instance;
+}
+
+Map* Map::instance(vector<vector<int>>* adjList)
+{
+	if (!m_instance)
+		m_instance = new Map(adjList);
+	return m_instance;
 }
 
 Map::MapGraph* Map::getMapGraph() const
