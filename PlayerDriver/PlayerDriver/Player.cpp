@@ -96,12 +96,12 @@ int Player::computeScore() {
 	//for num of resource adds score 
 	int score = 0;
 	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
-	int const MAX_NUM_GOOD = 9;
-	int const crystalValue[MAX_NUM_GOOD] = {0, 1,2,3,5,5,5,5,5};
-	int const stoneValue[MAX_NUM_GOOD] = { 0,0,1,2,3,5,5,5,5};
-	int const ironValue[MAX_NUM_GOOD] = { 0,0,1,1,2,2,3,5,5 };
-	int const woodValue[MAX_NUM_GOOD] = { 0,0,1,1,2,3,5,5,5};
-	int const veggiesValue[MAX_NUM_GOOD] = { 0,0,0,1,1,2,2,3,5 };
+	int const MAX_NUM_GOOD = 8;
+	int const crystalValue[] = {0, 1,2,3,5,5,5,5,5};
+	int const stoneValue[] = { 0,0,1,2,3,5,5,5,5};
+	int const ironValue[] = { 0,0,1,1,2,2,3,5,5 };
+	int const woodValue[] = { 0,0,1,1,2,3,5,5,5};
+	int const veggiesValue[] = { 0,0,0,1,1,2,2,3,5 };
 	int numOfResource[6] = {0,0,0,0,0,0};
 	for (int i = 0; i < playerHand.size(); i++) {
 		if (playerHand[i].getGood().compare(listOfGoods[0]) == 0) {
