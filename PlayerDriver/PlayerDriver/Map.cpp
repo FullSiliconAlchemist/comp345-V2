@@ -306,9 +306,12 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
-		this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);  // Buffer overrun Warning: Basically means we can't be 100% certain that 
-																					// 2D array passed in the constructor will have a minimum length of array[i].size() >= 2
-																					// How do I prove to the compiler that this will always be the case?
+		if (arrayOfPtrs[i][0] != NULL)
+		{
+			this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);  // Buffer overrun Warning: Basically means we can't be 100% certain that 
+		}
+																				// 2D array passed in the constructor will have a minimum length of array[i].size() >= 2
+																				// How do I prove to the compiler that this will always be the case?
 	}
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
