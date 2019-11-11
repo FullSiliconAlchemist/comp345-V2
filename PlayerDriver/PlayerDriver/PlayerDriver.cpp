@@ -87,11 +87,11 @@ int main()
 
 
 	if (moveLegal)
-		cout << "***************** HOLY SHIT IT WORKS ******************" << endl;
+		cout << "***************** Map checking works ******************" << endl;
 	else
 		cout << "GET BACK AT IT SON" << endl;
 
-	exit(0);
+	//exit(0);
 
 	cout << endl;
 
@@ -102,11 +102,20 @@ int main()
 		players[i].bid();
 		switch (numOfPlayers) {
 		case 2: players[i].setGoldenCoins(14);
+			break;
 		case 3: players[i].setGoldenCoins(11);
+			break;
 		case 4: players[i].setGoldenCoins(9);
+			break;
 		case 5: players[i].setGoldenCoins(8);
+			break;
 		}
 	}
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		cout << players[i].GetGoldenCoins() << " " << endl;
+	}
+
 	BiddingFacility::printBidStatus();
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
 	cout << "player" << idxOfPlayerTurn << " won the bid\n";
@@ -161,6 +170,7 @@ int main()
 		Card replacement;
 		Card toPickUp;
 		faceUp.showHand();
+		cout << "PLAYER ORDER: " << idxOfPlayerTurn << endl;
 		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
 		cin >> idxOfCardToTake;
 		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
@@ -171,6 +181,7 @@ int main()
 		}
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
+		cout << endl;
 	}
 
 // ---------------------- END PART 3 -------------------------
@@ -210,7 +221,7 @@ int main()
 	{
 		if (i == 0)
 		{
-			cout << "\nWhere do you want to move your army?: \n";
+			cout << "\nWhere do you want	 to move your army?: \n";
 			gameMap->displayPossibleMoves(c1);
 			cin >> playerCountryChoice;
 			players[1].MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
@@ -231,9 +242,9 @@ int main()
 	cout << endl;
 
 	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
-	players[0].DestroyArmy(1, c1);
-	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
+	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
+	players[0].DestroyArmy(players[1].GetId(), 1, c1);
+	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();

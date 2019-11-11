@@ -68,16 +68,16 @@ void Player::pickUpCard(Card c) {
 	playerHand.push_back(c);
 }
 
-bool Player::DestroyArmy(int numOfArmies, Country *c) {
-	if (numOfArmies > numOfArmies) {
+bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
+	if (numOfArmies < 0) {
 		return false;
 	}
-	int* ptToNewNumOfArmies = new int(*c->getNumberOfArmies() - numOfArmies);
-	c->setArmies(ptToNewNumOfArmies);
+	int* ptToNewNumOfArmies = new int(*c->getRefactoredArmies()[playerID] - numOfArmies);
+	c->setRefactoredArmies(playerID, ptToNewNumOfArmies);
 	return true;
 }
-void Player::destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
-	DestroyArmy(numOfArmies, c);
+void Player::destroyArmymoveArmy(int playerID, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
+	DestroyArmy(playerID, numOfArmies, c);
 	MoveArmies(numOfMovements,numToMove, countryToTake, countryToPlace);
 }
 void Player::newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo) {

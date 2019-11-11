@@ -309,6 +309,7 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 0; j < initMapData->at(i).size(); j++)
 		{
+			/*if (initMapData->at(i).at(j) != NULL)*/
 			arrayOfPtrs[i][j] = NULL;
 		}
 		arrayOfPtrs[i] = NULL;
