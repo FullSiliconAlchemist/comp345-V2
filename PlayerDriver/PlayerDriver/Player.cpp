@@ -68,17 +68,8 @@ void Player::pickUpCard(Card c) {
 	playerHand.push_back(c);
 }
 int Player::getIdxOfCardToPickup(Hand choiceCards) {
-	int idxOfCardToTake;
-	bool invalidPickup = true;
-	while(invalidPickup){
-		choiceCards.showHand();
-		std::cout << "player" << id << " Which card would you like to pick up? (0-5)"<< std::endl;
-		std::cin >> idxOfCardToTake;
-		if (choiceCards.cost[idxOfCardToTake] <= *goldenCoins) {
-			return idxOfCardToTake;
-		}
-		std::cout << "Invalid Card Pickup" << std::endl;
-	}
+	std::cout << "player " << *id << " Which card would you like to pick up? (0-5)" << std::endl;
+	return this->playerType->idxOfCardToPickup(choiceCards, *goldenCoins);
 }
 
 bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
@@ -163,6 +154,9 @@ void Player::showHand() {
 	}
 
 }
+void Player::setPlayerType(PlayerStrategies* newPlayerType) {
+	this->playerType = newPlayerType;
+}
 int Player::currentId = 0;
 Player::Player()
 {
@@ -172,6 +166,7 @@ Player::Player()
 	id = new int(currentId);
 	currentId++;
 	std::vector<Card> playerHand;
+	playerType = new PlayerUser();
 }
 Player::~Player()
 {

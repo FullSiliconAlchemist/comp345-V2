@@ -4,7 +4,7 @@
 #include "Country.h"
 #include "Map.h"
 #include "vector"
-
+#include "PlayerStrategies.h"
 class Player
 {
 public:
@@ -33,11 +33,11 @@ public:
 	int nextPlayerTurn(int currentTurn, int maxNumOfPlayers);
 	void pickUpCard(Card c);
 	int getIdxOfCardToPickup(Hand choiceCards);
-
+	void setPlayerType(PlayerStrategies* newPlayerType);
 	Player(); // For now default constructor is fine
 	~Player(); // I think this be a destroyer method
 private:
-
+	PlayerStrategies* playerType;
 	int *armyCubes;
 	int *cityDiscs;
 	static int currentId;

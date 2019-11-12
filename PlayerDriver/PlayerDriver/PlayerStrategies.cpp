@@ -6,7 +6,6 @@ int PlayerUser::idxOfCardToPickup(Hand choiceCards, int numOfCoins) {
 	int idxOfCardToTake;
 	bool invalidPickup = true;
 	while (invalidPickup) {
-		choiceCards.showHand();
 		std::cin >> idxOfCardToTake;
 		if (choiceCards.cost[idxOfCardToTake] <= numOfCoins) {
 			return idxOfCardToTake;

@@ -66,7 +66,7 @@ Deck::~Deck()
 Card Hand::exchange(int slot, Card replacement) { //Returns desired card, slides cards to the left, recalulates prices
 	Card cardToReturn = Card(currentHand[slot]);
 	int i = slot;
-	while ((i + 1) < 5) {
+	while ((i + 1) < 6) {
 		currentHand[i] = currentHand[i + 1];
 		currentHand[i].setCost(cost[i]);
 		i++;

@@ -1,12 +1,4 @@
-﻿  Map.cpp
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(46,21): warning C4018:  '<': signed/unsigned mismatch
-  MapLoader.cpp
-  Player.cpp
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(310,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(119,20): warning C4018:  '<': signed/unsigned mismatch
-  PlayerDriver.cpp
-  PlayerStrategies.cpp
-  Generating Code...
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(161,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(82): warning C4715:  'Player::getIdxOfCardToPickup': not all control paths return a value
+﻿  Player.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(110,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(152,20): warning C4018:  '<': signed/unsigned mismatch
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe
