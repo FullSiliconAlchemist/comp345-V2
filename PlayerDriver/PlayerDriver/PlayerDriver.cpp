@@ -35,7 +35,7 @@ int main()
 
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
@@ -173,12 +173,15 @@ int main()
 		cout << "PLAYER ORDER: " << idxOfPlayerTurn << endl;
 		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
 		cin >> idxOfCardToTake;
-		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
-			replacement = gameDeck.draw();
-			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
-			cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
-			players[idxOfPlayerTurn].pickUpCard(toPickUp);
-		}
+
+		idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
+		players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
+		
+		replacement = gameDeck.draw();
+		toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
+		cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+		players[idxOfPlayerTurn].pickUpCard(toPickUp);
+		
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;

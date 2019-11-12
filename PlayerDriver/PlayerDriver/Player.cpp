@@ -67,6 +67,19 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 void Player::pickUpCard(Card c) {
 	playerHand.push_back(c);
 }
+int Player::getIdxOfCardToPickup(Hand choiceCards) {
+	int idxOfCardToTake;
+	bool invalidPickup = true;
+	while(invalidPickup){
+		choiceCards.showHand();
+		std::cout << "player" << id << " Which card would you like to pick up? (0-5)"<< std::endl;
+		std::cin >> idxOfCardToTake;
+		if (choiceCards.cost[idxOfCardToTake] <= *goldenCoins) {
+			return idxOfCardToTake;
+		}
+		std::cout << "Invalid Card Pickup" << std::endl;
+	}
+}
 
 bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
 	if (numOfArmies < 0) {

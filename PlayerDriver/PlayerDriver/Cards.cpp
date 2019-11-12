@@ -91,6 +91,9 @@ Hand::Hand(Deck d) { //fills hand with cards from the deck
 		currentHand[i].setCost(cost[i]);
 	}
 }
+Card Hand::getCardAt(int i) {
+	return currentHand[i];
+}
 
 Hand::~Hand()
 {
