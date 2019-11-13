@@ -67,6 +67,10 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 void Player::pickUpCard(Card c) {
 	playerHand.push_back(c);
 }
+int Player::getIdxOfCardToPickup(Hand choiceCards) {
+	std::cout << "player " << *id << " Which card would you like to pick up? (0-5)" << std::endl;
+	return this->playerType->idxOfCardToPickup(choiceCards, *goldenCoins);
+}
 
 bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
 	if (numOfArmies < 0) {
@@ -150,6 +154,9 @@ void Player::showHand() {
 	}
 
 }
+void Player::setPlayerType(PlayerStrategies* newPlayerType) {
+	this->playerType = newPlayerType;
+}
 int Player::currentId = 0;
 Player::Player()
 {
@@ -159,6 +166,7 @@ Player::Player()
 	id = new int(currentId);
 	currentId++;
 	std::vector<Card> playerHand;
+	playerType = new PlayerUser();
 }
 Player::~Player()
 {

@@ -4,16 +4,14 @@
 #include "Country.h"
 #include "Map.h"
 #include "vector"
-
+#include "PlayerStrategies.h"
 class Player
 {
 public:
 
 	bool payCoin(int amountToPay);
 	bool PlaceNewArmies(int numOfArmies, Country *countryToPlace); // Must accept a region on a map as a passed parameter to place armies (Map object)
-	int MoveArmies(int numOfMovements,int numToMove, Country *countryToTake, Country *countryToPlace); // Must accept a region on a map as a passed parameter to move armies
-	
-																									   // Charles: should also accept a map Object to verify that the movement is legal.
+	int MoveArmies(int numOfMovements,int numToMove, Country *countryToTake, Country *countryToPlace); // Must accept a region on a map as a passed parameter to move armies																									   // Charles: should also accept a map Object to verify that the movement is legal.
 	void MoveOverLand(int numToMove, Country *countryToTake, Country *countryToPlace); // Will probably be implemented within MoveArmies function
 
 	void BuildCity(Country *c);
@@ -34,10 +32,12 @@ public:
 	inline int GetId() const { return *id; }
 	int nextPlayerTurn(int currentTurn, int maxNumOfPlayers);
 	void pickUpCard(Card c);
+	int getIdxOfCardToPickup(Hand choiceCards);
+	void setPlayerType(PlayerStrategies* newPlayerType);
 	Player(); // For now default constructor is fine
 	~Player(); // I think this be a destroyer method
 private:
-
+	PlayerStrategies* playerType;
 	int *armyCubes;
 	int *cityDiscs;
 	static int currentId;

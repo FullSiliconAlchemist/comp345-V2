@@ -29,13 +29,26 @@ int main()
 	while (numOfPlayers < 2 || numOfPlayers > 5) {
 		cout << "How many players (2-5)" << endl;
 		cin >> numOfPlayers;
+
 	}
-
 	players = new Player[numOfPlayers];
+	int typeOfPlayer;
+	for (int i = 0; i < numOfPlayers; i++) {
+		cout << "what type of player is player " << i << "?\n (0 for PlayerUser, 1 for PlayerAgressive, 2 for PlayerPassive" << endl;
+		cin >> typeOfPlayer;
+		switch (typeOfPlayer) {
 
+		case 0: players[i].setPlayerType(new PlayerUser());
+			break;
+		case 1: players[i].setPlayerType(new PlayerAgressive());
+			break;
+		case 2: players[i].setPlayerType(new PlayerPassive());
+			break;
+		}
+	}
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
@@ -170,15 +183,15 @@ int main()
 		Card replacement;
 		Card toPickUp;
 		faceUp.showHand();
-		cout << "PLAYER ORDER: " << idxOfPlayerTurn << endl;
-		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)";
-		cin >> idxOfCardToTake;
-		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
-			replacement = gameDeck.draw();
-			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
-			cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
-			players[idxOfPlayerTurn].pickUpCard(toPickUp);
-		}
+		idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
+		cout << "Player " << idxOfPlayerTurn << " picked up card in slot " << idxOfCardToTake << endl;
+		players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
+		
+		replacement = gameDeck.draw();
+		toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
+		cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+		players[idxOfPlayerTurn].pickUpCard(toPickUp);
+		
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;
