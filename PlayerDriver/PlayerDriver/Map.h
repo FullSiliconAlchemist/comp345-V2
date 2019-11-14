@@ -3,13 +3,15 @@
 #include <vector>
 #include "Country.h"
 #include "Player.h"
+#include "GameStatisticsSubject.h"
 
 using std::vector;
 
-class Map
+// Model part of MVC - Is the center of information for the view
+class Map : public GameStatisticsSubject
 {
-public:
 
+public:
 	struct CountryNode {
 		int countryData;
 		int continentData;
@@ -54,7 +56,6 @@ public:
 	~Map();
 
 private:
-
 	//Singleton Designpattern
 	static Map* m_instance;
 

@@ -80,7 +80,7 @@ int main()
 	bool moveLegal = gameMap->moveIsLegal(gameMap->getCountryArray()[4], gameMap->getCountryArray()[1], 3);
 	
 	if (moveLegal)
-		cout << "***************** HOLY SHIT IT WORKS ******************" << endl;
+		cout << "***************** It Works! ******************" << endl;
 	else
 		cout << "GET BACK AT IT SON" << endl;
 

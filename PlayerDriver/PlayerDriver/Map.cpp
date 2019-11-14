@@ -84,7 +84,7 @@ void Map::displayPossibleMoves(Country* countryToTake) // Method displays all mo
 	std::cout << "]" << std::endl;
 }
 
-bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves)
+bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) // Flood fill implemented - Ideally must check passed countries to avoid repeating patterns
 {
 	bool answer = false;
 	CountryNode* root;
@@ -164,6 +164,8 @@ bool Map::checkGraphConnectivity()
 	}
 	return true;
 }
+
+
 
 int Map::computePlayerScores(int playerID)
 {
@@ -294,6 +296,7 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		arrayOfPtrs[i] = new int* [initMapData->at(i).size()];
 	}
+
 	for (int i = 0; i < countryListSize; i++)
 	{
 		for (int j = 0; j < static_cast<int>(initMapData->at(i).size()); j++)
@@ -317,7 +320,10 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 2; j < static_cast<int>(initMapData->at(i).size()); j++)
 		{
-			this->addEdge(gameGraph, *this->getCountryArray()[i], *this->getCountryArray()[*arrayOfPtrs[i][j]]);
+			if (this->getCountryArray() != NULL && arrayOfPtrs != NULL)
+			{
+				this->addEdge(gameGraph, *this->getCountryArray()[i], *this->getCountryArray()[*arrayOfPtrs[i][j]]); // What could this mean ffs
+			}
 		}
 	}
 
@@ -329,7 +335,7 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 0; j < initMapData->at(i).size(); j++)
 		{
-			arrayOfPtrs[i][j] = NULL;
+			arrayOfPtrs[i][j] = NULL; // Why the warning here?
 		}
 		arrayOfPtrs[i] = NULL;
 	}
