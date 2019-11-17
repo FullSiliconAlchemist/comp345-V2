@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Cards.h"
 #include "BiddingFacility.h"
+#include "MapViewer.h"
 
 using namespace std;
 namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
@@ -58,9 +59,10 @@ int main()
 	
 	} while (!loader->getIsLoaded());
 	
-	// Initialize map object from map data
-	//gameMap = new Map(&mapDataPntr);
+	// Initialize map object from map data with singleton architecture
 	gameMap = Map::instance(&mapDataPntr);
+	// Attach Observer to the Subject
+	MapViewer* view = new MapViewer(gameMap);
 
 	if (gameMap->getIsValidMap())
 	{
@@ -103,6 +105,18 @@ int main()
 	cout << "player" << idxOfPlayerTurn << " won the bid\n";
 
 	// ------------------- GAME INITIALIZATION STAGE --------------------
+
+	/*
+
+	What the view must display per player
+
+	“Player #’ location, and his procession (e.g. victory points, cities, continents, etc.) 
+	view” that shows using some kind of bar graph depicting what city/continent is currently being controlled by each player.
+	This should dynamically be updated as the map state changes and be visible at all times during game play
+	*/
+
+	cout << "\n*** Display test ***" << endl;
+	gameMap->displayPlayerStats();
 
 	// Players choose where they set their armies if there are only two players playing.
 	// Otherwise they're set in the starting country, country 4.
@@ -154,6 +168,9 @@ int main()
 		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them. \nMaybe some day.\n" << std::endl;
 	}
 
+	cout << "\n*** Display test ***" << endl;
+	gameMap->displayPlayerStats();
+
 // ---------------------- START PART 3 -------------------------
 
 	// GAME LOOP DEMO
@@ -201,10 +218,8 @@ int main()
 	cout << "\nCoins after pay: " << players[0].GetGoldenCoins();
 
 	//test placeNewArmy
-	cout << "\nArmies before placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies(); // Example of starter armies when players are more than 3
 	cout << "\nArmies before placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[players[0].GetId()]; // Example of starter armies when players are more than 3
 	players[0].PlaceNewArmies(3, gameMap->getCountryArray()[5]);
-	cout << "\nArmies after placement: " << *gameMap->getCountryArray()[5]->getNumberOfArmies();
 	cout << "\nArmies after placement (REFACTORED): " << *gameMap->getCountryArray()[5]->getRefactoredArmies()[players[0].GetId()];
 
 	//test move armies(Implements moveOverLand within move armies method)
@@ -238,13 +253,18 @@ int main()
 		}
 	}
 
+
+	cout << "\n*** Display test ***" << endl;
+	gameMap->displayPlayerStats();
+
 	// Movements will be done one at a time, so that the player decides what path to take
 	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[players[1].GetId()] << " c2: " << *c2->getRefactoredArmies()[players[1].GetId()];
 	cout << endl;
 
 	//test destroy army
 	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
-	players[0].DestroyArmy(1, c1);
+	// Player 0 destroys player 1's armies
+	players[0].DestroyArmy(1, 1, c1);
 	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
 
 	//test place city (Shows id# for player that owns the city)
@@ -269,6 +289,11 @@ int main()
 
 //----------------------END PART 5-------------------------
 //----------------------START PART 6-----------------------
+	
+
+	cout << "\n*** Display test ***" << endl;
+	gameMap->displayPlayerStats();
+
 	int* scores = new int[numOfPlayers];
 	int maxScore = 0;
 	int winningPlayer=0;

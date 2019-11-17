@@ -30,4 +30,17 @@ void MapViewer::Update()
 void MapViewer::display()
 {
 	// Call the desired function to display the map's current state
+	for (int i = 0; i < 5; i++)
+	{
+		cout << "Player " << i << " countries: ";
+		cout << "[ ";
+		for (int j = 0; j < *_Subject->getTotalCountries(); j++)
+		{
+			for (int k = 0; k < *_Subject->getCountryArray()[j]->getRefactoredArmies()[i]; k++)
+			{
+				cout << " # ";
+			}
+		}
+		cout << " ]\n" << endl;
+	}
 }

@@ -47,6 +47,11 @@ Country** Map::getCountryArray() const
 	return countryArray;
 }
 
+void Map::displayPlayerStats()
+{
+	Notify();
+}
+
 void Map::displayPossibleMoves(Country* countryToTake) // Method displays all moves possible to the user
 {
 	CountryNode* root;
@@ -165,8 +170,14 @@ bool Map::checkGraphConnectivity()
 	return true;
 }
 
+// Messy method with pretty bad time complexity
+/*
+	 The method computes each player's score by checking each country in the country array for a player's armies.
+	 For each country being visited, the algorithm checks if the current player's armies are the most significant in the country, 
+	 if it is less than or equal to an opposing player's armies, it will skip to the next country, else it will count a point for the player.
 
-
+	 Time complexity is O(n) = O(n * p) where n is the number of countries to visit and tally per player and p is the number of players
+*/
 int Map::computePlayerScores(int playerID)
 {
 	int totalScore = 0; // Tally score
@@ -177,26 +188,24 @@ int Map::computePlayerScores(int playerID)
 	int playerArmiesConquered = 0; 
 	int opposingArmiesConquered = 0;
 
-	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays
+	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays - assuming the map has valid continent data
 
 	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << std::endl;
 	std::cout << "FOR PLAYER :" << ID << std::endl;
 
-	std::map<int, vector<int>> continentGraphSummary;
-	for (int i = 0; i < totalContinents; i++)
+	std::map<int, vector<int>> continentGraphSummary; // Map keeps track of the continents being talied
+
+	// Initializing the map object to have the size of the amount of continents. This will be used to tally the points for 
+	// the player with the most continents in control.
+	for (int i = 0; i < totalContinents; i++) 
 	{
-		continentGraphSummary.insert(std::make_pair(i, vector<int>(5)));
+		// Map with keys associated to the continent number, values are vectors of size 5 (5 players max) set to 0.
+		// The idea is to count all the player's dominating countries in a continent and select the player with the most countries per continent.
+		continentGraphSummary.insert(std::make_pair(i, vector<int>(5)));  
 		for (int j = 0; j < 5; j++)
 		{
 			continentGraphSummary.find(i)->second.at(j) = 0;
 		}
-	}
-
-	vector<int> continentsVector;
-	
-	for (int i = 0; i < totalContinents; i++)
-	{
-		continentsVector.push_back(i);
 	}
 
 	for (int i = 0; i < *this->getTotalCountries(); i++)
@@ -210,11 +219,7 @@ int Map::computePlayerScores(int playerID)
 
 			opposingArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[j];
 
-			if (playerArmiesConquered < opposingArmiesConquered)
-			{
-				continue;
-			}
-			else if (playerArmiesConquered == opposingArmiesConquered)
+			if (playerArmiesConquered <= opposingArmiesConquered)
 			{
 				continue;
 			}
@@ -238,9 +243,7 @@ int Map::computePlayerScores(int playerID)
 		playerContinent = continentGraphSummary.find(i)->second.at(ID);
 		for (int j = 0; j < 5; j++)
 		{
-			if (playerContinent < continentGraphSummary.find(i)->second.at(j))
-				break;
-			else if (playerContinent == continentGraphSummary.find(i)->second.at(j))
+			if (playerContinent <= continentGraphSummary.find(i)->second.at(j))
 				break;
 			else
 				tallyScore = true;
@@ -342,6 +345,12 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	delete[] arrayOfPtrs;
 }
+
+// Should notify the view to display stats or some shit
+//void Map::displayPlayerStats()
+//{
+//	Notify();
+//}
 
 Map::~Map()
 {

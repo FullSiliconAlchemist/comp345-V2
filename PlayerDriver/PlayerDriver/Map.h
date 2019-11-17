@@ -53,12 +53,14 @@ public:
 	static Map* instance();
 	static Map* instance(vector<vector<int>>* adjList);
 
+	// Subject pattern methods (sort of like tick() in example)
+	void displayPlayerStats();
+
 	~Map();
 
 private:
 	//Singleton Designpattern
 	static Map* m_instance;
-
 	Map();
 	Map(vector<vector<int>>* initMap);
 

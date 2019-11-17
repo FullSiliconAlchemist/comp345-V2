@@ -4,10 +4,6 @@
 
 // Country Class functions
 
-int* Country::getNumberOfArmies() const
-{
-	return numberOfArmies;
-}
 int* Country::getCity() const
 {
 	return city;
@@ -38,11 +34,6 @@ void Country::setContinent(int* newContinent)
 	continentNumber = newContinent;
 }
 
-void Country::setArmies(int* armySet)
-{
-	numberOfArmies = armySet;
-}
-
 void Country::setCity(int* playerId) {
 	city = playerId;
 }
@@ -54,7 +45,6 @@ void Country::setRefactoredArmies(int playerID, int* armiesToSet)
 
 Country::Country()
 {
-	numberOfArmies = new int(0);
 	countryNumber = new int(0);
 	continentNumber = new int(0);
 	city = new int(-1);
@@ -70,7 +60,6 @@ Country::Country()
 Country::Country(int* countryNumber, int* continentNumber)
 	: countryNumber(countryNumber), continentNumber(continentNumber)
 {
-	numberOfArmies = new int(0);
 	city = new int(0);
 
 	// Setting all armies in all countries to 0

@@ -10,7 +10,6 @@ class Country {
 
 	// note: defaulted to private
 	int** refactoredArmies;
-	int* numberOfArmies;
 	int* continentNumber;
 	int* countryNumber;
 	int* city;
@@ -18,7 +17,6 @@ class Country {
 	// int* arrOfPlayers[5];
 
 public:	
-	int* getNumberOfArmies() const;
 	int* getContinentNumber() const;
 	int* getCountryNumber() const;
 	int* getCity() const;
@@ -27,7 +25,6 @@ public:
 
 	void setCountry(int* newCountry);
 	void setContinent(int* newContinent);
-	void setArmies(int* armySet); // Method accepts a heap-initialize object and stores reference
 	void setCity(int* playerId);
 
 	void setRefactoredArmies(int playerID, int* armiesToSet);
