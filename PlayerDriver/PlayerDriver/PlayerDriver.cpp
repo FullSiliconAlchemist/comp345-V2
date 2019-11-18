@@ -51,7 +51,7 @@ int main()
 	}
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\temp\\";
+	string path = "C:\\tmp\\";
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
