@@ -156,30 +156,24 @@
     <ClCompile Include="BiddingFacility.cpp" />
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Country.cpp" />
-    <ClCompile Include="GameStatisticsObserver.cpp" />
-    <ClCompile Include="GameStatisticsSubject.cpp" />
     <ClCompile Include="GameObservers.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLoader.cpp" />
-    <ClCompile Include="MapViewer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerDriver.cpp" />
     <ClCompile Include="PlayerStrategies.cpp" />
-    <ClCompile Include="PlayerView.cpp" />
+    <ClCompile Include="GameView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BiddingFacility.h" />
     <ClInclude Include="Cards.h" />
     <ClInclude Include="Country.h" />
-    <ClInclude Include="GameStatisticsObserver.h" />
-    <ClInclude Include="GameStatisticsSubject.h" />
     <ClInclude Include="GameObservers.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLoader.h" />
-    <ClInclude Include="MapViewer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStrategies.h" />
-    <ClInclude Include="PlayerView.h" />
+    <ClInclude Include="GameView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

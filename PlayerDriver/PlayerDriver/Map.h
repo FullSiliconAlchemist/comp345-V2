@@ -3,7 +3,7 @@
 #include <vector>
 #include "Country.h"
 #include "Player.h"
-#include "GameStatisticsSubject.h"
+#include "GameObservers.h"
 
 using std::vector;
 

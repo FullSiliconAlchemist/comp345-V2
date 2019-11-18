@@ -1,6 +1,10 @@
 #pragma once
 #include <list>
+#include "iostream"
 #include "Cards.h"
+using std::cout;
+using std::endl;
+using std::list;
 class GameObservers
 {
 
@@ -26,5 +30,30 @@ public:
 
 private:
 	std::list<ObserverPlayer*>* _observers;
+};
+
+class GameStatisticsObserver
+{
+public:
+	~GameStatisticsObserver();
+	virtual void Update() = 0;
+protected:
+	GameStatisticsObserver();
+};
+
+
+class GameStatisticsObserver; // What is this doing?
+
+class GameStatisticsSubject
+{
+public:
+	virtual void Attach(GameStatisticsObserver* GSO);
+	virtual void Detach(GameStatisticsObserver* GSO);
+	virtual void Notify();
+	GameStatisticsSubject();
+	~GameStatisticsSubject();
+
+private:
+	list <GameStatisticsObserver*>* _Observers; // One single observer for the game for now
 };
 
