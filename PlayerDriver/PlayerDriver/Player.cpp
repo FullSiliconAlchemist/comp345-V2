@@ -74,26 +74,17 @@ int Player::getIdxOfCardToPickup(Hand choiceCards) {
 }
 
 bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
-<<<<<<< HEAD
-	if (numOfArmies > numOfArmies) {
-=======
+
 	if (numOfArmies < 0) {
->>>>>>> rob-player
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(*c->getRefactoredArmies()[playerID] - numOfArmies);
 	c->setRefactoredArmies(playerID, ptToNewNumOfArmies);
 	return true;
 }
-<<<<<<< HEAD
 void Player::destroyArmymoveArmy(int playerIDToDestroy, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
 	DestroyArmy(playerIDToDestroy, numOfArmies, c);
 	MoveArmies(numOfMovements, numToMove, countryToTake, countryToPlace);
-=======
-void Player::destroyArmymoveArmy(int playerID, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
-	DestroyArmy(playerID, numOfArmies, c);
-	MoveArmies(numOfMovements,numToMove, countryToTake, countryToPlace);
->>>>>>> rob-player
 }
 void Player::newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo) {
 	PlaceNewArmies(numOfArmies,countryToPlace);

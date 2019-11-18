@@ -19,11 +19,7 @@ public:
 
 	void BuildCity(Country *c);
 	bool DestroyArmy(int playerID, int numOfArmies, Country *c);
-<<<<<<< HEAD
-	void destroyArmymoveArmy(int playerIDTODestroy, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
-=======
 	void destroyArmymoveArmy(int playerID, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
->>>>>>> rob-player
 	void newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo);
 	void citymoveArmy(Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
 	void ignore();
