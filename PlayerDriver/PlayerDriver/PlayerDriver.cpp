@@ -8,8 +8,7 @@
 #include "Player.h"
 #include "Cards.h"
 #include "BiddingFacility.h"
-#include "MapViewer.h"
-#include "PlayerView.h"
+#include "GameView.h"
 
 using namespace std;
 namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
