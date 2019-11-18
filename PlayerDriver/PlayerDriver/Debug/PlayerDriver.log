@@ -1,4 +1,2 @@
-﻿  Player.cpp
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(110,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(152,20): warning C4018:  '<': signed/unsigned mismatch
+﻿  PlayerView.cpp
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

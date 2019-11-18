@@ -1,11 +1,14 @@
 #pragma once
+#include "GameObservers.h"
 #include "Cards.h"
 #include "BiddingFacility.h"
 #include "Country.h"
 #include "Map.h"
 #include "vector"
 #include "PlayerStrategies.h"
-class Player
+
+
+class Player: public SubjectPlayer
 {
 public:
 
