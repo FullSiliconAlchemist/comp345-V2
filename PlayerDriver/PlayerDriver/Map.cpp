@@ -5,6 +5,9 @@
 
 // Map Class functions
 
+// Singleton Implementation --> Must instantiate singleton instance to 0
+Map* Map::m_instance = 0;
+
 vector<vector<int>>* Map::getAdjacencyList() const
 {
 	return adjList;
@@ -13,6 +16,20 @@ vector<vector<int>>* Map::getAdjacencyList() const
 void Map::setCountryArray(Country** cntryArr)
 {
 	countryArray = cntryArr;
+}
+
+Map* Map::instance()
+{
+	if (!m_instance)
+		m_instance = new Map();
+	return m_instance;
+}
+
+Map* Map::instance(vector<vector<int>>* adjList)
+{
+	if (!m_instance)
+		m_instance = new Map(adjList);
+	return m_instance;
 }
 
 Map::MapGraph* Map::getMapGraph() const
@@ -28,6 +45,11 @@ int* Map::getTotalCountries() const
 Country** Map::getCountryArray() const
 {
 	return countryArray;
+}
+
+void Map::displayPlayerStats()
+{
+	Notify();
 }
 
 void Map::displayPossibleMoves(Country* countryToTake) // Method displays all moves possible to the user
@@ -67,7 +89,7 @@ void Map::displayPossibleMoves(Country* countryToTake) // Method displays all mo
 	std::cout << "]" << std::endl;
 }
 
-bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves)
+bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) // Flood fill implemented - Ideally must check passed countries to avoid repeating patterns
 {
 	bool answer = false;
 	CountryNode* root;
@@ -148,6 +170,14 @@ bool Map::checkGraphConnectivity()
 	return true;
 }
 
+// Messy method with pretty bad time complexity
+/*
+	 The method computes each player's score by checking each country in the country array for a player's armies.
+	 For each country being visited, the algorithm checks if the current player's armies are the most significant in the country, 
+	 if it is less than or equal to an opposing player's armies, it will skip to the next country, else it will count a point for the player.
+
+	 Time complexity is O(n) = O(n * p) where n is the number of countries to visit and tally per player and p is the number of players
+*/
 int Map::computePlayerScores(int playerID)
 {
 	int totalScore = 0; // Tally score
@@ -158,26 +188,24 @@ int Map::computePlayerScores(int playerID)
 	int playerArmiesConquered = 0; 
 	int opposingArmiesConquered = 0;
 
-	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays
+	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays - assuming the map has valid continent data
 
 	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << std::endl;
 	std::cout << "FOR PLAYER :" << ID << std::endl;
 
-	std::map<int, vector<int>> continentGraphSummary;
-	for (int i = 0; i < totalContinents; i++)
+	std::map<int, vector<int>> continentGraphSummary; // Map keeps track of the continents being talied
+
+	// Initializing the map object to have the size of the amount of continents. This will be used to tally the points for 
+	// the player with the most continents in control.
+	for (int i = 0; i < totalContinents; i++) 
 	{
-		continentGraphSummary.insert(std::make_pair(i, vector<int>(5)));
+		// Map with keys associated to the continent number, values are vectors of size 5 (5 players max) set to 0.
+		// The idea is to count all the player's dominating countries in a continent and select the player with the most countries per continent.
+		continentGraphSummary.insert(std::make_pair(i, vector<int>(5)));  
 		for (int j = 0; j < 5; j++)
 		{
 			continentGraphSummary.find(i)->second.at(j) = 0;
 		}
-	}
-
-	vector<int> continentsVector;
-	
-	for (int i = 0; i < totalContinents; i++)
-	{
-		continentsVector.push_back(i);
 	}
 
 	for (int i = 0; i < *this->getTotalCountries(); i++)
@@ -191,11 +219,7 @@ int Map::computePlayerScores(int playerID)
 
 			opposingArmiesConquered = *this->getCountryArray()[i]->getRefactoredArmies()[j];
 
-			if (playerArmiesConquered < opposingArmiesConquered)
-			{
-				continue;
-			}
-			else if (playerArmiesConquered == opposingArmiesConquered)
+			if (playerArmiesConquered <= opposingArmiesConquered)
 			{
 				continue;
 			}
@@ -219,9 +243,7 @@ int Map::computePlayerScores(int playerID)
 		playerContinent = continentGraphSummary.find(i)->second.at(ID);
 		for (int j = 0; j < 5; j++)
 		{
-			if (playerContinent < continentGraphSummary.find(i)->second.at(j))
-				break;
-			else if (playerContinent == continentGraphSummary.find(i)->second.at(j))
+			if (playerContinent <= continentGraphSummary.find(i)->second.at(j))
 				break;
 			else
 				tallyScore = true;
@@ -277,6 +299,7 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		arrayOfPtrs[i] = new int* [initMapData->at(i).size()];
 	}
+
 	for (int i = 0; i < countryListSize; i++)
 	{
 		for (int j = 0; j < static_cast<int>(initMapData->at(i).size()); j++)
@@ -289,15 +312,21 @@ Map::Map(vector<vector<int>> * initMapData)
 
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
-		this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);  // Buffer overrun Warning: Basically means we can't be 100% certain that 
-																					// 2D array passed in the constructor will have a minimum length of array[i].size() >= 2
-																					// How do I prove to the compiler that this will always be the case?
+		if (arrayOfPtrs[i][0] != NULL)
+		{
+			this->countryArray[i] = new Country(arrayOfPtrs[i][0], arrayOfPtrs[i][1]);  // Buffer overrun Warning: Basically means we can't be 100% certain that 
+		}
+																				// 2D array passed in the constructor will have a minimum length of array[i].size() >= 2
+																				// How do I prove to the compiler that this will always be the case?
 	}
 	for (int i = 0; i < static_cast<int>(initMapData->size()); i++)
 	{
 		for (int j = 2; j < static_cast<int>(initMapData->at(i).size()); j++)
 		{
-			this->addEdge(gameGraph, *this->getCountryArray()[i], *this->getCountryArray()[*arrayOfPtrs[i][j]]);
+			if (this->getCountryArray() != NULL && arrayOfPtrs != NULL)
+			{
+				this->addEdge(gameGraph, *this->getCountryArray()[i], *this->getCountryArray()[*arrayOfPtrs[i][j]]); // What could this mean ffs
+			}
 		}
 	}
 
@@ -309,14 +338,24 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 0; j < initMapData->at(i).size(); j++)
 		{
+<<<<<<< HEAD
+			arrayOfPtrs[i][j] = NULL; // Why the warning here?
+=======
 			/*if (initMapData->at(i).at(j) != NULL)*/
 			arrayOfPtrs[i][j] = NULL;
+>>>>>>> rob-player
 		}
 		arrayOfPtrs[i] = NULL;
 	}
 
 	delete[] arrayOfPtrs;
 }
+
+// Should notify the view to display stats or some shit
+//void Map::displayPlayerStats()
+//{
+//	Notify();
+//}
 
 Map::~Map()
 {

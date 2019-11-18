@@ -3,13 +3,15 @@
 #include <vector>
 #include "Country.h"
 #include "Player.h"
+#include "GameStatisticsSubject.h"
 
 using std::vector;
 
-class Map
+// Model part of MVC - Is the center of information for the view
+class Map : public GameStatisticsSubject
 {
-public:
 
+public:
 	struct CountryNode {
 		int countryData;
 		int continentData;
@@ -47,11 +49,20 @@ public:
 
 	void setCountryArray(Country** cntryArr); // This too
 
-	Map();
-	Map(vector<vector<int>>* initMap);
+	// Singleton instantiator
+	static Map* instance();
+	static Map* instance(vector<vector<int>>* adjList);
+
+	// Subject pattern methods (sort of like tick() in example)
+	void displayPlayerStats();
+
 	~Map();
 
 private:
+	//Singleton Designpattern
+	static Map* m_instance;
+	Map();
+	Map(vector<vector<int>>* initMap);
 
 	vector<vector<int>>* adjList;
 	int* totalCountries;
