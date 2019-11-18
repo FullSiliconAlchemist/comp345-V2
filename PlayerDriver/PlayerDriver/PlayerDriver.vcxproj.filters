@@ -36,6 +36,7 @@
     <ClCompile Include="MapLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="GameStatisticsObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +44,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MapViewer.cpp">
+=======
+    <ClCompile Include="PlayerStrategies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObservers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerView.cpp">
+>>>>>>> rob-player
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,6 +75,7 @@
     <ClInclude Include="MapLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="GameStatisticsObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -72,6 +83,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapViewer.h">
+=======
+    <ClInclude Include="PlayerStrategies.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObservers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerView.h">
+>>>>>>> rob-player
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -65,20 +65,35 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 	return currentTurn + 1;
 }
 void Player::pickUpCard(Card c) {
+	notify(c);
 	playerHand.push_back(c);
+}
+int Player::getIdxOfCardToPickup(Hand choiceCards) {
+	std::cout << "player " << *id << " Which card would you like to pick up? (0-5)" << std::endl;
+	return this->playerType->idxOfCardToPickup(choiceCards, *goldenCoins);
 }
 
 bool Player::DestroyArmy(int playerID, int numOfArmies, Country *c) {
+<<<<<<< HEAD
 	if (numOfArmies > numOfArmies) {
+=======
+	if (numOfArmies < 0) {
+>>>>>>> rob-player
 		return false;
 	}
 	int* ptToNewNumOfArmies = new int(*c->getRefactoredArmies()[playerID] - numOfArmies);
 	c->setRefactoredArmies(playerID, ptToNewNumOfArmies);
 	return true;
 }
+<<<<<<< HEAD
 void Player::destroyArmymoveArmy(int playerIDToDestroy, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
 	DestroyArmy(playerIDToDestroy, numOfArmies, c);
 	MoveArmies(numOfMovements, numToMove, countryToTake, countryToPlace);
+=======
+void Player::destroyArmymoveArmy(int playerID, int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace) {
+	DestroyArmy(playerID, numOfArmies, c);
+	MoveArmies(numOfMovements,numToMove, countryToTake, countryToPlace);
+>>>>>>> rob-player
 }
 void Player::newArmymoveArmy(int numOfArmies, Country* countryToPlace, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToMoveTo) {
 	PlaceNewArmies(numOfArmies,countryToPlace);
@@ -96,12 +111,12 @@ int Player::computeScore() {
 	//for num of resource adds score 
 	int score = 0;
 	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
-	int const MAX_NUM_GOOD = 9;
-	int const crystalValue[MAX_NUM_GOOD] = {0, 1,2,3,5,5,5,5,5};
-	int const stoneValue[MAX_NUM_GOOD] = { 0,0,1,2,3,5,5,5,5};
-	int const ironValue[MAX_NUM_GOOD] = { 0,0,1,1,2,2,3,5,5 };
-	int const woodValue[MAX_NUM_GOOD] = { 0,0,1,1,2,3,5,5,5};
-	int const veggiesValue[MAX_NUM_GOOD] = { 0,0,0,1,1,2,2,3,5 };
+	int const MAX_NUM_GOOD = 8;
+	int const crystalValue[] = {0, 1,2,3,5,5,5,5,5};
+	int const stoneValue[] = { 0,0,1,2,3,5,5,5,5};
+	int const ironValue[] = { 0,0,1,1,2,2,3,5,5 };
+	int const woodValue[] = { 0,0,1,1,2,3,5,5,5};
+	int const veggiesValue[] = { 0,0,0,1,1,2,2,3,5 };
 	int numOfResource[6] = {0,0,0,0,0,0};
 	for (int i = 0; i < playerHand.size(); i++) {
 		if (playerHand[i].getGood().compare(listOfGoods[0]) == 0) {
@@ -150,6 +165,9 @@ void Player::showHand() {
 	}
 
 }
+void Player::setPlayerType(PlayerStrategies* newPlayerType) {
+	this->playerType = newPlayerType;
+}
 int Player::currentId = 0;
 Player::Player()
 {
@@ -159,6 +177,7 @@ Player::Player()
 	id = new int(currentId);
 	currentId++;
 	std::vector<Card> playerHand;
+	playerType = new PlayerUser();
 }
 Player::~Player()
 {

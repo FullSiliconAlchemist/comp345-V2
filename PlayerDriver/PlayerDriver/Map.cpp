@@ -338,7 +338,12 @@ Map::Map(vector<vector<int>> * initMapData)
 	{
 		for (int j = 0; j < initMapData->at(i).size(); j++)
 		{
+<<<<<<< HEAD
 			arrayOfPtrs[i][j] = NULL; // Why the warning here?
+=======
+			/*if (initMapData->at(i).at(j) != NULL)*/
+			arrayOfPtrs[i][j] = NULL;
+>>>>>>> rob-player
 		}
 		arrayOfPtrs[i] = NULL;
 	}

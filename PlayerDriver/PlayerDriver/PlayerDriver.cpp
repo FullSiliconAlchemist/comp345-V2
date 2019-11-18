@@ -9,6 +9,7 @@
 #include "Cards.h"
 #include "BiddingFacility.h"
 #include "MapViewer.h"
+#include "PlayerView.h"
 
 using namespace std;
 namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
@@ -30,13 +31,27 @@ int main()
 	while (numOfPlayers < 2 || numOfPlayers > 5) {
 		cout << "How many players (2-5)" << endl;
 		cin >> numOfPlayers;
+
 	}
-
 	players = new Player[numOfPlayers];
+	int typeOfPlayer;
+	for (int i = 0; i < numOfPlayers; i++) {
+		cout << "what type of player is player " << i << "?\n (0 for PlayerUser, 1 for PlayerAgressive, 2 for PlayerPassive" << endl;
+		cin >> typeOfPlayer;
+		switch (typeOfPlayer) {
 
+		case 0: players[i].setPlayerType(new PlayerUser());
+			break;
+		case 1: players[i].setPlayerType(new PlayerAgressive());
+			break;
+		case 2: players[i].setPlayerType(new PlayerPassive());
+			break;
+		}
+		PlayerView* v = new PlayerView(&players[i]);
+	}
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
@@ -86,6 +101,8 @@ int main()
 	else
 		cout << "GET BACK AT IT SON" << endl;
 
+	//exit(0);
+
 	cout << endl;
 
 	Hand faceUp(gameDeck); //DECK is shuffled on creation
@@ -95,11 +112,20 @@ int main()
 		players[i].bid();
 		switch (numOfPlayers) {
 		case 2: players[i].setGoldenCoins(14);
+			break;
 		case 3: players[i].setGoldenCoins(11);
+			break;
 		case 4: players[i].setGoldenCoins(9);
+			break;
 		case 5: players[i].setGoldenCoins(8);
+			break;
 		}
 	}
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		cout << players[i].GetGoldenCoins() << " " << endl;
+	}
+
 	BiddingFacility::printBidStatus();
 	idxOfPlayerTurn = BiddingFacility::biddingComplete();
 	cout << "player" << idxOfPlayerTurn << " won the bid\n";
@@ -186,6 +212,7 @@ int main()
 		std::string action; // Card action returned by getAction method
 
 		faceUp.showHand();
+
 		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)\n";
 		cin >> idxOfCardToTake;
 		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
@@ -195,8 +222,19 @@ int main()
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 			// Player uses card action
 		}
+
+		idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
+		cout << "Player " << idxOfPlayerTurn << " picked up card in slot " << idxOfCardToTake << endl;
+		players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
+		
+		replacement = gameDeck.draw();
+		toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
+		cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+		players[idxOfPlayerTurn].pickUpCard(toPickUp);
+		
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
+		cout << endl;
 	}
 
 // ---------------------- END PART 3 -------------------------
@@ -237,7 +275,7 @@ int main()
 	{
 		if (i == 0)
 		{
-			cout << "\nWhere do you want to move your army?: \n";
+			cout << "\nWhere do you want	 to move your army?: \n";
 			gameMap->displayPossibleMoves(c1);
 			cin >> playerCountryChoice;
 			players[1].MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
@@ -253,7 +291,6 @@ int main()
 		}
 	}
 
-
 	cout << "\n*** Display test ***" << endl;
 	gameMap->displayPlayerStats();
 
@@ -262,10 +299,10 @@ int main()
 	cout << endl;
 
 	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
-	// Player 0 destroys player 1's armies
-	players[0].DestroyArmy(1, 1, c1);
-	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[0].GetId()];
+
+	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
+	players[0].DestroyArmy(players[1].GetId(), 1, c1);
+	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();
