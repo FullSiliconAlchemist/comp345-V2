@@ -1,28 +1,30 @@
 #include "GameObservers.h"
+#include <iostream>
 using namespace std;
-Observer::Observer() {
+ObserverPlayer::ObserverPlayer() {
 
 }
-Observer::~Observer() {
+ObserverPlayer::~ObserverPlayer() {
 
 }
 
-Subject::Subject() {
-	_observers = new list<Observer*>;
+SubjectPlayer::SubjectPlayer() {
+	_observers = new list<ObserverPlayer*>;
 
 }
-Subject::~Subject() {
+SubjectPlayer::~SubjectPlayer() {
 	delete _observers;
 }
-void Subject::attach(Observer* o) {
+void SubjectPlayer::attach(ObserverPlayer* o) {
 	_observers->push_back(o);
 }
-void Subject::detach(Observer* o) {
+void SubjectPlayer::detach(ObserverPlayer* o) {
 	_observers->remove(o);
 }
-void Subject::notify() {
-	list<Observer*>::iterator i = _observers->begin();
+void SubjectPlayer::notify() {
+	list<ObserverPlayer*>::iterator i = _observers->begin();
 	for (; i != _observers->end(); i++) {
 		(*i)->update();
 	}
 }
+

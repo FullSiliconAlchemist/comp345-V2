@@ -5,25 +5,25 @@ class GameObservers
 
 };
 
-class Observer{
+class ObserverPlayer{
 public:
-	Observer();
-	~Observer();
+	ObserverPlayer();
+	~ObserverPlayer();
 	virtual void update() = 0;
 private:
 
 };
-class Subject {
+class ObserverPlayer;
+class SubjectPlayer {
 
 public:
-	virtual void attach(Observer* o);
-	virtual void detach(Observer* o);
+	virtual void attach(ObserverPlayer* o);
+	virtual void detach(ObserverPlayer* o);
 	virtual void notify();
-	Subject();
-	~Subject();
+	SubjectPlayer();
+	~SubjectPlayer();
 
 private:
-	std::list<Observer*>* _observers;
+	std::list<ObserverPlayer*>* _observers;
 };
-
 

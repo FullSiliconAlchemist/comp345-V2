@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Cards.h"
 #include "BiddingFacility.h"
+#include "PlayerView.h"
 
 using namespace std;
 namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
@@ -45,6 +46,7 @@ int main()
 		case 2: players[i].setPlayerType(new PlayerPassive());
 			break;
 		}
+		PlayerView* v = new PlayerView(&players[i]);
 	}
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
