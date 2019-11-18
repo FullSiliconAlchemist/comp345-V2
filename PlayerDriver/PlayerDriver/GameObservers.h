@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include "Cards.h"
 class GameObservers
 {
 
@@ -9,7 +10,7 @@ class ObserverPlayer{
 public:
 	ObserverPlayer();
 	~ObserverPlayer();
-	virtual void update() = 0;
+	virtual void update(Card c) = 0;
 private:
 
 };
@@ -19,7 +20,7 @@ class SubjectPlayer {
 public:
 	virtual void attach(ObserverPlayer* o);
 	virtual void detach(ObserverPlayer* o);
-	virtual void notify();
+	virtual void notify(Card c);
 	SubjectPlayer();
 	~SubjectPlayer();
 

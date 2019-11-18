@@ -13,10 +13,12 @@ PlayerView::~PlayerView()
 {
 	_subject->detach(this);
 }
-void PlayerView::update() {
-	display();
+void PlayerView::update(Card c) {
+	display(c);
 }
-void PlayerView::display() {
-	_subject->GetId;
+void PlayerView::display(Card c) {
+	std::cout << "OBSERVER: Player " << _subject->GetId() << " Has " << _subject->GetGoldenCoins() << " coins and has picked up the card with the action " << c.getAction() << std::endl;
+	std::cout << "OBSERVER: That card costs " << c.getCost() << " which will leave Player " << _subject->GetId() << " with " 
+		<< _subject->GetGoldenCoins() - c.getCost() << " coins" << std::endl;
 	
 }

@@ -21,10 +21,10 @@ void SubjectPlayer::attach(ObserverPlayer* o) {
 void SubjectPlayer::detach(ObserverPlayer* o) {
 	_observers->remove(o);
 }
-void SubjectPlayer::notify() {
+void SubjectPlayer::notify(Card c) {
 	list<ObserverPlayer*>::iterator i = _observers->begin();
 	for (; i != _observers->end(); i++) {
-		(*i)->update();
+		(*i)->update(c);
 	}
 }
 

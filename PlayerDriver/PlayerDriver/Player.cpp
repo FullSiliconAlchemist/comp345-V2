@@ -65,7 +65,7 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 	return currentTurn + 1;
 }
 void Player::pickUpCard(Card c) {
-	notify();
+	notify(c);
 	playerHand.push_back(c);
 }
 int Player::getIdxOfCardToPickup(Hand choiceCards) {
