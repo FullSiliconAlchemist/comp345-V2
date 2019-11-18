@@ -1,2 +1,4 @@
-﻿  PlayerView.cpp
+﻿  PlayerDriver.cpp
+  GameView.cpp
+  Generating Code...
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe
