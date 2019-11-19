@@ -41,7 +41,8 @@ public:
 	// Map methods
 	vector<vector<int>>* getAdjacencyList() const;
 	MapGraph* getMapGraph() const;
-	int * getTotalCountries() const;
+	int* getTotalPlayers() const;
+	int* getTotalCountries() const;
 	Country** getCountryArray() const; // This right here is a headache
 	void displayPossibleMoves(Country* countryToTake);
 	bool getIsValidMap() const;
@@ -51,7 +52,7 @@ public:
 
 	// Singleton instantiator
 	static Map* instance();
-	static Map* instance(vector<vector<int>>* adjList);
+	static Map* instance(vector<vector<int>>* adjList, int* totalPlayers);
 
 	// Subject pattern methods (sort of like tick() in example)
 	void displayPlayerStats();
@@ -62,13 +63,14 @@ private:
 	//Singleton Designpattern
 	static Map* m_instance;
 	Map();
-	Map(vector<vector<int>>* initMap);
+	Map(vector<vector<int>>* initMap, int* totalPlayers);
 
 	vector<vector<int>>* adjList;
 	int* totalCountries;
 	MapGraph* gameGraph;
 	bool isConnectedGraph;
 	Country** countryArray;
+	int* totalPlayers;
 	// Vector of country pointer used to be here instead of country array of pointers.
 	// When setting the countryVector pointer to point to the reference of the created vector in the map constructor
 	// I was not able to retain the data that the pointers were pointing to, although countryVector was pointing to the proper address.

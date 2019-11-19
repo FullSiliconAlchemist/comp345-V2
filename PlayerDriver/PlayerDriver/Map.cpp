@@ -25,16 +25,21 @@ Map* Map::instance()
 	return m_instance;
 }
 
-Map* Map::instance(vector<vector<int>>* adjList)
+Map* Map::instance(vector<vector<int>>* adjList, int* totalPlayers)
 {
 	if (!m_instance)
-		m_instance = new Map(adjList);
+		m_instance = new Map(adjList, totalPlayers);
 	return m_instance;
 }
 
 Map::MapGraph* Map::getMapGraph() const
 {
 	return gameGraph;
+}
+
+int* Map::getTotalPlayers() const
+{
+	return totalPlayers;
 }
 
 int* Map::getTotalCountries() const
@@ -278,12 +283,13 @@ Map::Map()
 	this->countryArray = NULL;
 	this->gameGraph = NULL;
 	this->isConnectedGraph = false;
-	this->totalCountries = 0;
+	this->totalCountries = new int(0);
+	this->totalPlayers = new int(0);
 }
 
 // Factory method design pattern
-Map::Map(vector<vector<int>> * initMapData) 
-	: adjList(initMapData) 
+Map::Map(vector<vector<int>>* initMapData, int* totalPlayers)
+	: adjList(initMapData), totalPlayers(totalPlayers)
 {
 	std::cout << "Initializing map..." << std::endl;
 
@@ -365,5 +371,6 @@ Map::~Map()
 	this->gameGraph = NULL;
 	delete this->totalCountries;
 	totalCountries = NULL;
+	totalPlayers = NULL;
 	std::cout << "Map deleted" << std::endl;
 }

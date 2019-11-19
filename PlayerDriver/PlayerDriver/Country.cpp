@@ -47,7 +47,7 @@ Country::Country()
 {
 	countryNumber = new int(0);
 	continentNumber = new int(0);
-	city = new int(-1);
+	city = new int(0);
 
 	// Setting all armies in all countries to 0
 	refactoredArmies = new int* [5];
@@ -72,16 +72,6 @@ Country::Country(int* countryNumber, int* continentNumber)
 
 Country::~Country()
 {
-	/*delete this->city;
-	this->city = NULL;
-	delete this->continentNumber;
-	this->continentNumber = NULL;
-	delete this->countryNumber;
-	this->countryNumber = NULL;
-	delete this->numberOfArmies;
-	this->numberOfArmies = NULL;
-	delete this->refactoredArmies;
-	this->refactoredArmies = NULL;*/
 }
 
 

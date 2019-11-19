@@ -22,6 +22,7 @@ void PlayerView::display(Card c) {
 		<< _subject->GetGoldenCoins() - c.getCost() << " coins" << std::endl;
 	
 }
+
 using std::cout;
 using std::endl;
 
@@ -50,18 +51,24 @@ void MapViewer::Update()
 void MapViewer::display()
 {
 	// Call the desired function to display the map's current state
-	for (int i = 0; i < 5; i++)
+	// Shows each player's countries
+	cout << "\n|||||||||| GAME STATISTICS ||||||||||\n" << endl;
+	int players = *_Subject->getTotalPlayers();
+	for (int i = 0; i < players; i++)
 	{
-		cout << "Player " << i << " countries: ";
-		cout << "[ ";
+		cout << "Player " << i << " stats: ";
 		for (int j = 0; j < *_Subject->getTotalCountries(); j++)
 		{
-			for (int k = 0; k < *_Subject->getCountryArray()[j]->getRefactoredArmies()[i]; k++)
-			{
-				cout << " # ";
-			}
+			int armiesPresent = *_Subject->getCountryArray()[j]->getRefactoredArmies()[i];
+			int cityPresent = *_Subject->getCountryArray()[j]->getCity();
+			if (armiesPresent > 0)
+				cout << "\n\n\t[ Country #" << j << " has " << armiesPresent << " armies ]";
+			
+			if (cityPresent)
+				cout << " \n\n\t[ Player has a city present on country " << j << " ]";
+
 		}
-		cout << " ]\n" << endl;
+		cout << "\n" << endl;
 	}
 }
 

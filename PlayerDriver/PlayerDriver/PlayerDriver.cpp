@@ -74,7 +74,7 @@ int main()
 	} while (!loader->getIsLoaded());
 	
 	// Initialize map object from map data with singleton architecture
-	gameMap = Map::instance(&mapDataPntr);
+	gameMap = Map::instance(&mapDataPntr, &numOfPlayers);
 	// Attach Observer to the Subject
 	MapViewer* view = new MapViewer(gameMap);
 
@@ -140,7 +140,8 @@ int main()
 	This should dynamically be updated as the map state changes and be visible at all times during game play
 	*/
 
-	cout << "\n*** Display test ***" << endl;
+	// Displaying the players stats at random intervals in the game. Ideally this will be called 
+	// After a move has been made in the driver.
 	gameMap->displayPlayerStats();
 
 	// Players choose where they set their armies if there are only two players playing.
@@ -193,7 +194,6 @@ int main()
 		std::cout << "Armies have been set on desired countries. Too bad there's no GUI to see them. \nMaybe some day.\n" << std::endl;
 	}
 
-	cout << "\n*** Display test ***" << endl;
 	gameMap->displayPlayerStats();
 
 // ---------------------- START PART 3 -------------------------
@@ -290,7 +290,6 @@ int main()
 		}
 	}
 
-	cout << "\n*** Display test ***" << endl;
 	gameMap->displayPlayerStats();
 
 	// Movements will be done one at a time, so that the player decides what path to take
@@ -326,8 +325,6 @@ int main()
 //----------------------END PART 5-------------------------
 //----------------------START PART 6-----------------------
 	
-
-	cout << "\n*** Display test ***" << endl;
 	gameMap->displayPlayerStats();
 
 	int* scores = new int[numOfPlayers];
