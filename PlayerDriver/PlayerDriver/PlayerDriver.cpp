@@ -279,6 +279,7 @@ int main()
 			cin >> playerCountryChoice;
 			players[1].MoveArmies(1, 1, c1, gameMap->getCountryArray()[playerCountryChoice]);
 			playerLastCountryChoice = playerCountryChoice;
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
@@ -287,6 +288,7 @@ int main()
 			cin >> playerCountryChoice;
 			players[1].MoveArmies(1, 1, gameMap->getCountryArray()[playerLastCountryChoice], gameMap->getCountryArray()[playerCountryChoice]);
 			playerLastCountryChoice = playerCountryChoice;
+			gameMap->displayPlayerStats();
 		}
 	}
 
@@ -301,11 +303,14 @@ int main()
 	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
 	players[0].DestroyArmy(players[1].GetId(), 1, c1);
 	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
+	gameMap->displayPlayerStats();
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();
 	players[1].BuildCity(c1);
 	cout << "\ncity status before placement: " << *c1->getCity();
+	gameMap->displayPlayerStats();
+
 	//void destroyArmymoveArmy(int numOfArmies, Country* c, int numOfMovements, int numToMove, Country* countryToTake, Country* countryToPlace);
 	//void newArmymoveArmy(int numOfArmies, Country * countryToPlace, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToMoveTo);
 	//void citymoveArmy(Country * c, int numOfMovements, int numToMove, Country * countryToTake, Country * countryToPlace);

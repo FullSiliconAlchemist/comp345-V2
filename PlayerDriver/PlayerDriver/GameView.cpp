@@ -52,8 +52,20 @@ void MapViewer::display()
 {
 	// Call the desired function to display the map's current state
 	// Shows each player's countries
-	cout << "\n|||||||||| GAME STATISTICS ||||||||||\n" << endl;
+	vector<vector<int>> continentControl;
 	int players = *_Subject->getTotalPlayers();
+	int numContinents = *_Subject->getCountryArray()[*_Subject->getTotalCountries() - 1]->getContinentNumber() + 1; // Contients range from 0 to n
+	for (int i = 0; i < numContinents; ++i)
+	{
+		continentControl.push_back(vector<int>());
+		for (int j = 0; j < players; ++j)
+		{
+			continentControl.at(i).push_back(0);
+		}
+	}
+
+	cout << "\n|||||||||||||||||||| GAME STATISTICS ||||||||||||||||||||\n" << endl;
+	cout << "\n-------- Country and City Stats --------\n" << endl;
 	for (int i = 0; i < players; i++)
 	{
 		cout << "Player " << i << " stats: ";
@@ -61,8 +73,12 @@ void MapViewer::display()
 		{
 			int armiesPresent = *_Subject->getCountryArray()[j]->getRefactoredArmies()[i];
 			int cityPresent = *_Subject->getCountryArray()[j]->getCity();
+			int continent = *_Subject->getCountryArray()[j]->getContinentNumber();
+
+			continentControl.at(continent).at(i) += armiesPresent;
+
 			if (armiesPresent > 0)
-				cout << "\n\n\t[ Country #" << j << " has " << armiesPresent << " armies ]";
+				cout << "\n\n\t[ Country #" << j << " has " << armiesPresent << " army(ies) ]";
 			
 			if (cityPresent)
 				cout << " \n\n\t[ Player has a city present on country " << j << " ]";
@@ -70,5 +86,31 @@ void MapViewer::display()
 		}
 		cout << "\n" << endl;
 	}
+
+	int playerConquering = 0;
+	int tiedPlayers = 0;
+
+	cout << "\n-------- Continent Stats --------\n" << endl;
+	for (int i = 0; i < continentControl.size(); ++i)
+	{
+		cout << "Dominating continent " << i << " is player: " << endl;
+		for (int j = 0; j < continentControl.at(i).size(); j++)
+		{
+			//cout << continentControl.at(i).at(j) << " " << endl;
+			if (continentControl.at(i).at(j) > continentControl.at(i).at(playerConquering))
+				playerConquering = j;
+			else
+				tiedPlayers++;
+		}
+
+		if (tiedPlayers == players)
+			cout << "\n\t[ TIED ]\n" << endl;
+		else
+			cout << "\n\t[ " << playerConquering << " ]\n" << endl;
+
+		tiedPlayers = 0;
+	}
+
+	cout << endl;
 }
 
