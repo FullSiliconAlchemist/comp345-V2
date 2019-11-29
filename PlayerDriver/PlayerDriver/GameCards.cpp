@@ -1,8 +1,9 @@
-#include "Cards.h"
 #include <string>
 #include <cstdlib>
 #include <time.h>  
 #include <iostream>
+#include "CardsFactory.h"
+
 std::string Card::getAction() const
 {
 	return *action;
@@ -81,6 +82,15 @@ void Hand::showHand()const { //prints status of all cards
 		std::cout << "Card" << i << ": action: " << currentHand[i].getAction() << " good: " << currentHand[i].getGood() << " cost:" << currentHand[i].getCost() << "\n";
 	}
 }
+void Hand::fillHand(Deck d) {
+	for (int i = 0; i < 6; i++) {
+		Card c = d.draw();
+		currentHand[i] = Card(c);
+		//currentHand[i].setAction();
+		//currentHand[i].setGood();
+		currentHand[i].setCost(cost[i]);
+	}
+}
 Hand::Hand(Deck d) { //fills hand with cards from the deck
 
 	for (int i = 0; i < 6; i++) {
@@ -90,6 +100,9 @@ Hand::Hand(Deck d) { //fills hand with cards from the deck
 		//currentHand[i].setGood();
 		currentHand[i].setCost(cost[i]);
 	}
+}
+Hand::Hand() { //fills hand with cards from the deck
+	
 }
 Card Hand::getCardAt(int i) {
 	return currentHand[i];

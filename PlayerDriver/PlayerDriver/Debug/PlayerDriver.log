@@ -1,4 +1,6 @@
 ﻿  PlayerDriver.cpp
+  PlayerStrategies.cpp
   GameView.cpp
   Generating Code...
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerStrategies.cpp(15): warning C4715:  'PlayerUser::idxOfCardToPickup': not all control paths return a value
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

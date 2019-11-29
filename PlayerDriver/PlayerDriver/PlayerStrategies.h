@@ -1,5 +1,5 @@
 #pragma once
-#include "Cards.h"
+#include "CardsFactory.h"
 class PlayerStrategies
 {
 public:

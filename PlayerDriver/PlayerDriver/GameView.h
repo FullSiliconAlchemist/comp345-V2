@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "Cards.h"
+#include "CardsFactory.h"
 #include "Map.h"
 
 class PlayerView: public ObserverPlayer {

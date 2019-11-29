@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 #include "iostream"
-#include "Cards.h"
+#include "CardsFactory.h"
 using std::cout;
 using std::endl;
 using std::list;

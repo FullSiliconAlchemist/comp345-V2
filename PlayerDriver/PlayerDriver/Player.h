@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObservers.h"
-#include "Cards.h"
+#include "CardsFactory.h"
 #include "BiddingFacility.h"
 #include "Country.h"
 #include "Map.h"

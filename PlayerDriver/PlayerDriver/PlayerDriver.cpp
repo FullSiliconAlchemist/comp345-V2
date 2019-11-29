@@ -6,7 +6,7 @@
 #include "MapLoader.h"
 #include "Country.h"
 #include "Player.h"
-#include "Cards.h"
+#include "CardsFactory.h"
 #include "BiddingFacility.h"
 #include "GameView.h"
 
@@ -16,7 +16,7 @@ namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
 int main()
 {
 // ---------------------- START PART 1 -------------------------
-	Deck gameDeck;
+	GameCards* gameDeck = CardsFactory::create("deck");
 	Map *gameMap;
 	MapLoader* loader = new MapLoader();
 
@@ -104,8 +104,8 @@ int main()
 
 	cout << endl;
 
-	Hand faceUp(gameDeck); //DECK is shuffled on creation
-	faceUp.showHand();
+	GameCards* faceUp = CardsFactory::create("hand"); //DECK is shuffled on creation
+	faceUp->showHand();
 	int idxOfPlayerTurn;
 	for (int i = 0; i < numOfPlayers; i++) {
 		players[i].bid();
