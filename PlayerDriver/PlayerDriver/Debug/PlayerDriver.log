@@ -1,4 +1,5 @@
-﻿  PlayerDriver.cpp
-  GameView.cpp
+﻿  GameCard.cpp
+  PlayerDriver.cpp
   Generating Code...
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(19,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

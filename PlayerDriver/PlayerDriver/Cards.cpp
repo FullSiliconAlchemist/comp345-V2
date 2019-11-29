@@ -3,48 +3,12 @@
 #include <cstdlib>
 #include <time.h>  
 #include <iostream>
-std::string Card::getAction() const
-{
-	return *action;
-}
-std::string Card::getGood() const
-{
-	return *good;
-}
-void Card::setAction()
-{
-	action = listOfActions + (rand() % 7);
-}
-void Card::setGood()
-{
-	good = listOfGoods + (rand() % 5);
-}
-void Card::setCost(int ct)
-{
-	*cost = ct;
-}
-int Card::getCost()const
-{
-	return *cost;
-}
 
-Card::Card() { //Creates a random card
-	srand(time(0));//initilize random
-	cost = new int(0);
-	action = listOfActions + (rand() % 7);
-	good = listOfGoods + (rand() % 5);
+std::string getCardType() {
+	//initilize random
+	if (rand() % 2 == 0) return "single";
+	return "double";
 }
-Card::Card(const Card& obj) { //copy contructor
-	action = obj.action;
-	good = obj.good;
-	cost = new int(0);
-	*cost = obj.getCost();
-}
-
-Card::~Card()
-{
-}
-
 Card Deck::draw() {
 	*numOfCards = *numOfCards - 1;
 	return cardsList[*numOfCards];
@@ -53,12 +17,10 @@ Deck::Deck()
 {
 	numOfCards = new int(42);
 	for (int i = 0; i < 42; i++) { //insures deck is full on random cards
-		cardsList[i].setAction();
+		cardsList[i] = *CardFactory::create(getCardType());
 		cardsList[i].setGood();
 	}
-
 }
-
 Deck::~Deck()
 {
 }
