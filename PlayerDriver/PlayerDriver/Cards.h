@@ -1,24 +1,6 @@
 #pragma once
 #include <string>
-
-class Card {
-	std::string* action;
-	std::string* good;
-	int* cost;
-	std::string listOfActions[8] = { "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy", "destroyArmymoveArmy","newArmymoveArmy","citymoveArmy" };
-	std::string listOfGoods[6] = { "crystal", "stone", "iron", "wood", "veggies", "wild" };
-public:
-	std::string getAction()const;
-	std::string getGood() const;
-	int getCost() const;
-	void setCost(int ct);
-	void setAction();
-	void setGood();
-
-	Card();
-	Card(const Card& obj);
-	~Card();
-};
+#include "CardsFactory.h"
 
 class Deck {
 	Card cardsList[42];

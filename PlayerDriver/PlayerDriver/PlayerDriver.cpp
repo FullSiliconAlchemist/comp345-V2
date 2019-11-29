@@ -16,6 +16,7 @@ namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
 int main()
 {
 // ---------------------- START PART 1 -------------------------
+	srand(time(0));
 	Deck gameDeck;
 	Map *gameMap;
 	MapLoader* loader = new MapLoader();
@@ -50,7 +51,7 @@ int main()
 	}
 	// Browse possible maps
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 
 	// C++:V17 only, checks all files in a directory
 	for (const auto& entry : fs::directory_iterator(path))
