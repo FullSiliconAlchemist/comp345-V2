@@ -39,7 +39,6 @@ int main()
 		cout << "what type of player is player " << i << "?\n (0 for PlayerUser, 1 for PlayerAgressive, 2 for PlayerPassive" << endl;
 		cin >> typeOfPlayer;
 		switch (typeOfPlayer) {
-
 		case 0: players[i].setPlayerType(new PlayerUser());
 			break;
 		case 1: players[i].setPlayerType(new PlayerAgressive());
@@ -220,12 +219,10 @@ int main()
 			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
 			cout << "\nCard picked up has action: " << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
-			// Player uses card action
+			players[idxOfPlayerTurn].playCard(toPickUp,gameMap);
 		}
 
 		idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
-		cout << "Player " << idxOfPlayerTurn << " picked up card in slot " << idxOfCardToTake << endl;
-		players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
 		
 		replacement = gameDeck.draw();
 		toPickUp = faceUp.exchange(idxOfCardToTake,replacement);

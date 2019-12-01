@@ -97,6 +97,82 @@ void Player::citymoveArmy(Country* c, int numOfMovements, int numToMove, Country
 void Player::ignore() {
 	//do nothing
 }
+void Player::playCard(Card c, Map* gameMap) {
+	string action = c.getAction();
+	int x, y,z;
+	//{ "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy"};
+	if (action == "newArmy") {
+		cout << "enter id of country you'd like to place" << endl;
+		cin >> x;
+		PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+		return;
+	}
+	else if (action == "moveArmy" || action == "moveOverLandOrWater" ) {
+		cout << "enter num of armies to move" << endl;
+		cin >> x;
+		cout << "enter id of country you'd like to take from" << endl;
+		cin >> y;
+		cout << "enter id of country you'd like to move to" << endl;
+		cin >> z;
+		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		return;
+	}
+	else if (action == "city") {
+		cout << "enter id of country to put a city" << endl;
+		cin >> x;
+		BuildCity(gameMap->getCountryArray()[x]);
+		return;
+	}
+	else if (action == "destroyArmy") {
+		cout << "Which player to destroy?" << endl;
+		cin >> x;
+		DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
+		return;
+	}
+	//std::string listOfDoubleActions[3] = { "destroyArmymoveArmy","newArmymoveArmy","citymoveArmy" };
+	else if (action == "destroyArmymoveArmy") {
+		cout << "Which player to destroy?" << endl;
+		cin >> x;
+		cout << "enter id of country you'd like to take from" << endl;
+		cin >> y;
+		DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
+
+		cout << "enter num of armies to move" << endl;
+		cin >> x;
+		cout << "enter id of country you'd like to take from" << endl;
+		cin >> y;
+		cout << "enter id of country you'd like to move to" << endl;
+		cin >> z;
+		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		return;
+	}
+	else if (action == "newArmymoveArmy") {
+		cout << "enter id of country you'd like to place" << endl;
+		cin >> x;
+		PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+		cout << "enter num of armies to move" << endl;
+		cin >> x;
+		cout << "enter id of country you'd like to take from" << endl;
+		cin >> y;
+		cout << "enter id of country you'd like to move to" << endl;
+		cin >> z;
+		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		return;
+	}
+	else if (action == "citymoveArmy") {
+		cout << "enter id of country to put a city" << endl;
+		cin >> x;
+		BuildCity(gameMap->getCountryArray()[x]);
+		cout << "enter num of armies to move" << endl;
+		cin >> x;
+		cout << "enter id of country you'd like to take from" << endl;
+		cin >> y;
+		cout << "enter id of country you'd like to move to" << endl;
+		cin >> z;
+		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		return;
+	}
+}
 int Player::computeScore() {
 	//for card in hand, save number of each resource
 	//for num of resource adds score 
