@@ -100,11 +100,9 @@ int main()
 	else
 		cout << "GET BACK AT IT SON" << endl;
 
-	//exit(0);
-
 	cout << endl;
 
-	Hand faceUp(gameDeck); //DECK is shuffled on creation
+	Hand faceUp(gameDeck); // DECK is shuffled on creation
 	faceUp.showHand();
 	int idxOfPlayerTurn;
 	for (int i = 0; i < numOfPlayers; i++) {
@@ -120,6 +118,7 @@ int main()
 			break;
 		}
 	}
+
 	for (int i = 0; i < numOfPlayers; i++)
 	{
 		cout << players[i].GetGoldenCoins() << " " << endl;
@@ -132,7 +131,6 @@ int main()
 	// ------------------- GAME INITIALIZATION STAGE --------------------
 
 	/*
-
 	What the view must display per player
 
 	“Player #’ location, and his procession (e.g. victory points, cities, continents, etc.) 
@@ -205,7 +203,7 @@ int main()
 	int idxOfCardToTake = 0;
 	/**/
 	int count = 0; // To avoid infinite loop
-	while (idxOfCardToTake != -1 && count < 4) {
+	while (idxOfCardToTake != -1 && count < 30) {
 		Card replacement;
 		Card toPickUp;
 		std::string action; // Card action returned by getAction method
