@@ -1,5 +1,4 @@
-﻿  GameCard.cpp
-  PlayerDriver.cpp
-  Generating Code...
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(19,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Player.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(188,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(230,20): warning C4018:  '<': signed/unsigned mismatch
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

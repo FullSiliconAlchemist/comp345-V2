@@ -27,6 +27,7 @@ public:
 	void bid();
 	void receiveGoldenCoins(int numOfCoins);
 	void showHand();
+	void playCard(Card c, Map* gameMap);
 
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }
