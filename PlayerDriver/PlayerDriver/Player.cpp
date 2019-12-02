@@ -15,6 +15,9 @@ void Player::receiveGoldenCoins(int numOfCoins) {
 void Player::bid() {
 	bidding.placeBidAndAge();
 }
+void Player::bid(int age, int bid) {
+	bidding.placeBidAndAge(age, bid);
+}
 bool Player::PlaceNewArmies(int numOfArmies, Country *countryToPlace) {
 	if (numOfArmies > * armyCubes) {
 		return false;
@@ -158,6 +161,10 @@ void Player::showHand() {
 }
 void Player::setPlayerType(PlayerStrategies* newPlayerType) {
 	this->playerType = newPlayerType;
+}
+PlayerStrategies* Player::getPlayerType() const
+{
+	return this->playerType;
 }
 int Player::currentId = 0;
 Player::Player()

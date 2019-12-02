@@ -25,6 +25,7 @@ public:
 	void ignore();
 	int computeScore();
 	void bid();
+	void bid(int age, int bid);
 	void receiveGoldenCoins(int numOfCoins);
 	void showHand();
 
@@ -37,6 +38,7 @@ public:
 	void pickUpCard(Card c);
 	int getIdxOfCardToPickup(Hand choiceCards);
 	void setPlayerType(PlayerStrategies* newPlayerType);
+	PlayerStrategies* getPlayerType() const; // Returns player type for the tournament flow
 	Player(); // For now default constructor is fine
 	~Player(); // I think this be a destroyer method
 private:
