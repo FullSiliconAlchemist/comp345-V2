@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include "Player.h"
+#include "Map.h"
 #include <string>
 
 GameEngine::GameEngine()
@@ -32,10 +33,17 @@ bool GameEngine::isUser(Player& somePlayer)
 		return true;
 }
 
-void GameEngine::chooseGameMode()
-{
-}
+void GameEngine::displayResults(Player players[], Map* gameMap, int numOfPlayers ){
+	int* scores = new int[numOfPlayers];
 
-void GameEngine::displayResults()
-{
+	cout << "\nPlayer \tCards \tVictory Points \tCoins" <<endl;
+
+	for (int i = 0; i < numOfPlayers; i++) {
+		cout << endl;
+		scores[i] = players[i].computeScore();
+		scores[i] += gameMap->computePlayerScores(players[i].GetId());
+
+		cout <<i << "\t"<<players[i].GetNumOfCards()<< "\t"<<scores[i]<< "\t"<< players[i].GetGoldenCoins() << endl;
+
+	}
 }

@@ -222,10 +222,10 @@ int Map::computePlayerScores(int playerID)
 	int opposingArmiesConquered = 0;
 
 	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays - assuming the map has valid continent data
-
+	/* messing with formatting in game engine
 	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << std::endl;
 	std::cout << "FOR PLAYER :" << ID << std::endl;
-
+	*/
 	std::map<int, vector<int>> continentGraphSummary; // Map keeps track of the continents being talied
 
 	// Initializing the map object to have the size of the amount of continents. This will be used to tally the points for 

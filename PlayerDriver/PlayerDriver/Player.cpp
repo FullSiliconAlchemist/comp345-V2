@@ -74,6 +74,7 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 	return currentTurn + 1;
 }
 void Player::pickUpCard(Card c) {
+	numOfCards++;
 	notify(c);
 	playerHand.push_back(c);
 }
@@ -123,10 +124,12 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 		{
 			cin >> x;
 			PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
 			PlaceNewArmies(3, gameMap->getCountryArray()[countryToStart]);
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -140,6 +143,7 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "enter id of country you'd like to move to" << endl;
 			cin >> z;
 			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
@@ -153,6 +157,7 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			} while (legality);
 			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
 			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -162,10 +167,12 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "enter id of country to put a city" << endl;
 			cin >> x;
 			BuildCity(gameMap->getCountryArray()[x]);
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
 			BuildCity(gameMap->getCountryArray()[rand() % totalCountries]);
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -177,12 +184,14 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "Which player to destroy?" << endl;
 			cin >> x;
 			DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
 			int attackPlayer = rand() % numPlayers;
 			int opponentCountry = gameMap->findOpponentArmy(attackPlayer);
 			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -203,6 +212,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "enter id of country you'd like to move to" << endl;
 			cin >> z;
 			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
@@ -219,6 +230,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			} while (legality);
 			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
 			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -235,6 +248,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "enter id of country you'd like to move to" << endl;
 			cin >> z;
 			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
@@ -249,6 +264,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			} while (legality);
 			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
 			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -265,6 +282,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			cout << "enter id of country you'd like to move to" << endl;
 			cin >> z;
 			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+
+			gameMap->displayPlayerStats();
 		}
 		else
 		{
@@ -279,6 +298,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			} while (legality);
 			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
 			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
 		}
 		return;
 	}
@@ -353,6 +374,7 @@ PlayerStrategies* Player::getPlayerType() const
 int Player::currentId = 0;
 Player::Player()
 {
+	numOfCards = 0;
 	armyCubes = new int(14);
 	cityDiscs = new int(3);
 	goldenCoins = new int(20);

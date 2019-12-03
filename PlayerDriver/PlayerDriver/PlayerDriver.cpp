@@ -271,6 +271,7 @@ int main()
 	// GAME ENDS AT 30 TURNS PER PLAYER
 
 	int count = 0;
+	/**/
 	while (idxOfCardToTake != -1 && count < 30) {
 		Card replacement;
 		Card toPickUp;
@@ -316,6 +317,8 @@ int main()
 
 	// PLAYER METHOD DEMOS
 	/*
+
+	
 	// GAMEPLAY DEMONSTRATION: SHOWS ALL OF THE GAME METHODS INSTEAD OF RUNNING THROUGH THE WHOLE GAME
 
 	cout << "Test player ID: " << endl;
@@ -397,12 +400,14 @@ int main()
 	int maxScore = 0;
 	int winningPlayer=0;
 
+	someEngine.displayResults(players, gameMap, numOfPlayers);
+
 	for (int i = 0; i < numOfPlayers; i++) {
 		cout << endl;
 		scores[i] = players[i].computeScore();
 		scores[i] += gameMap->computePlayerScores(players[i].GetId());
 
-		cout << "\nPlayer " << i << " has " << scores[i] << "points" << endl;
+		//cout << "\nPlayer " << i << " has " << scores[i] << "points" << endl;
 		if (scores[i] > maxScore) {
 			maxScore = scores[i];
 			winningPlayer = i;
