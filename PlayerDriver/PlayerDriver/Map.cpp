@@ -122,8 +122,6 @@ bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves)
 
 int Map::findOpponentArmy(int playerAttack, int startingCountry)
 {
-	//CountryNode* root;
-	//root = getMapGraph()->arrOfCountries[startingCountry].head;
 	int armies = 0;
 
 	for (int i = 0; i < *this->getTotalCountries(); ++i)
