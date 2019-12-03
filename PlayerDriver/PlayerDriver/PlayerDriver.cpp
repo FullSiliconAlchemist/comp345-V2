@@ -18,7 +18,7 @@ namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
 int main()
 {
 
-	//--------------------------------------------------------------- GAME SET UP ---------------------------------------------------------------
+	//--------------------------------------------------------------- GAME SET UP --------------------------------------------------------------
 
 	srand(time(0));
 	Deck gameDeck;
@@ -310,7 +310,7 @@ int main()
 			// Player uses card action
 			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine, numOfPlayers);
 		}
-		
+
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;

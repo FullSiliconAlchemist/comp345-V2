@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  Map.cpp
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(73,21): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(373,21): warning C4018:  '<': signed/unsigned mismatch
@@ -7,4 +8,8 @@ C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(373,21): 
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(188,20): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(230,20): warning C4018:  '<': signed/unsigned mismatch
 >>>>>>> rob-player
+=======
+﻿  PlayerDriver.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(22,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+>>>>>>> d6d66d916960793a05f6e75a496a4524e9f6cbfa
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

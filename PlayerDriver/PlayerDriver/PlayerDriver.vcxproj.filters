@@ -11,8 +11,15 @@
     <ClCompile Include="PlayerDriver.cpp" />
     <ClCompile Include="PlayerStrategies.cpp" />
     <ClCompile Include="GameView.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameCard.cpp" />
+=======
+
+    <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameCard.cpp" />
+
+>>>>>>> d6d66d916960793a05f6e75a496a4524e9f6cbfa
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BiddingFacility.h" />
@@ -25,9 +32,14 @@
     <ClInclude Include="PlayerStrategies.h" />
     <ClInclude Include="GameView.h" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="GameEngine.h" />
 =======
     <ClInclude Include="CardsFactory.h" />
 >>>>>>> rob-player
+=======
+    <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="CardsFactory.h" />
+>>>>>>> d6d66d916960793a05f6e75a496a4524e9f6cbfa
   </ItemGroup>
 </Project>
