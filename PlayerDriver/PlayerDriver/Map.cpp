@@ -120,31 +120,20 @@ bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves)
 	return answer;
 }
 
-int Map::findOpponentArmy(int playerAttack)
+int Map::findOpponentArmy(int playerAttack, int startingCountry)
 {
-	// Country* countryStart, Country* countryDest
-	int startingCountry = rand() % *this->getTotalCountries();
+	//CountryNode* root;
+	//root = getMapGraph()->arrOfCountries[startingCountry].head;
+	int armies = 0;
 
-	CountryNode* root;
-	root = getMapGraph()->arrOfCountries[startingCountry].head;
-
-	if (playerAttack < 0)
-		playerAttack *= -1;
-
-	if (*this->getCountryArray()[startingCountry]->getRefactoredArmies()[playerAttack] > 0)
-		return startingCountry;
-
-	while (root != NULL)
+	for (int i = 0; i < *this->getTotalCountries(); ++i)
 	{
-		startingCountry = findOpponentArmy(playerAttack);
-
-		if (startingCountry > 0)
-			return startingCountry;
-		else
-			root = root->next;
+		armies = *this->getCountryArray()[i]->getRefactoredArmies()[playerAttack];
+		if (armies > 0)
+			return i;
+		else if (i == *this->getTotalCountries() - 1)
+			return 0;
 	}
-
-	return startingCountry;
 }
 
 bool Map::getIsValidMap() const

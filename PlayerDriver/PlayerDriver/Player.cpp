@@ -188,8 +188,9 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 		}
 		else
 		{
+			int startingCountry = rand() % *gameMap->getTotalCountries();
 			int attackPlayer = rand() % numPlayers;
-			int opponentCountry = gameMap->findOpponentArmy(attackPlayer);
+			int opponentCountry = gameMap->findOpponentArmy(attackPlayer, startingCountry);
 			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
 			gameMap->displayPlayerStats();
 		}
@@ -218,7 +219,8 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 		else
 		{
 			int attackPlayer = rand() % numPlayers;
-			int opponentCountry = gameMap->findOpponentArmy(attackPlayer);
+			int startingCountry = rand() % *gameMap->getTotalCountries();
+			int opponentCountry = gameMap->findOpponentArmy(attackPlayer, startingCountry);
 			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
 			do
 			{
