@@ -94,7 +94,8 @@ void Map::displayPossibleMoves(Country* countryToTake) // Method displays all mo
 	std::cout << "]" << std::endl;
 }
 
-bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) // Flood fill implemented - Ideally must check passed countries to avoid repeating patterns
+// Depth first search implemented - Ideally must check passed countries to avoid repeating patterns
+bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) 
 {
 	bool answer = false;
 	CountryNode* root;
@@ -117,6 +118,20 @@ bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) //
 	}
 
 	return answer;
+}
+
+int Map::findOpponentArmy(int playerAttack, int startingCountry)
+{
+	int armies = 0;
+
+	for (int i = 0; i < *this->getTotalCountries(); ++i)
+	{
+		armies = *this->getCountryArray()[i]->getRefactoredArmies()[playerAttack];
+		if (armies > 0)
+			return i;
+		else if (i == *this->getTotalCountries() - 1)
+			return 0;
+	}
 }
 
 bool Map::getIsValidMap() const
@@ -194,10 +209,10 @@ int Map::computePlayerScores(int playerID)
 	int opposingArmiesConquered = 0;
 
 	int totalContinents = (*this->getCountryArray()[*this->getTotalCountries() - 1]->getContinentNumber() + 1); // +1 'cause arrays - assuming the map has valid continent data
-
+	/* messing with formatting in game engine
 	std::cout << "\nBIG REVEAL... CALCULATING SCORES...." << std::endl;
 	std::cout << "FOR PLAYER :" << ID << std::endl;
-
+	*/
 	std::map<int, vector<int>> continentGraphSummary; // Map keeps track of the continents being talied
 
 	// Initializing the map object to have the size of the amount of continents. This will be used to tally the points for 

@@ -1,6 +1,12 @@
 #include "Player.h"
 #include <string>
 #include <iostream>
+//#include "Map.h"
+
+using std::cin;
+using std::cout;
+using std::string;
+
 bool Player::payCoin(int amountToPay) {
 	if (*goldenCoins - amountToPay < 0) {
 		return false;
@@ -14,6 +20,9 @@ void Player::receiveGoldenCoins(int numOfCoins) {
 }
 void Player::bid() {
 	bidding.placeBidAndAge();
+}
+void Player::bid(int age, int bid) {
+	bidding.placeBidAndAge(age, bid);
 }
 bool Player::PlaceNewArmies(int numOfArmies, Country *countryToPlace) {
 	if (numOfArmies > * armyCubes) {
@@ -65,6 +74,7 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 	return currentTurn + 1;
 }
 void Player::pickUpCard(Card c) {
+	numOfCards++;
 	notify(c);
 	playerHand.push_back(c);
 }
@@ -97,82 +107,205 @@ void Player::citymoveArmy(Country* c, int numOfMovements, int numToMove, Country
 void Player::ignore() {
 	//do nothing
 }
-void Player::playCard(Card c, Map* gameMap) {
+
+void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 	string action = c.getAction();
-	int x, y,z;
+
+	int countryToStart = rand() % *gameMap->getTotalCountries();
+	int countryToEnd = rand() % *gameMap->getTotalCountries();
+	int totalCountries = *gameMap->getTotalCountries();
+
+	bool legality;
+	int x, y, z;
 	//{ "newArmy", "moveArmy", "moveOverLandOrWater", "city", "destroyArmy"};
 	if (action == "newArmy") {
 		cout << "enter id of country you'd like to place" << endl;
-		cin >> x;
-		PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+		if (engine.isUser(*this))
+		{
+			cin >> x;
+			PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			PlaceNewArmies(3, gameMap->getCountryArray()[countryToStart]);
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
-	else if (action == "moveArmy" || action == "moveOverLandOrWater" ) {
-		cout << "enter num of armies to move" << endl;
-		cin >> x;
-		cout << "enter id of country you'd like to take from" << endl;
-		cin >> y;
-		cout << "enter id of country you'd like to move to" << endl;
-		cin >> z;
-		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+	else if (action == "moveArmy" || action == "moveOverLandOrWater") {
+		if (engine.isUser(*this))
+		{
+			cout << "enter num of armies to move" << endl;
+			cin >> x;
+			cout << "enter id of country you'd like to take from" << endl;
+			cin >> y;
+			cout << "enter id of country you'd like to move to" << endl;
+			cin >> z;
+			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			do
+			{
+				countryToStart = rand() % *gameMap->getTotalCountries();
+				countryToEnd = rand() % *gameMap->getTotalCountries();
+				legality = gameMap->moveIsLegal(gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd], 3);
+				countryToStart = 0;
+				countryToEnd = 0;
+			} while (legality);
+			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
+			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
 	else if (action == "city") {
-		cout << "enter id of country to put a city" << endl;
-		cin >> x;
-		BuildCity(gameMap->getCountryArray()[x]);
+		if (engine.isUser(*this))
+		{
+			cout << "enter id of country to put a city" << endl;
+			cin >> x;
+			BuildCity(gameMap->getCountryArray()[x]);
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			BuildCity(gameMap->getCountryArray()[rand() % totalCountries]);
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
 	else if (action == "destroyArmy") {
-		cout << "Which player to destroy?" << endl;
-		cin >> x;
-		DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
-		return;
+		if (engine.isUser(*this))
+		{
+			cout << "Which country?" << endl;
+			cin >> y;
+			cout << "Which player to destroy?" << endl;
+			cin >> x;
+			DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			int startingCountry = rand() % *gameMap->getTotalCountries();
+			int attackPlayer = rand() % numPlayers;
+			int opponentCountry = gameMap->findOpponentArmy(attackPlayer, startingCountry);
+			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
+			gameMap->displayPlayerStats();
+		}
 	}
 	//std::string listOfDoubleActions[3] = { "destroyArmymoveArmy","newArmymoveArmy","citymoveArmy" };
 	else if (action == "destroyArmymoveArmy") {
-		cout << "Which player to destroy?" << endl;
-		cin >> x;
-		cout << "enter id of country you'd like to take from" << endl;
-		cin >> y;
-		DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
+		if (engine.isUser(*this))
+		{
+			cout << "Which player to destroy?" << endl;
+			cin >> x;
+			cout << "enter id of country you'd like to take from" << endl;
+			cin >> y;
+			DestroyArmy(x, 3, gameMap->getCountryArray()[y]);
 
-		cout << "enter num of armies to move" << endl;
-		cin >> x;
-		cout << "enter id of country you'd like to take from" << endl;
-		cin >> y;
-		cout << "enter id of country you'd like to move to" << endl;
-		cin >> z;
-		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			cout << "enter num of armies to move" << endl;
+			cin >> x;
+			cout << "enter id of country you'd like to take from" << endl;
+			cin >> y;
+			cout << "enter id of country you'd like to move to" << endl;
+			cin >> z;
+			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			int attackPlayer = rand() % numPlayers;
+			int startingCountry = rand() % *gameMap->getTotalCountries();
+			int opponentCountry = gameMap->findOpponentArmy(attackPlayer, startingCountry);
+			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
+			do
+			{
+				countryToStart = rand() % *gameMap->getTotalCountries();
+				countryToEnd = rand() % *gameMap->getTotalCountries();
+				legality = gameMap->moveIsLegal(gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd], 3);
+				countryToStart = 0;
+				countryToEnd = 0;
+			} while (legality);
+			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
+			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
 	else if (action == "newArmymoveArmy") {
-		cout << "enter id of country you'd like to place" << endl;
-		cin >> x;
-		PlaceNewArmies(3, gameMap->getCountryArray()[x]);
-		cout << "enter num of armies to move" << endl;
-		cin >> x;
-		cout << "enter id of country you'd like to take from" << endl;
-		cin >> y;
-		cout << "enter id of country you'd like to move to" << endl;
-		cin >> z;
-		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		if (engine.isUser(*this))
+		{
+			cout << "enter id of country you'd like to place" << endl;
+			cin >> x;
+			PlaceNewArmies(3, gameMap->getCountryArray()[x]);
+			cout << "enter num of armies to move" << endl;
+			cin >> x;
+			cout << "enter id of country you'd like to take from" << endl;
+			cin >> y;
+			cout << "enter id of country you'd like to move to" << endl;
+			cin >> z;
+			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			PlaceNewArmies(3, gameMap->getCountryArray()[countryToStart]);
+			do
+			{
+				countryToStart = rand() % *gameMap->getTotalCountries();
+				countryToEnd = rand() % *gameMap->getTotalCountries();
+				legality = gameMap->moveIsLegal(gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd], 3);
+				countryToStart = 0;
+				countryToEnd = 0;
+			} while (legality);
+			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
+			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
 	else if (action == "citymoveArmy") {
-		cout << "enter id of country to put a city" << endl;
-		cin >> x;
-		BuildCity(gameMap->getCountryArray()[x]);
-		cout << "enter num of armies to move" << endl;
-		cin >> x;
-		cout << "enter id of country you'd like to take from" << endl;
-		cin >> y;
-		cout << "enter id of country you'd like to move to" << endl;
-		cin >> z;
-		MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+		if (engine.isUser(*this))
+		{
+			cout << "enter id of country to put a city" << endl;
+			cin >> x;
+			BuildCity(gameMap->getCountryArray()[x]);
+			cout << "enter num of armies to move" << endl;
+			cin >> x;
+			cout << "enter id of country you'd like to take from" << endl;
+			cin >> y;
+			cout << "enter id of country you'd like to move to" << endl;
+			cin >> z;
+			MoveArmies(3, x, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+
+			gameMap->displayPlayerStats();
+		}
+		else
+		{
+			BuildCity(gameMap->getCountryArray()[rand() % totalCountries]);
+			do
+			{
+				countryToStart = rand() % *gameMap->getTotalCountries();
+				countryToEnd = rand() % *gameMap->getTotalCountries();
+				legality = gameMap->moveIsLegal(gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd], 3);
+				countryToStart = 0;
+				countryToEnd = 0;
+			} while (legality);
+			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
+			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
+		
+			gameMap->displayPlayerStats();
+		}
 		return;
 	}
 }
+
 int Player::computeScore() {
 	//for card in hand, save number of each resource
 	//for num of resource adds score 
@@ -235,9 +368,14 @@ void Player::showHand() {
 void Player::setPlayerType(PlayerStrategies* newPlayerType) {
 	this->playerType = newPlayerType;
 }
+PlayerStrategies* Player::getPlayerType() const
+{
+	return this->playerType;
+}
 int Player::currentId = 0;
 Player::Player()
 {
+	numOfCards = 0;
 	armyCubes = new int(14);
 	cityDiscs = new int(3);
 	goldenCoins = new int(20);

@@ -3,15 +3,15 @@
 #include "Cards.h"
 #include "BiddingFacility.h"
 #include "Country.h"
-#include "Map.h"
+#include "Map.h" // Circular Depencies causing errors
 #include "vector"
 #include "PlayerStrategies.h"
-
+#include "GameEngine.h"
+//class Map {}; // Quick resolve ciruclar depencies problem
 
 class Player: public SubjectPlayer
 {
 public:
-
 	bool payCoin(int amountToPay);
 	bool PlaceNewArmies(int numOfArmies, Country *countryToPlace); // Must accept a region on a map as a passed parameter to place armies (Map object)
 	int MoveArmies(int numOfMovements,int numToMove, Country *countryToTake, Country *countryToPlace); // Must accept a region on a map as a passed parameter to move armies																									   // Charles: should also accept a map Object to verify that the movement is legal.
@@ -25,10 +25,13 @@ public:
 	void ignore();
 	int computeScore();
 	void bid();
+	void bid(int age, int bid);
 	void receiveGoldenCoins(int numOfCoins);
 	void showHand();
-	void playCard(Card c, Map* gameMap);
+	void playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers);
 
+
+	inline int GetNumOfCards() const { return numOfCards; }	// Inline functions are defined in the header files
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }
 	inline int GetGoldenCoins() const { return *goldenCoins; }
@@ -38,6 +41,7 @@ public:
 	void pickUpCard(Card c);
 	int getIdxOfCardToPickup(Hand choiceCards);
 	void setPlayerType(PlayerStrategies* newPlayerType);
+	PlayerStrategies* getPlayerType() const; // Returns player type for the tournament flow
 	Player(); // For now default constructor is fine
 	~Player(); // I think this be a destroyer method
 private:
@@ -48,6 +52,7 @@ private:
 	int* id;
 	// 8 Coins if playing with 5 players, 9 if 4 players, 11 with 3 players and 14 with 2
 	int *goldenCoins;
+	int numOfCards;
 
 	// Missing a set of 42 Cards Objects 
 	//Card playerHand[20];

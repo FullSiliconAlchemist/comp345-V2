@@ -1,7 +1,10 @@
-	#pragma once
+#pragma once
+
 #include <string>
 #include <vector>
 #include "Country.h"
+//#include "Player.h"
+
 #include "GameObservers.h"
 
 using std::vector;
@@ -46,6 +49,7 @@ public:
 	void displayPossibleMoves(Country* countryToTake);
 	bool getIsValidMap() const;
 	bool moveIsLegal(Country* countryStart, Country* countryDest, int moves); // Checks adjacency between two countries to see if there is a path between them
+	int findOpponentArmy(int playerToAttack, int startingCountry);
 
 	void setCountryArray(Country** cntryArr); // This too
 

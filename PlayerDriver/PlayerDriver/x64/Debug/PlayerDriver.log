@@ -1,4 +1,3 @@
-﻿  GameView.cpp
-  PlayerDriver.cpp
-  Generating Code...
+﻿  Map.cpp
+C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(135): warning C4715: 'Map::findOpponentArmy': not all control paths return a value
   PlayerDriver.vcxproj -> C:\Users\baske\source\repos\comp345-V2\PlayerDriver\x64\Debug\PlayerDriver.exe

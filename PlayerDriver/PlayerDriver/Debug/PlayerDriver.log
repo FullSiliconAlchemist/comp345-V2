@@ -1,4 +1,3 @@
-﻿  Player.cpp
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(188,20): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(230,20): warning C4018:  '<': signed/unsigned mismatch
+﻿  PlayerDriver.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(22,12): warning C4244:  'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe
