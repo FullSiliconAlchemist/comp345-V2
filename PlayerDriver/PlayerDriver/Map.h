@@ -48,6 +48,7 @@ public:
 	void displayPossibleMoves(Country* countryToTake);
 	bool getIsValidMap() const;
 	bool moveIsLegal(Country* countryStart, Country* countryDest, int moves); // Checks adjacency between two countries to see if there is a path between them
+	int findOpponentArmy(int playerToAttack);
 
 	void setCountryArray(Country** cntryArr); // This too
 

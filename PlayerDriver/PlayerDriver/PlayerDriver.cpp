@@ -291,7 +291,7 @@ int main()
 			cout << "Card picked up has action:" << toPickUp.getAction() << " and cost " << toPickUp.getCost() << endl;
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 
-			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine);
+			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine, numOfPlayers);
 		}
 		else
 		{
@@ -306,7 +306,7 @@ int main()
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
 
 			// Player uses card action
-			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine);
+			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine, numOfPlayers);
 		}
 
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
@@ -314,6 +314,8 @@ int main()
 		cout << endl;
 	}
 
+	// PLAYER METHOD DEMOS
+	/*
 	// GAMEPLAY DEMONSTRATION: SHOWS ALL OF THE GAME METHODS INSTEAD OF RUNNING THROUGH THE WHOLE GAME
 
 	cout << "Test player ID: " << endl;
@@ -381,6 +383,7 @@ int main()
 	Card toPickup = faceUp.exchange(0, nextCard);
 	cout << "\n\n";
 	faceUp.showHand();
+	*/
 
 	gameMap->displayPlayerStats();
 
@@ -393,13 +396,7 @@ int main()
 	int* scores = new int[numOfPlayers];
 	int maxScore = 0;
 	int winningPlayer=0;
-	//for test only
-	for (int i = 0; i < 10; i++) {
-		players[0].pickUpCard(gameDeck.draw());
-		players[1].pickUpCard(gameDeck.draw());
-	}
 
-	// 
 	for (int i = 0; i < numOfPlayers; i++) {
 		cout << endl;
 		scores[i] = players[i].computeScore();

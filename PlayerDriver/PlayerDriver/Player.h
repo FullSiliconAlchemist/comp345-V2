@@ -29,7 +29,7 @@ public:
 	void bid(int age, int bid);
 	void receiveGoldenCoins(int numOfCoins);
 	void showHand();
-	void playCard(Card c, Map* gameMap, GameEngine engine);
+	void playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers);
 
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }

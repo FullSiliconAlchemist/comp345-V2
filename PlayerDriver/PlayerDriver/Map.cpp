@@ -94,7 +94,8 @@ void Map::displayPossibleMoves(Country* countryToTake) // Method displays all mo
 	std::cout << "]" << std::endl;
 }
 
-bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) // Flood fill implemented - Ideally must check passed countries to avoid repeating patterns
+// Depth first search implemented - Ideally must check passed countries to avoid repeating patterns
+bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) 
 {
 	bool answer = false;
 	CountryNode* root;
@@ -117,6 +118,33 @@ bool Map::moveIsLegal(Country* countryStart, Country* countryDest, int moves) //
 	}
 
 	return answer;
+}
+
+int Map::findOpponentArmy(int playerAttack)
+{
+	// Country* countryStart, Country* countryDest
+	int startingCountry = rand() % *this->getTotalCountries();
+
+	CountryNode* root;
+	root = getMapGraph()->arrOfCountries[startingCountry].head;
+
+	if (playerAttack < 0)
+		playerAttack *= -1;
+
+	if (*this->getCountryArray()[startingCountry]->getRefactoredArmies()[playerAttack] > 0)
+		return startingCountry;
+
+	while (root != NULL)
+	{
+		startingCountry = findOpponentArmy(playerAttack);
+
+		if (startingCountry > 0)
+			return startingCountry;
+		else
+			root = root->next;
+	}
+
+	return startingCountry;
 }
 
 bool Map::getIsValidMap() const
