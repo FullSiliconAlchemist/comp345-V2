@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿  Map.cpp
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(73,21): warning C4018:  '<': signed/unsigned mismatch
 C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(373,21): warning C4018:  '<': signed/unsigned mismatch
+=======
+﻿  Player.cpp
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(188,20): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Player.cpp(230,20): warning C4018:  '<': signed/unsigned mismatch
+>>>>>>> rob-player
   PlayerDriver.vcxproj -> C:\Users\Rob\source\repos\comp345-V2\PlayerDriver\Debug\PlayerDriver.exe

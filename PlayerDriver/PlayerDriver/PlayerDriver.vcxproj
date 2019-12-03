@@ -157,6 +157,7 @@
     <ClCompile Include="Cards.cpp" />
     <ClCompile Include="Country.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameCard.cpp" />
     <ClCompile Include="GameObservers.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLoader.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="BiddingFacility.h" />
     <ClInclude Include="Cards.h" />
+    <ClInclude Include="CardsFactory.h" />
     <ClInclude Include="Country.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObservers.h" />

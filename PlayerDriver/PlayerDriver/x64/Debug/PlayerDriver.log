@@ -1,3 +1,18 @@
-﻿  Map.cpp
+﻿  BiddingFacility.cpp
+  Cards.cpp
+  Country.cpp
+  GameEngine.cpp
+  GameCard.cpp
+  GameObservers.cpp
+  Map.cpp
+  MapLoader.cpp
+  Player.cpp
+  PlayerDriver.cpp
+  PlayerStrategies.cpp
+  GameView.cpp
+  Generating Code...
+C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerDriver.cpp(23,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\PlayerStrategies.cpp(15): warning C4715: 'PlayerUser::idxOfCardToPickup': not all control paths return a value
 C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\Map.cpp(135): warning C4715: 'Map::findOpponentArmy': not all control paths return a value
+C:\Users\baske\source\repos\comp345-V2\PlayerDriver\PlayerDriver\CardsFactory.h(43): warning C4715: 'CardFactory::create': not all control paths return a value
   PlayerDriver.vcxproj -> C:\Users\baske\source\repos\comp345-V2\PlayerDriver\x64\Debug\PlayerDriver.exe

@@ -14,7 +14,11 @@ c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\country.obj
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\cards.obj
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\biddingfacility.obj
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\gameview.obj
+<<<<<<< HEAD
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\gameengine.obj
+=======
+c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\gamecard.obj
+>>>>>>> rob-player
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\player.new.obj.enc
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\playerdriver.ilk
 c:\users\rob\source\repos\comp345-v2\playerdriver\playerdriver\debug\playerdriver.pdb

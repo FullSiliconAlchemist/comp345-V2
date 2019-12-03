@@ -194,9 +194,7 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers) {
 			DestroyArmy(attackPlayer, 3, gameMap->getCountryArray()[opponentCountry]);
 			gameMap->displayPlayerStats();
 		}
-		return;
 	}
-	//std::string listOfDoubleActions[3] = { "destroyArmymoveArmy","newArmymoveArmy","citymoveArmy" };
 	else if (action == "destroyArmymoveArmy") {
 		if (engine.isUser(*this))
 		{

@@ -20,6 +20,7 @@ int main()
 
 	//--------------------------------------------------------------- GAME SET UP ---------------------------------------------------------------
 
+	srand(time(0));
 	Deck gameDeck;
 	Map *gameMap;
 	MapLoader* loader = new MapLoader();
@@ -309,7 +310,7 @@ int main()
 			// Player uses card action
 			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine, numOfPlayers);
 		}
-
+		
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;

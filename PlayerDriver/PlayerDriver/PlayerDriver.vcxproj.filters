@@ -12,6 +12,7 @@
     <ClCompile Include="PlayerStrategies.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameCard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BiddingFacility.h" />
@@ -23,6 +24,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStrategies.h" />
     <ClInclude Include="GameView.h" />
+<<<<<<< HEAD
     <ClInclude Include="GameEngine.h" />
+=======
+    <ClInclude Include="CardsFactory.h" />
+>>>>>>> rob-player
   </ItemGroup>
 </Project>
