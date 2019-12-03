@@ -258,6 +258,15 @@ int main()
 	gameMap->displayPlayerStats();
 	int idxOfCardToTake = 0;
 
+	Country* c1 = gameMap->getCountryArray()[4];
+	Country* c2 = gameMap->getCountryArray()[5];
+
+	//test destroy army
+	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
+	players[0].DestroyArmy(players[1].GetId(), 1, c1);
+	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
+	gameMap->displayPlayerStats();
+
 	// GAME LOOP
 	// GAME ENDS AT 30 TURNS PER PLAYER
 
@@ -268,36 +277,44 @@ int main()
 		std::string action; // Card action returned by getAction method
 
 		faceUp.showHand();
+		
+		if (someEngine.isUser(players[idxOfPlayerTurn]))
+		{
+			cout << "Player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)\n";
+			cin >> idxOfCardToTake;
 
-		cout << "player" << idxOfPlayerTurn << " Which card would you like to pick up? (0-5)\n";
-		cin >> idxOfCardToTake;
-		if (players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake])) {
+			cout << "Player " << idxOfPlayerTurn << " picked up card in slot " << idxOfCardToTake << endl;
+			players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
+
+			replacement = gameDeck.draw();
+			toPickUp = faceUp.exchange(idxOfCardToTake, replacement);
+			cout << "Card picked up has action:" << toPickUp.getAction() << " and cost " << toPickUp.getCost() << endl;
+			players[idxOfPlayerTurn].pickUpCard(toPickUp);
+
+			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine);
+		}
+		else
+		{
+			cout << "Computer's turn. Player: " << idxOfPlayerTurn << "\n" << endl;
+			idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
+
+			players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
+
 			replacement = gameDeck.draw();
 			toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
-			cout << "\nCard picked up has action: " << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
+			cout << "\nCard picked up has action: " << toPickUp.getAction() << " and cost " <<toPickUp.getCost() << endl;
 			players[idxOfPlayerTurn].pickUpCard(toPickUp);
+
 			// Player uses card action
-			
+			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine);
 		}
 
-		idxOfCardToTake = players[idxOfPlayerTurn].getIdxOfCardToPickup(faceUp);
-		cout << "Player " << idxOfPlayerTurn << " picked up card in slot " << idxOfCardToTake << endl;
-		players[idxOfPlayerTurn].payCoin(faceUp.cost[idxOfCardToTake]);
-		
-		replacement = gameDeck.draw();
-		toPickUp = faceUp.exchange(idxOfCardToTake,replacement);
-		cout << "Card picked up has action:" << toPickUp.getAction() <<" and cost "<<toPickUp.getCost()<< endl;
-		players[idxOfPlayerTurn].pickUpCard(toPickUp);
-		
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;
 	}
 
 	// GAMEPLAY DEMONSTRATION: SHOWS ALL OF THE GAME METHODS INSTEAD OF RUNNING THROUGH THE WHOLE GAME
-
-	Country * c1 = gameMap->getCountryArray()[4];
-	Country * c2 = gameMap->getCountryArray()[5];
 
 	cout << "Test player ID: " << endl;
 	cout << players[0].GetId() << "\n" << endl;
@@ -351,12 +368,6 @@ int main()
 	// Movements will be done one at a time, so that the player decides what path to take
 	cout << "\nArmies after move c1: " << *c1->getRefactoredArmies()[players[1].GetId()] << " c2: " << *c2->getRefactoredArmies()[players[1].GetId()];
 	cout << endl;
-
-	//test destroy army
-	cout << "\nArmies before delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
-	players[0].DestroyArmy(players[1].GetId(), 1, c1);
-	cout << "\nArmies after delete c1: " << *c1->getRefactoredArmies()[players[1].GetId()];
-	gameMap->displayPlayerStats();
 
 	//test place city (Shows id# for player that owns the city)
 	cout << "\ncity status before placement: " << *c1->getCity();

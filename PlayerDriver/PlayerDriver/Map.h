@@ -1,8 +1,9 @@
-	#pragma once
+#pragma once
+
 #include <string>
 #include <vector>
 #include "Country.h"
-#include "Player.h"
+//#include "Player.h"
 #include "GameObservers.h"
 
 using std::vector;

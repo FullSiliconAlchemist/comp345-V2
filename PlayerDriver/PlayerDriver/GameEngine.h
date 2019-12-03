@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Player.h"
+//#include "Player.h"
+
+class Player;
 
 class GameEngine
 {

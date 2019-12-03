@@ -3,10 +3,11 @@
 #include "Cards.h"
 #include "BiddingFacility.h"
 #include "Country.h"
-#include "Map.h"
+#include "Map.h" // Circular Depencies causing errors
 #include "vector"
 #include "PlayerStrategies.h"
-
+#include "GameEngine.h"
+//class Map {}; // Quick resolve ciruclar depencies problem
 
 class Player: public SubjectPlayer
 {
@@ -28,6 +29,7 @@ public:
 	void bid(int age, int bid);
 	void receiveGoldenCoins(int numOfCoins);
 	void showHand();
+	void playCard(Card c, Map* gameMap, GameEngine engine);
 
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }
