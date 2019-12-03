@@ -77,7 +77,7 @@ int main()
 	// BROWSE MAPS
 	// C++:V17 only, checks all files in a directory
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 	for (const auto& entry : fs::directory_iterator(path))
 	{
 		std::cout << entry.path() << std::endl;
