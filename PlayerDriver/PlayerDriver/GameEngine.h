@@ -1,7 +1,7 @@
 #pragma once
 
 //#include "Player.h"
-
+#include "Map.h"
 class Player;
 
 class GameEngine
@@ -17,6 +17,6 @@ public:
 	bool isUser(Player& somePlayer);
 
 	void chooseGameMode();
-	void displayResults();
+	void displayResults(Player players[], Map* gameMap, int numOfPlayer);
 };
 

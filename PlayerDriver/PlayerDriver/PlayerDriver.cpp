@@ -77,7 +77,7 @@ int main()
 	// BROWSE MAPS
 	// C++:V17 only, checks all files in a directory
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 	for (const auto& entry : fs::directory_iterator(path))
 	{
 		std::cout << entry.path() << std::endl;
@@ -271,6 +271,7 @@ int main()
 	// GAME ENDS AT 30 TURNS PER PLAYER
 
 	int count = 0;
+	/*
 	while (idxOfCardToTake != -1 && count < 30) {
 		Card replacement;
 		Card toPickUp;
@@ -313,7 +314,7 @@ int main()
 		count++;
 		cout << endl;
 	}
-
+	*/
 	// GAMEPLAY DEMONSTRATION: SHOWS ALL OF THE GAME METHODS INSTEAD OF RUNNING THROUGH THE WHOLE GAME
 
 	cout << "Test player ID: " << endl;
@@ -399,13 +400,13 @@ int main()
 		players[1].pickUpCard(gameDeck.draw());
 	}
 
-	// 
+	someEngine.displayResults(players, gameMap, numOfPlayers);
 	for (int i = 0; i < numOfPlayers; i++) {
 		cout << endl;
 		scores[i] = players[i].computeScore();
 		scores[i] += gameMap->computePlayerScores(players[i].GetId());
 
-		cout << "\nPlayer " << i << " has " << scores[i] << "points" << endl;
+		//cout << "\nPlayer " << i << " has " << scores[i] << "points" << endl;
 		if (scores[i] > maxScore) {
 			maxScore = scores[i];
 			winningPlayer = i;

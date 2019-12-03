@@ -74,6 +74,7 @@ int Player::nextPlayerTurn(int currentTurn, int maxNumOfPlayers) {
 	return currentTurn + 1;
 }
 void Player::pickUpCard(Card c) {
+	numOfCards++;
 	notify(c);
 	playerHand.push_back(c);
 }
@@ -151,7 +152,7 @@ void Player::playCard(Card c, Map* gameMap, GameEngine engine) {
 				
 			} while (legality);
 			int armiesToMove = *gameMap->getCountryArray()[countryToStart]->getRefactoredArmies()[this->GetId()];
-			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[y], gameMap->getCountryArray()[z]);
+			MoveArmies(3, armiesToMove, gameMap->getCountryArray()[countryToStart], gameMap->getCountryArray()[countryToEnd]);
 		}
 		return;
 	}
@@ -290,6 +291,7 @@ PlayerStrategies* Player::getPlayerType() const
 int Player::currentId = 0;
 Player::Player()
 {
+	numOfCards = 0;
 	armyCubes = new int(14);
 	cityDiscs = new int(3);
 	goldenCoins = new int(20);
