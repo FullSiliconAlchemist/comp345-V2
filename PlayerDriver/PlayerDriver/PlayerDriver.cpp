@@ -18,7 +18,8 @@ namespace fs = std::filesystem; // *** Filesystem library is part of C++ V17 ***
 int main()
 {
 
-	//--------------------------------------------------------------- GAME SET UP ---------------------------------------------------------------
+	//--------------------------------------------------------------- GAME SET UP --------------------------------------------------------------
+	srand(time(0));
 
 	Deck gameDeck;
 	Map *gameMap;
@@ -73,11 +74,10 @@ int main()
 		}
 		PlayerView* v = new PlayerView(&players[i]);
 	}
-
 	// BROWSE MAPS
 	// C++:V17 only, checks all files in a directory
 	cout << "Map files are loaded from C:\\tmp\\\n" << endl;
-	string path = "C:\\tmp\\";
+	string path = "C:\\temp\\";
 	for (const auto& entry : fs::directory_iterator(path))
 	{
 		std::cout << entry.path() << std::endl;
@@ -309,7 +309,6 @@ int main()
 			// Player uses card action
 			players[idxOfPlayerTurn].playCard(toPickUp, gameMap, someEngine, numOfPlayers);
 		}
-
 		idxOfPlayerTurn = players[idxOfPlayerTurn].nextPlayerTurn(idxOfPlayerTurn, numOfPlayers);
 		count++;
 		cout << endl;

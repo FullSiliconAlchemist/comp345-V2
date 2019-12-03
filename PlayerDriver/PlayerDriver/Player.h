@@ -30,6 +30,7 @@ public:
 	void showHand();
 	void playCard(Card c, Map* gameMap, GameEngine engine, int numPlayers);
 
+
 	inline int GetNumOfCards() const { return numOfCards; }	// Inline functions are defined in the header files
 	inline int GetArmyCubes() const { return *armyCubes; }	// Inline functions are defined in the header files
 	inline int GetCityDiscs() const { return *cityDiscs; }
